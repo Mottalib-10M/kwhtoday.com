@@ -1,3 +1,6 @@
+import { LOCALE_TAG } from '../../data/site-config';
+// « 50% » en anglais, « 50 % » en français ou en allemand (2026-10-24 : les pages anglaises affichaient « 50 % »).
+const PCT = /^(en|it|pt|zh|ja|ko)/.test(LOCALE_TAG) ? '%' : '\u00a0%';
 interface Segment { label: string; value: number; color: string }
 /** Couleur du pourcentage écrit dans un segment : blanc sur fond sombre, ardoise sur fond clair (contraste AA, RECETTE §10.4). */
 function labelColor(hex: string): string {
@@ -7,13 +10,13 @@ function labelColor(hex: string): string {
 }
 export default function StackedBar({ segments, total, ariaPrefix }: { segments: Segment[]; total: number; ariaPrefix: string }) {
   if (total <= 0) return null;
-  const desc = segments.filter((s) => s.value / total >= 0.005).map((s) => `${s.label}: ${((s.value / total) * 100).toFixed(1)} %`).join(', ');
+  const desc = segments.filter((s) => s.value / total >= 0.005).map((s) => `${s.label}: ${((s.value / total) * 100).toFixed(1)}${PCT}`).join(', ');
   return (
     <div role="img" aria-label={`${ariaPrefix}: ${desc}`}>
       <div className="flex h-9 overflow-hidden rounded-lg">
         {segments.map((s, i) => {
           const pct = (s.value / total) * 100; if (pct < 0.5) return null;
-          return <div key={i} className="flex items-center justify-center text-xs font-medium" style={{ width: `${pct}%`, backgroundColor: s.color, color: labelColor(s.color), minWidth: pct > 3 ? undefined : '4px' }} title={`${s.label}: ${pct.toFixed(1)} %`}>{pct > 9 && <span className="truncate px-1">{pct.toFixed(0)} %</span>}</div>;
+          return <div key={i} className="flex items-center justify-center text-xs font-medium" style={{ width: `${pct}%`, backgroundColor: s.color, color: labelColor(s.color), minWidth: pct > 3 ? undefined : '4px' }} title={`${s.label}: ${pct.toFixed(1)}${PCT}`}>{pct > 9 && <span className="truncate px-1">{pct.toFixed(0)}{PCT}</span>}</div>;
         })}
       </div>
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">

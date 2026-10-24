@@ -21,7 +21,9 @@ html { font-size: 17px; } body { line-height: 1.65; } .tabular-nums { font-varia
 .callout-info { border-left-color: #2563eb; background-color: #eff6ff; color: #1e3a8a; } .callout-tip { border-left-color: #15803d; background-color: #f0fdf4; color: #14532d; } .callout-warning { border-left-color: #b45309; background-color: #fffbeb; color: #78350f; } .callout-example { border-left-color: #64748b; background-color: #f8fafc; color: #1e293b; }
 
 /* Titres : césure selon la langue de la page, jamais de débordement sur mobile (RECETTE §10.3). */
-h1, h2, h3, h4 { hyphens: auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { overflow-wrap: break-word; }
+/* Césure seulement là où les mots composés débordent (« Versicherungspflichtverhältnis ») ; en anglais elle coupait « bid-ding » (sg-car-cost, 2026-10-24). */
+:is(:lang(de), :lang(nl), :lang(fi), :lang(sv), :lang(da), :lang(nb), :lang(no), :lang(is), :lang(hu), :lang(et)) :is(h1, h2, h3, h4) { hyphens: auto; }
 
 /* Rythme vertical (RECETTE §10.3) : le contenu ne touche jamais le calculateur. */
 .rechner { margin-bottom: 3rem; }
@@ -46,3 +48,13 @@ h1 { font-weight: 700; } h2 { font-weight: 650; } h3 { font-weight: 600; }
 .prose table, table.journal { font-variant-numeric: tabular-nums; border-collapse: collapse; }
 .prose thead th, table.journal thead th { font-variant: small-caps; letter-spacing: .02em; border-bottom: 1px solid var(--color-navy-300); background: transparent; }
 .prose td, .prose th, table.journal td, table.journal th { border-left: 0; border-right: 0; }
+
+/* Chapeau replié (composant Clamp.astro, RECETTE §26 du 2026-10-02) : la case reste invisible, la suite du texte
+   ne s'affiche qu'au clic sur « Read more ». Règles absentes jusqu'au 2026-10-24 : case brute visible, texte déplié. */
+.clamp { position: relative; }
+.clamp-toggle { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; }
+.clamp-rest { display: none; }
+.clamp-toggle:checked ~ p .clamp-rest { display: inline; }
+.clamp-more { display: inline-block; margin-top: .25rem; cursor: pointer; font-size: .875rem; font-weight: 500; color: var(--color-accent-700); text-decoration: underline; text-underline-offset: 2px; }
+.clamp-toggle:checked ~ .clamp-more { display: none; }
+.clamp-toggle:focus-visible ~ .clamp-more { outline: 2px solid var(--color-accent-500); outline-offset: 2px; }

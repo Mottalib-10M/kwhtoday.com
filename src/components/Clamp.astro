@@ -10,7 +10,8 @@ import type { Locale } from '../i18n/routes';
 interface Props { text: string; lang: Locale; id: string; sentences?: number; class?: string }
 const { text, lang, id, sentences = 1, class: cls = '' } = Astro.props;
 // Coupe entre deux phrases : ponctuation finale, espace, puis majuscule. « 21,2 % » ou « 21.2% » ne coupent pas.
-const parts = text.split(/(?<=[.!?])\s+(?=\p{Lu})/u);
+// Pas de coupe après un ordinal ou une abréviation (« Seit 1. April », « Art. 142 », « z. B. ») : eu-rent-indexation, 2026-10-24.
+const parts = text.split(/(?<=[.!?])(?<!(?:^|[\s(])(?:\d{1,2}|[a-zäöü]|Art|Abs|Nr|Ziff|bzw|ca|vgl|ggf|inkl|zzgl|Dr|Mr|Mrs|Ms|St|No|art|nr|n|pp|vs|cf|cfr|ecc|etc|Sig|Avv|Prof|z\. ?B|d\. ?h|u\. ?a|e\.g|i\.e)\.)\s+(?=\p{Lu})/u);
 const head = parts.slice(0, sentences).join(' ').trim();
 const rest = parts.slice(sentences).join(' ').trim();
 ---

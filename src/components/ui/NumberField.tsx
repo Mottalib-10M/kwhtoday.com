@@ -1,4 +1,4 @@
-import { type ChangeEvent, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { type ChangeEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { formatNumber, parseLocaleNumber } from '../../lib/format';
 
 interface Props { id: string; label: string; value: number; onChange: (v: number) => void; unit?: string; min?: number; max?: number; help?: string; className?: string; decimals?: number }
@@ -13,7 +13,11 @@ export default function NumberField({ id, label, value, onChange, unit = '', min
   const selectPending = useRef(false);
   const guardMouseUp = useRef(false);
   useLayoutEffect(() => { if (selectPending.current) { selectPending.current = false; input.current?.select(); } });
-  const display = focused ? raw : (value === 0 ? '' : formatNumber(value, decimals));
+  // Langue de la page qui porte le champ : sans elle, la page anglaise affichait « 10,72 » au format allemand
+  // par défaut du site (eu-hourly-electricity, 2026-10-24).
+  const [lang, setLang] = useState<string | undefined>(undefined);
+  useEffect(() => { setLang(input.current?.closest('[lang]')?.getAttribute('lang')?.slice(0, 2) || undefined); }, []);
+  const display = focused ? raw : (value === 0 ? '' : formatNumber(value, Number.isInteger(value) ? 0 : decimals, lang)); // « 6 semaines », pas « 6.0 » (travel-vaccines, 2026-10-24)
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const filtered = e.target.value.replace(/[^0-9.,\s-]/g, '');
     setRaw(filtered);

@@ -114,6 +114,20 @@ for (const u of urls) {
   // machine chargée, l'échec silencieux faisait passer 26 pages sur 46 (2026-10-11).
   const ok = await desk.goto(u, { waitUntil: 'networkidle', timeout: 60000 }).then((r) => !r || r.ok()).catch(() => false);
   if (!ok) { fautes++; console.log(`✗ ${new URL(u).pathname}\n   - page non chargée (délai ou erreur) : relancer`); continue; }
+  // Chapeau replié (RECETTE §26, 2026-10-02) : sans sa feuille de style, la case à cocher s'affiche
+  // brute et le texte reste déplié. Cinq sites sur douze l'avaient ainsi le 2026-10-24 (composant
+  // Clamp.astro recopié sans ses règles .clamp-*), et aucun contrôle ne le voyait.
+  const replie = await borne(desk.evaluate(() => [...document.querySelectorAll('.clamp-toggle, .clamp-rest')].filter((e) => {
+    const s = getComputedStyle(e), r = e.getBoundingClientRect();
+    return e.matches('.clamp-rest') ? s.display !== 'none' : s.opacity !== '0' && s.display !== 'none' && r.width > 1;
+  }).length).catch(() => 0));
+  if (replie) { fautes++; console.log(`✗ ${new URL(u).pathname}\n   - texte replié affiché en entier (case à cocher visible ou .clamp-rest affiché) : règles .clamp-* absentes de la feuille de style`); }
+  // Début visible réduit à un fragment : « Seit 1. » puis « Weiterlesen » (eu-rent-indexation, 2026-10-24),
+  // le découpage avait pris l'ordinal de « 1. April » pour une fin de phrase.
+  const court = await borne(desk.evaluate(() => [...document.querySelectorAll('.clamp p')].filter((p) => p.querySelector('.clamp-rest'))
+    .map((p) => [...p.childNodes].filter((n) => !(n.classList && n.classList.contains('clamp-rest'))).map((n) => n.textContent).join('').trim())
+    .filter((t) => (/[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/.test(t) ? t.length < 8 : t.split(/\s+/).length < 4))).catch(() => []));  // une vraie phrase courte (« Morocco has a short CDC list. ») passe ; chinois, japonais, coréen : sans espaces, on compte les caractères
+  if (court?.length) { fautes++; console.log(`✗ ${new URL(u).pathname}\n   - texte replié coupé trop tôt : « ${court[0]} » (découpage des phrases dans Clamp.astro)`); }
   const d = await borne(desk.evaluate(mesure).catch(() => null));
   if (!d) continue;
   avecSimu++;
@@ -124,6 +138,17 @@ for (const u of urls) {
   await phone.goto(u, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
   const m = await borne(phone.evaluate(mesure).catch(() => null));
   if (m && m.top > m.h - 60) errs.push(`téléphone : premier champ à ${m.top} px, hors du premier écran (${m.h})`);
+  // Liste coupée parce qu'elle partage sa ligne : « United St… », « Mainland … » (eta et eu-rent, 2026-10-24).
+  const coupees = await borne(phone.evaluate(() => {
+    const ctx = document.createElement('canvas').getContext('2d');
+    return [...document.querySelectorAll('main select')].filter((s) => {
+      const r = s.getBoundingClientRect(); if (!r.width || r.width >= innerWidth * 0.6) return false;
+      const cs = getComputedStyle(s); ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      const txt = s.options[s.selectedIndex]?.text || '';
+      return ctx.measureText(txt).width > s.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) + 2;
+    }).map((s) => s.options[s.selectedIndex]?.text);
+  }).catch(() => []));
+  if (coupees?.length) errs.push(`téléphone : liste tronquée sur une demi-largeur (« ${coupees[0]} ») : un champ par ligne sous 640 px`);
   if (errs.length) { fautes++; console.log(`✗ ${new URL(u).pathname}\n   - ${errs.join('\n   - ')}`); }
 }
 await browser.close();

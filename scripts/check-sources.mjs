@@ -115,7 +115,9 @@ const check = async (u, essai = 1) => {
     // 429 : le serveur limite la cadence (Clemson HGIC) ; on patiente puis on réessaie une fois.
     if (r.status === 429 && essai < 2) { await new Promise((ok) => setTimeout(ok, 5000)); return check(u, 2); }
     // 406 : refus du client robot (uber.com, 2026-10-04 : 406 au script, 200 dans un navigateur).
-    if (r.status === 403 || r.status === 406 || r.status === 429) blocked.push(`${r.status} ${u}`);
+    // 405 : refus de la méthode, pas page absente (ltgov.alaska.gov répond 405 à tout script, accueil
+    // compris, curl en navigateur aussi ; us-vital-records, 2026-10-24) : à revérifier à la main.
+    if (r.status === 403 || r.status === 405 || r.status === 406 || r.status === 429) blocked.push(`${r.status} ${u}`);
     else if (r.status >= 500) { if (essai < 2) return check(u, 2); down.push(`${r.status} ${u}`); }
     else if (r.status >= 400) {
       // 404 au robot, 200 au navigateur : tax.ohio.gov renvoie 404 à tout client qui ne se présente
@@ -138,7 +140,7 @@ const check = async (u, essai = 1) => {
         const { stdout } = await run('curl', ['-s', '-o', '/dev/null', '-w', '%{http_code}', '-L', '-m', '30', '-A', 'Mozilla/5.0 (check-sources)', u]);
         const s = +stdout;
         if (s >= 200 && s < 400) return;
-        if (s === 403 || s === 429) return void blocked.push(`${s} ${u}`);
+        if (s === 403 || s === 405 || s === 429) return void blocked.push(`${s} ${u}`);
         if (s >= 400 && s < 500) return void dead.push(`${s} ${u}`);
       } catch {}
     }

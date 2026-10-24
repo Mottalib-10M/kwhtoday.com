@@ -30,6 +30,11 @@ const NB = ' ';
 
 const UNIT = /(\d) (?=(?:%|€|\$|CHF|Fr\.|h\b|\d{3}(?!\d)))/g;
 const FR_BEFORE = / (?=[:;?!»])/g;
+// « 20 % » est français, allemand ou espagnol ; l'anglais, l'italien, le portugais et les
+// langues d'Asie écrivent « 20% ». Les agents rédigeaient « 20 % » partout : 168 occurrences sur les pages
+// anglaises de us-medicare-costs le 2026-10-24. On colle le signe dans ces langues.
+const PCT_COLLE = /^(en|it|pt|zh|ja|ko|th|ms|id)/i; // néerlandais : « 21 % » et « 21% » sont admis tous deux
+const PCT_ESPACE = /(\d)[ \u00a0\u202f](?:&nbsp;)?%|(\d)&nbsp;%/g;
 const FR_AFTER = /« /g;
 // Le tiret cadratin « — » en incise est une signature d'ecriture automatique :
 // il abonde dans les textes produits par un modele et presque jamais sous la
@@ -79,6 +84,7 @@ function fix(html) {
   // fait donc ici, sur le seul texte que le lecteur voit (rightetf.com, 2026-09-21).
   const { lang } = dotDecimals(html);
   const virgule = lang && !/^(en|ja|ko|zh|th|he|hi|bn|ar|ms|id)|^de-CH|^it-CH|^es-(MX|US|PR|DO|GT|HN|NI|PA|SV)/i.test(lang);
+  const colle = PCT_COLLE.test(lang);
   let count = 0, decimales = 0, cadratins = 0;
   // `application/ld+json` n'est pas du code : c'est le même texte que la page,
   // déclaré à Google. Le sauter faisait diverger la réponse déclarée de la
@@ -102,6 +108,7 @@ function fix(html) {
     const typographie = (texte) => {
       let t = texte.replace(EM_DASH, (m, off, str) => (cadratins++, remplaceCadratin(m, off, str)));
       t = t.replace(UNIT, (_, d) => (count++, d + NB));
+      if (colle) t = t.replace(PCT_ESPACE, (_, a, b) => (count++, (a || b) + '%'));
       if (fr) t = t.replace(FR_BEFORE, () => (count++, NB)).replace(FR_AFTER, () => (count++, '«' + NB));
       if (virgule) t = t.replace(DOT_DECIMAL, (m) => (decimales++, m.replace('.', ',')));
       return t;
@@ -177,6 +184,15 @@ const NO_ACCENT = /(?<![\p{L}\p{N}])(epargnes?|epargner|fiscalites?|interets?|st
 // vrais mots en consonne + « rès » ; « è » devant une consonne doublée n'existe pas.
 const RES_OK = new Set(['très', 'près', 'après', 'auprès', 'exprès', 'progrès', 'congrès', 'cyprès', 'crès', 'grès']);
 const WRONG_ACCENT = /(?<![\p{L}])(vià|và|[\p{L}]*è(?:ss|tt|ll|nn|mm|pp|rr)[\p{L}]*|[\p{L}]*[bcdfgmnprtv]rès)(?![\p{L}])/gu;
+// Contrôle sur tout le texte visible, composants React compris (ils ne sont pas réécrits après le build).
+function pourcentsEspaces(html) {
+  const lang = (html.match(/<html[^>]*\blang="([^"]+)"/i) || [])[1] || '';
+  if (!PCT_COLLE.test(lang)) return [];
+  const titres = [...html.matchAll(/\stitle="([^"]*)"/g)].map((m) => m[1]).join(' ');
+  const texte = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, '').replace(/&nbsp;|&#160;/g, '\u00a0') + ' ' + titres;
+  return [...texte.matchAll(/[^\n]{0,25}\d[ \u00a0\u202f]%/g)].map((m) => m[0].trim());
+}
+
 function wrongAccents(html) {
   if (!/<html[^>]*\blang="fr/i.test(html)) return [];
   const text = texteVisible(html);
@@ -207,6 +223,7 @@ let total = 0, files = 0, dots = 0, corrigees = 0; const dotPages = [];
 let accents = 0; const accentPages = [];
 let tirets = 0; const tiretPages = [];
 let hydratees = 0;
+let pourcents = 0; const pctPages = [];
 for await (const f of walk(dist)) {
   const html = await readFile(f, 'utf8');
   // Une page réhydratée n'est pas réécrite, mais elle reste contrôlée : taire le
@@ -219,6 +236,8 @@ for await (const f of walk(dist)) {
   if (CHECK) {
     const { lang, hits } = dotDecimals(html);
     if (hits.length) { dots += hits.length; dotPages.push(`${f} : ${hits.slice(0, 3).join(', ')}`); }
+    const pct = pourcentsEspaces(html);
+    if (pct.length) { pourcents += pct.length; pctPages.push(`${f} : ${[...new Set(pct)].slice(0, 3).join(' | ')}`); }
     const wrong = wrongAccents(html);
     if (wrong.length) { accents += wrong.length; accentPages.push(`${f} : accent faux ${[...new Set(wrong)].slice(0, 4).join(', ')}`); }
     const miss = missingAccents(html);
@@ -237,7 +256,9 @@ if (CHECK) tiretPages.forEach((l) => console.log('  ' + l));
 if (CHECK) {
   console.log(`typo-nbsp: ${dots} décimale(s) avec un point dans une langue à virgule`);
   dotPages.slice(0, 10).forEach((l) => console.log('  ' + l));
+  console.log(`typo-nbsp: ${pourcents} pourcentage(s) écrit(s) « 20 % » dans une langue qui écrit « 20% » (souvent dans un composant React : corriger la source)`);
+  pctPages.slice(0, 10).forEach((l) => console.log('  ' + l));
   console.log(`typo-nbsp: ${accents} mot(s) français sans accent ou avec un accent faux`);
   accentPages.slice(0, 10).forEach((l) => console.log('  ' + l));
 }
-if (CHECK && (total || dots || accents || tirets)) process.exit(1);
+if (CHECK && (total || dots || accents || tirets || pourcents)) process.exit(1);

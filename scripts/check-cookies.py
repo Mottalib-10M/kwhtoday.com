@@ -72,7 +72,9 @@ NEGATION = re.compile(
     r"\b(no|not|none|never|without|nor|aucun|aucune|pas|ni|sans|jamais|kein|keine|keinen|keinem|nicht|ohne"
     r"|geen|niet|zonder|nessun|nessuna|non|senza|ningún|ninguna|ninguno|sin|nunca|nenhum|nenhuma|não|sem"
     r"|inga|ingen|inte|utan|ikke|uten|ei|eikä|ilman|nie|żadnych|żadnego|żadne|bez|δεν|κανένα|καμία|χωρίς"
-    r"|μη|لا|ليس|بدون)\b", re.I)
+    r"|μη|لا|ليس|بدون)\b"
+    # Le chinois n'a pas d'espaces : \b ne s'y applique pas (sg-car-cost, 2026-10-24 : « 本网站不设置 Cookie » non lu).
+    r"|(不|没有|沒有|无|無|未)", re.I)
 COOKIE_MOT = re.compile(r'(cookie|t[ée]moin|evästeit|evästet|eväste|kakor|kaka|informasjonskapsl|ciasteczk|cookies)', re.I)
 BANDEAU_MOT = re.compile(r'(bandeau|banni[eè]re|banner|baner|banier|bannière|pop-?up|μπάνερ|banderol|aviso de cookies'
                          r'|cookie[- ]?(settings|einstellungen|instellingen|preferences|inställningar|innstillinger'
