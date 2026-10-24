@@ -83,7 +83,7 @@ ${h.table(['Period', 'DE exchange', 'DE all-in', 'NL exchange', 'NL all-in'], ro
 <h2>Quarter hour or hour</h2>
 <p>The curve has 96 bars and the table 24 rows. Whether your supplier bills by quarter hour or by hour is in your contract; with hourly billing you pay the average of the four quarter hours. For an appliance that runs for 90 minutes the quarter hour is more precise, which is why ${h.a('fenster', 'cheapest hour')} searches in quarter hours.</p>
 <h2>Tomorrow and the past weeks</h2>
-<p>The next day’s hours appear in the early afternoon on ${h.a('morgen', 'electricity price tomorrow')}. How daily averages move over weeks and months is on ${h.a('verlauf', 'EPEX spot prices')}, and what the fixed part of a German price is made of on ${h.a('zusammensetzung', 'German electricity price breakdown')}.</p>`;
+<p>The next day’s hours appear in the early afternoon on ${h.a('morgen', 'electricity price tomorrow')}. How daily averages move over weeks and months is on ${h.a('verlauf', 'day-ahead price history')}, and what the fixed part of a German price is made of on ${h.a('zusammensetzung', 'German electricity price breakdown')}.</p>`;
     },
   },
   nl: {
@@ -113,7 +113,7 @@ ${h.table(['Periode', 'Beursprijs', 'Eindprijs zonder inkoopvergoeding'], rows, 
 <h2>Kwartier of uur</h2>
 <p>De grafiek heeft 96 staven, de tabel in de rekenhulp 24 regels. Of je leverancier per kwartier of per uur afrekent, staat in je contract; bij afrekening per uur betaal je het gemiddelde van de vier kwartieren. Voor een apparaat dat anderhalf uur draait, is het kwartier preciezer: ${h.a('fenster', 'goedkoopste uur')} zoekt daarom per kwartier.</p>
 <h2>Morgen en de afgelopen weken</h2>
-<p>De uren van morgen verschijnen begin van de middag op ${h.a('morgen', 'stroomprijs morgen')}, het lopende kwartier op ${h.a('jetzt', 'stroomprijs nu')}. Hoe de daggemiddelden over weken en maanden bewegen, laat ${h.a('verlauf', 'EPEX-prijzen')} zien.</p>`;
+<p>De uren van morgen verschijnen begin van de middag op ${h.a('morgen', 'stroomprijs morgen')}, het lopende kwartier op ${h.a('jetzt', 'stroomprijs nu')}. Hoe de daggemiddelden over weken en maanden bewegen, laat ${h.a('verlauf', 'day-aheadprijzen')} zien.</p>`;
     },
   },
 });

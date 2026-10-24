@@ -23,6 +23,15 @@ const description = 'Publisher, editor in charge, host, no advice, intellectual 
     <p>The site offers free calculators and guides for information. Results are estimates based on the official rules and rates cited on each page; they are neither personal advice, nor a decision, nor a commitment by any authority. Method and limits: <a href={route('method', lang)}>method</a>.</p>
     <h2>Liability</h2>
     <p>Parameters are updated and calculations checked against reference cases, with no guarantee that errors are absent. The publisher is not liable for a decision made on an estimate alone. Please report errors through the <a href={route('contact', lang)}>contact page</a>.</p>
+    {/* site:debut */}
+    <h2>Data sources and licences</h2>
+    <ul>
+      <li>Day-ahead wholesale prices per quarter hour for Germany/Luxembourg, Austria, the Netherlands, Belgium and Poland: <a href="https://www.smard.de/home/marktdaten" rel="nofollow noopener noreferrer" target="_blank">Bundesnetzagentur | SMARD.de</a>, licence <a href="https://creativecommons.org/licenses/by/4.0/" rel="license nofollow noopener noreferrer" target="_blank">CC BY 4.0</a> (<a href="https://www.smard.de/home/datennutzung" rel="nofollow noopener noreferrer" target="_blank">terms of use</a>). Values are loaded unchanged; all-in prices, averages and windows are derived from them. Calculations: Radif Partners.</li>
+      <li>Dutch consumer prices: <a href="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85592NED/table" rel="nofollow noopener noreferrer" target="_blank">CBS StatLine, Gemiddelde energietarieven voor consumenten (85592NED)</a>, licence <a href="https://creativecommons.org/licenses/by/4.0/" rel="license nofollow noopener noreferrer" target="_blank">CC BY 4.0</a>, source: CBS; adapted by Radif Partners.</li>
+      <li>EUR/PLN exchange rate: <a href="https://data.ecb.europa.eu/data/datasets/EXR/EXR.D.PLN.EUR.SP00.A" rel="nofollow noopener noreferrer" target="_blank">Source: ECB, euro reference rate</a>.</li>
+    </ul>
+    <p>This site is independent. It is not affiliated with the Federal Network Agency, SMARD, CBS, the European Central Bank or the EPEX SPOT power exchange, none of which endorses or reviews its content. The prices are SMARD data, not EPEX SPOT data.</p>
+    {/* site:fin */}
     <h2>Intellectual property</h2>
     <p>Texts, design and code belong to the publisher; short quotations with a link to the original page are welcome.</p>
     {/* gen-legal-pages:terms */}

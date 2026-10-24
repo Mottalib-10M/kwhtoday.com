@@ -23,6 +23,15 @@ const description = 'Anbieter, inhaltlich Verantwortlicher, Hoster, keine Beratu
     <p>Die Seite stellt kostenlose Rechner und Ratgeber zur Information bereit. Die Ergebnisse sind unverbindliche Schätzungen auf Grundlage der auf jeder Seite genannten amtlichen Regeln und Werte; sie ersetzen weder eine Beratung noch einen Bescheid. Methode und Grenzen: <a href={route('method', lang)}>Methodik</a>.</p>
     <h2>Haftung</h2>
     <p>Die Parameter werden aktualisiert und die Rechnungen an Referenzfällen geprüft; eine Gewähr für Fehlerfreiheit besteht nicht. Für Entscheidungen, die allein auf einer Schätzung beruhen, haftet der Anbieter nicht. Fehler melden Sie über die <a href={route('contact', lang)}>Kontaktseite</a>.</p>
+    {/* site:debut */}
+    <h2>Datenquellen und Lizenzen</h2>
+    <ul>
+      <li>Day-Ahead-Großhandelspreise je Viertelstunde für Deutschland/Luxemburg, Österreich, die Niederlande, Belgien und Polen: <a href="https://www.smard.de/home/marktdaten" rel="nofollow noopener noreferrer" target="_blank">Bundesnetzagentur | SMARD.de</a>, Lizenz <a href="https://creativecommons.org/licenses/by/4.0/" rel="license nofollow noopener noreferrer" target="_blank">CC BY 4.0</a> (<a href="https://www.smard.de/home/datennutzung" rel="nofollow noopener noreferrer" target="_blank">Nutzungsbedingungen</a>). Die Werte werden unverändert geladen; Endpreise, Mittelwerte und Fenster sind daraus abgeleitet. Berechnung: Radif Partners.</li>
+      <li>Verbraucherpreise Niederlande: <a href="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85592NED/table" rel="nofollow noopener noreferrer" target="_blank">CBS StatLine, Gemiddelde energietarieven voor consumenten (85592NED)</a>, Lizenz <a href="https://creativecommons.org/licenses/by/4.0/" rel="license nofollow noopener noreferrer" target="_blank">CC BY 4.0</a>, Quelle: CBS; angepasst von Radif Partners.</li>
+      <li>Wechselkurs EUR/PLN: <a href="https://data.ecb.europa.eu/data/datasets/EXR/EXR.D.PLN.EUR.SP00.A" rel="nofollow noopener noreferrer" target="_blank">Quelle: EZB, Euro-Referenzkurs</a>.</li>
+    </ul>
+    <p>Diese Seite ist unabhängig. Sie hat keine Verbindung zur Bundesnetzagentur, zu SMARD, CBS, der Europäischen Zentralbank oder der Strombörse EPEX SPOT, und keine dieser Stellen billigt oder prüft ihre Inhalte. Die Preise sind Daten von SMARD, keine Daten der EPEX SPOT.</p>
+    {/* site:fin */}
     <h2>Urheberrecht</h2>
     <p>Texte, Gestaltung und Code gehören dem Anbieter; kurze Zitate mit Link auf die Ursprungsseite sind erlaubt.</p>
     {/* gen-legal-pages:terms */}

@@ -1,0 +1,22 @@
+---
+/**
+ * Attributions exigées par les licences (audit données et droits du 2026-10-24) : pied de page de
+ * toutes les pages et des widgets. SMARD et CBS : CC BY 4.0 (producteur, jeu de données, licence,
+ * « adapté »). BCE : « the ECB must be cited as the source ». Phrase de non-affiliation.
+ */
+import type { Locale } from '../i18n/routes';
+interface Props { lang: Locale; class?: string }
+const { lang, class: cls = '' } = Astro.props;
+const CC = 'https://creativecommons.org/licenses/by/4.0/';
+const SMARD = 'https://www.smard.de/home/marktdaten';
+const CBS = 'https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85592NED/table';
+const ECB = 'https://data.ecb.europa.eu/data/datasets/EXR/EXR.D.PLN.EUR.SP00.A';
+const L = {
+  de: { q: 'Datenquellen', smard: 'Großhandelspreise Day-Ahead je Viertelstunde', cbs: 'Gemiddelde energietarieven voor consumenten (85592NED)', ecb: 'Quelle: EZB, Referenzkurs EUR/PLN', calc: 'Daten angepasst; Berechnung: Radif Partners.', nonaff: 'Keine Verbindung zur Bundesnetzagentur, zu SMARD, CBS, der EZB oder EPEX SPOT; diese billigen die Seite nicht.' },
+  en: { q: 'Data sources', smard: 'day-ahead wholesale prices per quarter hour', cbs: 'Gemiddelde energietarieven voor consumenten (85592NED)', ecb: 'Source: ECB, EUR/PLN reference rate', calc: 'Data adapted; calculations: Radif Partners.', nonaff: 'Not affiliated with the Federal Network Agency, SMARD, CBS, the ECB or EPEX SPOT, none of which endorses this site.' },
+  nl: { q: 'Gegevensbronnen', smard: 'day-ahead groothandelsprijzen per kwartier', cbs: 'Gemiddelde energietarieven voor consumenten (85592NED)', ecb: 'Bron: ECB, referentiekoers EUR/PLN', calc: 'Gegevens bewerkt; berekening: Radif Partners.', nonaff: 'Geen band met de Bundesnetzagentur, SMARD, het CBS, de ECB of EPEX SPOT; zij keuren de site niet goed.' },
+}[lang];
+---
+<p class={`text-xs text-navy-600 ${cls}`} data-attribution>
+  {L.q}: <a href={SMARD} target="_blank" rel="nofollow noopener noreferrer" class="underline">Bundesnetzagentur | SMARD.de</a>, {L.smard} (<a href={CC} target="_blank" rel="license nofollow noopener noreferrer" class="underline">CC BY 4.0</a>) · <a href={CBS} target="_blank" rel="nofollow noopener noreferrer" class="underline">CBS StatLine</a>, {L.cbs} (<a href={CC} target="_blank" rel="license nofollow noopener noreferrer" class="underline">CC BY 4.0</a>) · <a href={ECB} target="_blank" rel="nofollow noopener noreferrer" class="underline">{L.ecb}</a>. {L.calc} {L.nonaff}
+</p>

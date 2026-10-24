@@ -129,8 +129,8 @@ function wasDrinIst(zone: Zone, l: L, e: Eingaben): string {
     'Beursprijs plus wat je invult. Netkosten en belastingen van dit land rekenen wij niet zelf: ze staan op je factuur.');
 }
 
-function Quelle({ l, stand }: { l: L; stand: string }) {
-  return <p className="mt-3 text-xs text-navy-600">{T(l, 'Börsenpreise: ', 'Exchange prices: ', 'Beursprijzen: ')}<a href={P.sources.smard.url} target="_blank" rel="nofollow noopener noreferrer" className="underline">Bundesnetzagentur | SMARD.de</a> (<a href={P.sources.smardLizenz.url} target="_blank" rel="nofollow noopener noreferrer" className="underline">CC BY 4.0</a>){T(l, ', abgerufen am ', ', fetched on ', ', opgehaald op ')}{datum(stand.slice(0, 10), l)}</p>;
+function Quelle({ l, stand, bis }: { l: L; stand: string; bis?: string }) {
+  return <p className="mt-3 text-xs text-navy-600">{bis ? T(l, `Neuester Preistag: ${datum(bis, l)}. `, `Latest day with prices: ${datum(bis, l)}. `, `Laatste dag met prijzen: ${datum(bis, l)}. `) : ''}{T(l, 'Day-Ahead-Großhandelspreise: ', 'Day-ahead wholesale prices: ', 'Day-ahead groothandelsprijzen: ')}<a href={P.sources.smard.url} target="_blank" rel="nofollow noopener noreferrer" className="underline">Bundesnetzagentur | SMARD.de</a> (<a href={P.sources.smardLizenz.url} target="_blank" rel="nofollow noopener noreferrer" className="underline">CC BY 4.0</a>){T(l, ', abgerufen am ', ', fetched on ', ', opgehaald op ')}{datum(stand.slice(0, 10), l)}{T(l, '. Berechnung: Radif Partners', '. Calculation: Radif Partners', '. Berekening: Radif Partners')}</p>;
 }
 
 /* ------------------------------------------------------------------ Kurve */
@@ -243,7 +243,7 @@ export function PreisRechner(p: Basis & { modus?: 'heute' | 'morgen' | 'jetzt' }
         [T(l, 'Negative Viertelstunden', 'Negative quarter hours', 'Negatieve kwartieren'), formatNumber(st.negatifs, 0, l)],
       ]} />
       {hinweis === 'morgen_fehlt' && <Note>{T(l, 'Die Preise für morgen sind noch nicht veröffentlicht: Sie sehen heute. Die Börse veröffentlicht sie am frühen Nachmittag, wir laden sie danach.', 'Tomorrow’s prices are not published yet, so this is today. The exchange publishes them in the early afternoon and we load them after that.', 'De prijzen van morgen zijn nog niet gepubliceerd: je ziet vandaag. De beurs publiceert ze begin van de middag, wij laden ze daarna.')}</Note>}
-      {hinweis === 'alt' && <Note>{T(l, `Neuester veröffentlichter Tag: ${datum(tag.d, l)}.`, `Latest published day: ${datum(tag.d, l)}.`, `Laatst gepubliceerde dag: ${datum(tag.d, l)}.`)}</Note>}
+      {hinweis === 'alt' && <Note>{T(l, `Für ${wahl === 'morgen' ? 'morgen' : 'heute'} (${datum(wahl === 'morgen' ? M.addTage(heute, 1) : heute, l)}) liegen uns noch keine Preise vor. Angezeigt wird der neueste geladene Tag, der ${datum(tag.d, l)}: nicht die Preise von heute.`, `We do not have prices for ${wahl === 'morgen' ? 'tomorrow' : 'today'} (${datum(wahl === 'morgen' ? M.addTage(heute, 1) : heute, l)}) yet. This shows the latest loaded day, ${datum(tag.d, l)}, not today’s prices.`, `Voor ${wahl === 'morgen' ? 'morgen' : 'vandaag'} (${datum(wahl === 'morgen' ? M.addTage(heute, 1) : heute, l)}) hebben we nog geen prijzen. Je ziet de laatst geladen dag, ${datum(tag.d, l)}: niet de prijzen van vandaag.`)}</Note>}
       <MethodLink href={methodHref} lang={l} />
     </>
   );
@@ -251,7 +251,7 @@ export function PreisRechner(p: Basis & { modus?: 'heute' | 'morgen' | 'jetzt' }
     <Kurve tag={tag} preise={preise} l={l} z={zone} jetzt={zeigeJetzt ? jetztIdx : undefined} />
     <Stundentabelle tag={tag} preisFn={fn} l={l} z={zone} pln={p.pln} />
     <Note>{wasDrinIst(zone, l, e)}</Note>
-    <Quelle l={l} stand={p.stand} />
+    <Quelle l={l} stand={p.stand} bis={tage.at(-1)?.d} />
   </>} />;
 }
 
@@ -265,7 +265,14 @@ function serieFuer(tage: Tag[], heute: string, zr: Zeitraum) {
   const h = M.tagVon(tage, heute), m = M.tagVon(tage, M.addTage(heute, 1));
   const auswahl = zr === 'morgen' ? [m] : zr === 'rest' ? [h] : [h, m];
   const ok = auswahl.filter((t): t is Tag => !!t);
-  return { serie: M.serieAus(ok.length ? ok : tage.slice(-1)), morgenDa: !!m, heuteDa: !!h };
+  // Repli : ni le jour demandé ni le lendemain chargés → dernier jour disponible, signalé à l'écran (veraltet).
+  const repli = ok.length ? null : tage.at(-1) ?? null;
+  return { serie: M.serieAus(ok.length ? ok : tage.slice(-1)), morgenDa: !!m, heuteDa: !!h, repli };
+}
+/** Hinweis, wenn der Rechner auf einen älteren Tag ausweicht (Daten nicht aktuell). */
+function RepliHinweis({ repli, heute, l }: { repli: Tag | null; heute: string; l: L }) {
+  if (!repli) return null;
+  return <Note>{T(l, `Für heute (${datum(heute, l)}) und morgen liegen uns noch keine Preise vor. Gerechnet wird mit dem neuesten geladenen Tag, dem ${datum(repli.d, l)}: ein Beispiel, kein Startzeitpunkt für heute.`, `We do not have prices for today (${datum(heute, l)}) or tomorrow yet. This uses the latest loaded day, ${datum(repli.d, l)}: an example, not a start time for today.`, `Voor vandaag (${datum(heute, l)}) en morgen hebben we nog geen prijzen. Gerekend wordt met de laatst geladen dag, ${datum(repli.d, l)}: een voorbeeld, geen starttijd voor vandaag.`)}</Note>;
 }
 function zeitraumOpt(l: L) {
   return [
@@ -306,9 +313,9 @@ export function FensterRechner(p: Basis & { dauerH?: number; kwh?: number; zeitr
   const tage = p.tage[zone] ?? [];
   const fn = useMemo(() => M.preisFn(zone, e), [zone, e.aufschlag, e.netz, e.gemeinde, e.zuschlag, e.pln]);
   const dur = Math.max(15, Math.round((dauerH * 60) / 15) * 15);
-  const { serie, morgenDa } = serieFuer(tage, heute, zr);
-  const ab = zr === 'morgen' || !now ? -Infinity : viertelAb(now);
-  const r = fensterRechnen(serie, dur, kwh, ab, fn, now && zr !== 'morgen' ? viertelAb(now) : null);
+  const { serie, morgenDa, repli } = serieFuer(tage, heute, zr);
+  const ab = zr === 'morgen' || !now || repli ? -Infinity : viertelAb(now);
+  const r = fensterRechnen(serie, dur, kwh, ab, fn, now && zr !== 'morgen' && !repli ? viertelAb(now) : null);
   const form = (
     <>
       <Row2>
@@ -331,11 +338,12 @@ export function FensterRechner(p: Basis & { dauerH?: number; kwh?: number; zeitr
         ...(r.teuer ? [[T(l, 'Zum teuersten Zeitpunkt', 'At the most expensive time', 'Op het duurste moment'), geld(r.teuer.kosten, l, zone)] as [string, string]] : []),
         [T(l, 'Laufzeit gerechnet', 'Run time used', 'Gerekende looptijd'), `${formatNumber(dur / 60, 2, l)} h`],
       ]} />
-      {zr !== 'rest' && !morgenDa && <Note>{T(l, 'Morgen ist noch nicht veröffentlicht: gerechnet wird mit dem Rest von heute.', 'Tomorrow is not published yet: this uses the rest of today.', 'Morgen is nog niet gepubliceerd: gerekend met de rest van vandaag.')}</Note>}
+      <RepliHinweis repli={repli} heute={heute} l={l} />
+      {zr !== 'rest' && !morgenDa && !repli && <Note>{T(l, 'Morgen ist noch nicht veröffentlicht: gerechnet wird mit dem Rest von heute.', 'Tomorrow is not published yet: this uses the rest of today.', 'Morgen is nog niet gepubliceerd: gerekend met de rest van vandaag.')}</Note>}
       <MethodLink href={methodHref} lang={l} />
     </>
   ) : <Note>{T(l, 'Für diese Laufzeit gibt es im gewählten Zeitraum kein Fenster mehr. Wählen Sie „Heute und morgen“ oder eine kürzere Laufzeit.', 'No window of that length is left in the chosen period. Pick “Today and tomorrow” or a shorter run time.', 'Er is in die periode geen venster van die lengte meer. Kies “Vandaag en morgen” of een kortere looptijd.')}</Note>;
-  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} /></>} />;
+  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} bis={tage.at(-1)?.d} /></>} />;
 }
 
 /* ------------------------------------------------------------------ LadenRechner */
@@ -354,9 +362,9 @@ export function LadenRechner(p: Basis & { batterie?: number; von?: number; bis?:
   const tage = p.tage[zone] ?? [];
   const fn = useMemo(() => M.preisFn(zone, e), [zone, e.aufschlag, e.netz, e.gemeinde, e.zuschlag, e.pln]);
   const ladung = (() => { try { return M.recharge({ batterieKwh: Math.max(bat, 1), dePct: von, aPct: bis, puissanceKw: Math.max(kw, 0.1), pertesPct: Math.min(Math.max(verl, 0), 49) }); } catch { return null; } })();
-  const { serie, morgenDa } = serieFuer(tage, heute, 'beide');
-  const ab = now ? viertelAb(now) : -Infinity;
-  const r = ladung && ladung.kwhReseau > 0 ? fensterRechnen(serie, ladung.dureeMin, ladung.kwhReseau, ab, fn, now ? viertelAb(now) : null) : null;
+  const { serie, morgenDa, repli } = serieFuer(tage, heute, 'beide');
+  const ab = now && !repli ? viertelAb(now) : -Infinity;
+  const r = ladung && ladung.kwhReseau > 0 ? fensterRechnen(serie, ladung.dureeMin, ladung.kwhReseau, ab, fn, now && !repli ? viertelAb(now) : null) : null;
   const form = (
     <>
       <Row2>
@@ -387,11 +395,12 @@ export function LadenRechner(p: Basis & { batterie?: number; von?: number; bis?:
           ...(r.sofort ? [[T(l, 'Sofort laden', 'Charge now', 'Nu laden'), geld(r.sofort.kosten, l, zone)] as [string, string]] : []),
           ...(sp != null ? [[T(l, 'Ersparnis', 'Saving', 'Besparing'), geld(sp, l, zone), true] as [string, string, boolean]] : []),
         ]} />
-        {!morgenDa && <Note>{T(l, 'Morgen ist noch nicht veröffentlicht: das Fenster liegt im Rest von heute.', 'Tomorrow is not published yet: the window is in the rest of today.', 'Morgen is nog niet gepubliceerd: het venster ligt in de rest van vandaag.')}</Note>}
+        <RepliHinweis repli={repli} heute={heute} l={l} />
+        {!morgenDa && !repli && <Note>{T(l, 'Morgen ist noch nicht veröffentlicht: das Fenster liegt im Rest von heute.', 'Tomorrow is not published yet: the window is in the rest of today.', 'Morgen is nog niet gepubliceerd: het venster ligt in de rest van vandaag.')}</Note>}
         <MethodLink href={methodHref} lang={l} />
       </>
     ) : <Note>{T(l, `Die Ladung dauert ${formatNumber(ladung.dureeMin / 60, 2, l)} h: so viele veröffentlichte Viertelstunden bleiben heute nicht mehr. Morgen erscheint am frühen Nachmittag.`, `Charging takes ${formatNumber(ladung.dureeMin / 60, 2, l)} h, longer than the published quarter hours left today. Tomorrow appears in the early afternoon.`, `Laden duurt ${formatNumber(ladung.dureeMin / 60, 2, l)} uur, langer dan de gepubliceerde kwartieren die vandaag nog over zijn. Morgen verschijnt begin van de middag.`)}</Note>;
-  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} /></>} />;
+  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} bis={tage.at(-1)?.d} /></>} />;
 }
 
 /* ------------------------------------------------------------------ VergleichRechner */
@@ -437,7 +446,7 @@ export function VergleichRechner(p: Basis & { kwhJahr?: number; fest?: number; p
       <MethodLink href={methodHref} lang={l} />
     </>
   );
-  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} /></>} />;
+  return <Shell id={id} form={form} result={result} after={<><Note>{wasDrinIst(zone, l, e)}</Note><Quelle l={l} stand={p.stand} bis={tage.at(-1)?.d} /></>} />;
 }
 
 /* ------------------------------------------------------------------ VerlaufRechner */

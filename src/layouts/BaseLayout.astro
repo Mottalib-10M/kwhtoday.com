@@ -2,6 +2,7 @@
 import { displayDate } from '../lib/format';
 import '../styles/global.css';
 import ConsentBanner from '../components/ConsentBanner.astro';
+import Attribution from '../components/Attribution.astro';
 import { consentStrings } from '../data/consent-strings';
 import { SITE_URL, YEAR, LAST_UPDATED, BING_VERIFY_CODE, GOOGLE_VERIFY_CODE, CONSENT_MODE, GA4_ID, CLARITY_ID, THEME_COLOR, AUTHOR_NAME, SITE_NAMES, LANG_TAGS, OG_LOCALES, LOGO_SYMBOL } from '../data/site-config';
 import { t } from '../i18n/ui';
@@ -161,6 +162,7 @@ const crumbAside = Astro.slots.has('crumb-aside') ? (await Astro.slots.render('c
             <p>{ui.footerBrowser}</p>
             <p>{ui.asOf} {YEAR}, {ui.lastUpdated} <time datetime={LAST_UPDATED}>{displayDate(LAST_UPDATED, LANG_TAGS[lang])}</time></p>
             <p>&copy; {new Date().getFullYear()} {SITE_NAMES[lang]}. {ui.footerDisclaimer}</p>
+            <Attribution lang={lang} class="max-w-3xl" />
             {(GA4_ID || CLARITY_ID) && CONSENT_MODE !== 'none' && <p><button type="button" data-consent-manage class="underline hover:text-navy-900">{consentStrings(lang).manage}</button></p>}
           </div>
         </div>

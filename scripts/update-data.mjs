@@ -3,11 +3,13 @@
 // (licence CC BY 4.0, attribution « Bundesnetzagentur | SMARD.de », smard.de/home/datennutzung)
 // et le cours de référence EUR/PLN de la BCE (« the ECB must be cited as the source »).
 // Aucune dépendance : Node 18+ (fetch natif). Usage : node scripts/update-data.mjs [dossierSortie]
+// Contrôles (scripts/serie-pruefen.mjs) : série à trous rejetée, jour à 92/96/100 quarts, prix périmés refusés.
 // Écrit : <out>/prices/<zone>.json (quarts d'heure des 42 derniers jours + moyennes journalières
 // et mensuelles), <out>/fx-eur-pln.json, <out>/cbs-nl.json (CBS 85592NED, CC BY 4.0), <out>/meta.json.
 // Lancé par .github/workflows/update-data.yml (cron) avant chaque build.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { pruefeSerie, frische, quartsParJour } from './serie-pruefen.mjs';
 
 const OUT = process.argv[2] || 'src/data';
 const BASE = 'https://www.smard.de/app/chart_data';
@@ -46,21 +48,6 @@ async function serie(filter, res, chunks) {
   // dédoublonne et trie
   const m = new Map(out);
   return [...m.entries()].sort((a, b) => a[0] - b[0]);
-}
-
-function controle(zone, qh) {
-  if (qh.length < 96 * 7) throw new Error(`${zone} : moins de 7 jours de quarts d'heure (${qh.length})`);
-  for (const [ts, v] of qh) {
-    if (typeof v !== 'number' || !Number.isFinite(v)) throw new Error(`${zone} : valeur invalide à ${ts}`);
-    // Limites harmonisées SDAC : -500 et +4000 EUR/MWh (2026). Au-delà, la donnée est suspecte.
-    if (v < -500 || v > 4000) throw new Error(`${zone} : valeur hors limites SDAC ${v} à ${ts}`);
-  }
-  for (let i = 1; i < qh.length; i++) {
-    if (qh[i][0] - qh[i - 1][0] !== 900000) {
-      // changement d'heure ou trou : on le signale sans bloquer
-      console.warn(`${zone} : écart de ${(qh[i][0] - qh[i - 1][0]) / 60000} min avant ${new Date(qh[i][0]).toISOString()}`);
-    }
-  }
 }
 
 async function fxPln() {
@@ -121,9 +108,14 @@ async function main() {
     unit: 'EUR/MWh',
     zones: {},
   };
+  // Tout est lu et contrôlé avant la première écriture : une zone rejetée laisse les cinq fichiers intacts.
+  const ecritures = [];
   for (const [zone, z] of Object.entries(ZONES)) {
     const qh = await serie(z.filter, 'quarterhour', 7); // 7 semaines ≈ 42 jours et plus
-    controle(zone, qh);
+    pruefeSerie(zone, qh); // rejette toute série à trous (sinon décalage d'un quart d'heure)
+    const f = frische(new Date(qh.at(-1)[0]).toISOString());
+    if (f.perime) throw new Error(`${zone} : prix périmés, dernier jour publié ${f.dernierJour} (aujourd'hui ${f.aujourdhui}) ; données non écrites`);
+    if (f.lendemainManquant) console.warn(`${zone} : le lendemain n'est pas encore publié (dernier jour ${f.dernierJour})`);
     const day = await serie(z.filter, 'day', 60); // ≈ 14 mois
     const month = await serie(z.filter, 'month'); // tout l'historique mensuel
     const cutoff = qh.at(-1)[0] - 42 * 86400000;
@@ -142,17 +134,19 @@ async function main() {
       retrieved,
       attribution: 'Bundesnetzagentur | SMARD.de (CC BY 4.0)',
     };
-    await writeFile(join(OUT, 'prices', `${zone}.json`), JSON.stringify(data));
-    meta.zones[zone] = { last: data.last, points: data.quarterHours.length, filter: z.filter };
-    console.log(`${zone} : ${data.quarterHours.length} quarts d'heure jusqu'à ${data.last}`);
+    ecritures.push([join(OUT, 'prices', `${zone}.json`), JSON.stringify(data)]);
+    const parJour = quartsParJour(data.quarterHours);
+    meta.zones[zone] = { last: data.last, lastDay: f.dernierJour, points: data.quarterHours.length, filter: z.filter };
+    console.log(`${zone} : ${data.quarterHours.length} quarts d'heure jusqu'à ${data.last} (dernier jour ${f.dernierJour}, ${parJour[f.dernierJour].n} quarts)`);
   }
   const fx = await fxPln();
-  await writeFile(join(OUT, 'fx-eur-pln.json'), JSON.stringify(fx, null, 1));
+  ecritures.push([join(OUT, 'fx-eur-pln.json'), JSON.stringify(fx, null, 1)]);
   console.log(`EUR/PLN ${fx.latest.value} (${fx.latest.date})`);
   const cbs = await cbsNl();
-  await writeFile(join(OUT, 'cbs-nl.json'), JSON.stringify(cbs, null, 1));
+  ecritures.push([join(OUT, 'cbs-nl.json'), JSON.stringify(cbs, null, 1)]);
   console.log(`CBS 85592NED jusqu'à ${cbs.laatste}`);
-  await writeFile(join(OUT, 'meta.json'), JSON.stringify(meta, null, 1));
+  ecritures.push([join(OUT, 'meta.json'), JSON.stringify(meta, null, 1)]);
+  for (const [f, c] of ecritures) await writeFile(f, c);
 }
 
 main().catch((e) => {

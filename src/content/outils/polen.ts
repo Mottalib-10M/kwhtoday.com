@@ -48,7 +48,7 @@ ${h.table(['Month', 'Poland €/MWh', 'Poland zł/kWh', 'Germany €/MWh'], rows
 <h2>What the calculator does not add</h2>
 <p>For Germany and the Netherlands we add statutory taxes ourselves because we have checked them in the legal texts. For Poland we have not, so the all-in figure is the exchange price plus the amount you enter. Fixed monthly charges stay out because they do not depend on the hour.</p>
 <h2>Next</h2>
-<p>The best hours for an appliance in the Polish zone are on ${h.a('fenster', 'cheapest hour')}, the history of all zones since 2019 on ${h.a('verlauf', 'EPEX spot prices')}, and tomorrow’s prices from early afternoon on ${h.a('morgen', 'electricity price tomorrow')}.</p>`;
+<p>The best hours for an appliance in the Polish zone are on ${h.a('fenster', 'cheapest hour')}, the history of all zones since 2019 on ${h.a('verlauf', 'day-ahead price history')}, and tomorrow’s prices from early afternoon on ${h.a('morgen', 'electricity price tomorrow')}.</p>`;
     },
   },
 });

@@ -79,7 +79,7 @@ ${h.table(['Month', 'Austria', 'Germany/Luxembourg'], rows, 'Monthly average of 
 <h2>What the calculator cannot do here</h2>
 <p>For Germany and the Netherlands we add the statutory charges ourselves because we have read them in the legal texts. We have not done so for Austria yet, so it stays at exchange price plus your input. For German households, ${h.a('zusammensetzung', 'German electricity price breakdown')} shows how large the fixed parts are.</p>
 <h2>Next</h2>
-<p>${h.a('fenster', 'Cheapest hour')} finds the best hours for an appliance, for the Austrian zone too. The history since 2019 is on ${h.a('verlauf', 'EPEX spot prices')}, days with prices below zero on ${h.a('negativ', 'negative electricity prices')}.</p>`;
+<p>${h.a('fenster', 'Cheapest hour')} finds the best hours for an appliance, for the Austrian zone too. The history since 2019 is on ${h.a('verlauf', 'day-ahead price history')}, days with prices below zero on ${h.a('negativ', 'negative electricity prices')}.</p>`;
     },
   },
 });

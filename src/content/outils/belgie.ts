@@ -37,7 +37,7 @@ export default defineGuide({
     faqs: () => [
       { q: 'Is stroom in België duurder dan in Nederland?', a: 'Op de beurs verschilt het per dag: de twee zones zijn gekoppeld, en de prijzen zijn gelijk zolang de grensverbindingen ruimte hebben. In de tabel hieronder zie je de maandgemiddelden van beide zones naast elkaar. Voor de eindprijs op je factuur tellen ook netkosten en belastingen mee, en die verschillen sterk tussen de twee landen en zelfs tussen de Belgische gewesten.' },
       { q: 'Wat vul ik in als net, heffingen en belastingen?', a: 'De som van de bedragen per kWh die je factuur naast de energieprijs vermeldt: distributie- en transmissiekosten per kWh, heffingen, accijns en de btw daarop, in cent per kWh bruto. Vaste bedragen per maand of per jaar, zoals het capaciteitstarief in Vlaanderen, horen er niet bij, want die hangen niet af van het uur. Zonder invoer toont de rekenhulp alleen de beursprijs.' },
-      { q: 'Wanneer zijn de Belgische prijzen van morgen bekend?', a: 'Op hetzelfde moment als in Nederland en Duitsland: de gezamenlijke veiling sluit om 12 uur en de uitkomst voor alle zones volgt kort daarna. Wij laden de reeks vanaf 14.30 uur en ’s avonds nog drie keer. Kies bovenaan „Morgen” om de volgende dag te zien zodra die gepubliceerd is.' },
+      { q: 'Wanneer zijn de Belgische prijzen van morgen bekend?', a: 'Op hetzelfde moment als in Nederland en Duitsland: de gezamenlijke veiling sluit om 12 uur en de uitkomst voor alle zones volgt kort daarna. Wij laden de reeks om 14.30 en 15.30 uur en ’s avonds nog drie keer. Kies bovenaan „Morgen” om de volgende dag te zien zodra die gepubliceerd is.' },
     ],
     body: (h) => {
       const { mb, mn } = D(h);
@@ -48,7 +48,7 @@ ${h.table(['Maand', 'België', 'Nederland'], rows, 'Maandgemiddelde van de day-a
 <h2>Waarom we de Belgische heffingen niet zelf rekenen</h2>
 <p>Voor Nederland en Duitsland rekenen we de wettelijke belastingen zelf mee, omdat we ze in de wettekst nagelezen hebben. Voor België hebben we dat nog niet gedaan, en de bedragen verschillen bovendien per gewest en per netbeheerder. Liever laten we dat deel aan je eigen factuur over dan een bedrag te tonen dat we niet kunnen verantwoorden.</p>
 <h2>Verder</h2>
-<p>De goedkoopste uren voor een apparaat vind je met ${h.a('fenster', 'goedkoopste uur')}, ook voor de Belgische zone. Het verloop sinds 2019 staat op ${h.a('verlauf', 'EPEX-prijzen')}, de dagen met prijzen onder nul op ${h.a('negativ', 'negatieve stroomprijs')}.</p>`;
+<p>De goedkoopste uren voor een apparaat vind je met ${h.a('fenster', 'goedkoopste uur')}, ook voor de Belgische zone. Het verloop sinds 2019 staat op ${h.a('verlauf', 'day-aheadprijzen')}, de dagen met prijzen onder nul op ${h.a('negativ', 'negatieve stroomprijs')}.</p>`;
     },
   },
   en: {
@@ -67,7 +67,7 @@ ${h.table(['Maand', 'België', 'Nederland'], rows, 'Maandgemiddelde van de day-a
     faqs: () => [
       { q: 'Is Belgian power dearer than Dutch power?', a: 'On the exchange it varies from day to day: the two zones are coupled and their prices match as long as the border lines have spare room. The table below sets the monthly averages of both zones side by side. On the bill, grid costs and taxes count too, and those differ widely between the two countries and even between Belgium’s regions.' },
       { q: 'What goes into the grid, levies and taxes field?', a: 'The sum of the per-kWh amounts your bill lists next to the energy price: distribution and transmission costs per kWh, levies, excise duty and the VAT on them, in gross cents per kWh. Fixed monthly or yearly amounts, such as the capacity tariff in Flanders, do not belong there, because they do not depend on the hour.' },
-      { q: 'When are tomorrow’s Belgian prices known?', a: 'At the same time as the Dutch and German ones: the joint auction closes at noon and the results for all zones follow shortly afterwards. We load the series from 2:30 pm and three more times in the evening. Pick “Tomorrow” at the top of the calculator to see the next day once it is published.' },
+      { q: 'When are tomorrow’s Belgian prices known?', a: 'At the same time as the Dutch and German ones: the joint auction closes at noon and the results for all zones follow shortly afterwards. We load the series at 2:30 pm and 3:30 pm and three more times in the evening. Pick “Tomorrow” at the top of the calculator to see the next day once it is published.' },
     ],
     body: (h) => {
       const { mb, mn } = D(h);
@@ -78,7 +78,7 @@ ${h.table(['Month', 'Belgium', 'Netherlands'], rows, 'Monthly average of the day
 <h2>Why we do not compute Belgian charges</h2>
 <p>For the Netherlands and Germany we add statutory taxes ourselves because we have read them in the legal texts. We have not done that for Belgium yet, and the amounts also differ by region and by grid operator. We would rather leave that part to your own bill than show a figure we cannot back up.</p>
 <h2>Next</h2>
-<p>${h.a('fenster', 'Cheapest hour')} finds the best hours for an appliance, for the Belgian zone as well. The history since 2019 is on ${h.a('verlauf', 'EPEX spot prices')}, days below zero on ${h.a('negativ', 'negative electricity prices')}.</p>`;
+<p>${h.a('fenster', 'Cheapest hour')} finds the best hours for an appliance, for the Belgian zone as well. The history since 2019 is on ${h.a('verlauf', 'day-ahead price history')}, days below zero on ${h.a('negativ', 'negative electricity prices')}.</p>`;
     },
   },
 });

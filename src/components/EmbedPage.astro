@@ -2,14 +2,13 @@
 /** Einbettbare Seite (iframe) : Rechner der ganzen Fahrt, ohne Navigation. noindex, außerhalb der Sitemap. */
 import '../styles/global.css';
 import ToolFor from './ToolFor.astro';
+import Attribution from './Attribution.astro';
 import { ZONES } from '../lib/engine/tarif';
 import { SITE_URL, LANG_TAGS, SITE_NAMES } from '../data/site-config';
 import { route, type Locale } from '../i18n/routes';
-import { helpers } from '../lib/helpers';
 import { EMBED } from '../lib/embed';
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const H = helpers(lang);
 const home = `${SITE_URL}${route('home', lang)}`;
 ---
 <!doctype html>
@@ -24,6 +23,7 @@ const home = `${SITE_URL}${route('home', lang)}`;
   </head>
   <body class="bg-white p-2 text-navy-900">
     <ToolFor tool="preis" zonen={lang === 'nl' ? ['NL', 'BE', 'DE-LU', 'AT', 'PL'] : [...ZONES]} lang={lang} id="embed" methodHref={`${SITE_URL}${route('method', lang)}`} />
-    <p class="mt-2 text-center text-xs text-navy-600"><a href={home} target="_blank" rel="noopener" class="underline">{SITE_NAMES[lang]}</a> · {H.T('Börsenpreise: Bundesnetzagentur | SMARD.de, CC BY 4.0', 'exchange prices: Bundesnetzagentur | SMARD.de, CC BY 4.0', 'beursprijzen: Bundesnetzagentur | SMARD.de, CC BY 4.0')}</p>
+    <p class="mt-2 text-center text-xs text-navy-600"><a href={home} target="_blank" rel="noopener" class="underline">{SITE_NAMES[lang]}</a></p>
+    <Attribution lang={lang} class="mt-1 text-center" />
   </body>
 </html>

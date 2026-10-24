@@ -8,19 +8,32 @@ export interface Tag { d: string; t0: number; v: number[] }
 
 export const serieAus = (tage: Tag[]): Creneau[] => tage.flatMap((t) => t.v.map((v, i) => [t.t0 + i * QUART_MS, v] as Creneau));
 
+/**
+ * Zerlegt die Reihe in Kalendertage. Ein Tag mit einer Lücke (zwei Zeitstempel, die nicht genau
+ * 15 Minuten auseinanderliegen) wird verworfen : sonst rutschen alle folgenden Preise um eine
+ * Viertelstunde nach vorn, weil ein Tag nur t0 und die Werte speichert.
+ */
 export function tageAus(serie: Creneau[]): Tag[] {
-  const m = new Map<string, Tag>();
-  for (const [ts, v] of serie) {
+  const m = new Map<string, Tag & { last: number; luecke: boolean }>();
+  for (const [ts, v] of [...serie].sort((a, b) => a[0] - b[0])) {
     const d = jourLocal(ts);
     const t = m.get(d);
-    if (!t) m.set(d, { d, t0: ts, v: [v] });
-    else t.v.push(v);
+    if (!t) m.set(d, { d, t0: ts, v: [v], last: ts, luecke: false });
+    else {
+      if (ts - t.last !== QUART_MS) t.luecke = true;
+      t.v.push(v);
+      t.last = ts;
+    }
   }
-  return [...m.values()].sort((a, b) => a.d.localeCompare(b.d));
+  return [...m.values()].filter((t) => !t.luecke).map(({ d, t0, v }) => ({ d, t0, v })).sort((a, b) => a.d.localeCompare(b.d));
 }
 
-/** Ein Tag ist vollständig, wenn er um 00:00 beginnt und 92 bis 100 Viertelstunden hat. */
-export const vollstaendig = (t: Tag) => heureLocale(t.t0) === '00:00' && t.v.length >= 92;
+/**
+ * Ein Tag ist vollständig, wenn er um 00:00 beginnt, genau 92, 96 oder 100 Viertelstunden hat
+ * und die letzte um 23:45 liegt (also so viele, wie der Tag nach Sommer- oder Winterzeit hat).
+ */
+export const vollstaendig = (t: Tag) =>
+  heureLocale(t.t0) === '00:00' && [92, 96, 100].includes(t.v.length) && heureLocale(t.t0 + (t.v.length - 1) * QUART_MS) === '23:45' && jourLocal(t.t0 + (t.v.length - 1) * QUART_MS) === t.d;
 
 export function addTage(iso: string, n: number): string {
   const [y, m, d] = iso.split('-').map(Number);
