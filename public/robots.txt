@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /*?*
 
-Sitemap: https://eu-hourly-electricity.example/sitemap-index.xml
+Sitemap: https://kwhtoday.com/sitemap-index.xml

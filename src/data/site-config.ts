@@ -1,5 +1,5 @@
 /** Configuration centrale du site (générée par new-site.py). */
-export const SITE_URL = "https://eu-hourly-electricity.example";
+export const SITE_URL = "https://kwhtoday.com";
 export const SITE_NAMES: Record<string, string> = {"de": "kWh Today", "nl": "kWh Today", "en": "kWh Today"};
 export const LANG_TAGS: Record<string, string> = {"de": "de-DE", "nl": "nl-NL", "en": "en-DE"};
 export const OG_LOCALES: Record<string, string> = {"de": "de_DE", "nl": "nl_NL", "en": "en_GB"};
@@ -18,7 +18,7 @@ export const AUTHOR_DESC: Record<string, string> = {"de": "Radif Partners holt d
  *  themes reellement traites par le site, pas une liste de mots-cles : un sujet
  *  declare ici sans page qui le couvre est une declaration fausse. */
 export const KNOWS_ABOUT: Record<string, string[]> = {"de": ["Day-Ahead-Börsenstrompreise je Viertelstunde", "Stromsteuer, Umlagen und Konzessionsabgabe", "Dynamische Stromtarife nach § 41a EnWG", "Negative Strompreise"], "nl": ["Day-aheadprijzen per kwartier", "Energiebelasting op elektriciteit", "Dynamische energiecontracten", "Negatieve stroomprijzen"], "en": ["Quarter-hourly day-ahead electricity prices", "Electricity taxes in the Netherlands and Germany", "Dynamic electricity contracts", "Negative power prices"]};
-export const CONTACT_EMAIL = "contact@eu-hourly-electricity.example";
+export const CONTACT_EMAIL = "contact@kwhtoday.com";
 export const THEME_COLOR = '#1F5FA8';
 export const LOGO_SYMBOL = 'kWh';
 export const BING_VERIFY_CODE = '';
