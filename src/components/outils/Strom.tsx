@@ -511,7 +511,8 @@ export function VerlaufRechner(p: Omit<Basis, 'tage'> & { verlauf: Partial<Recor
 export interface CbsMaand { maand: string; levIncl: number; ebIncl: number; levExcl: number }
 export function GasRekenhulp({ lang: l, methodHref, id, cbs, verbruik: v0 }: { lang: L; methodHref?: string; id: string; cbs: CbsMaand[]; verbruik?: number }) {
   const laatst = cbs.at(-1)!;
-  const [lev, setLev] = useState(Math.round(laatst.levExcl * 10000) / 10000);
+  const [levCt, setLevCt] = useState(Math.round(laatst.levExcl * 10000) / 100);
+  const lev = levCt / 100;
   const [m3, setM3] = useState(v0 ?? 1000);
   const g = M.gasPrijs(lev);
   const gemiddeld = laatst.levIncl + laatst.ebIncl;
@@ -520,7 +521,7 @@ export function GasRekenhulp({ lang: l, methodHref, id, cbs, verbruik: v0 }: { l
   const eu3 = (x: number) => `${formatMoney(x, 3, l)}/m³`;
   const form = (
     <Row2>
-      <NumberField id={`${id}-lev`} label={T(l, 'Lieferpreis Gas ohne MwSt.', 'Gas supply price excl. VAT', 'Leveringsprijs gas excl. btw')} value={lev} onChange={setLev} unit="€/m³" decimals={4} max={10} help={T(l, `Voreingestellt: CBS-Mittel ${mnd(laatst.maand)}`, `Preset: CBS average for ${mnd(laatst.maand)}`, `Ingevuld: CBS-gemiddelde ${mnd(laatst.maand)}`)} />
+      <NumberField id={`${id}-lev`} label={T(l, 'Lieferpreis Gas ohne MwSt. (Cent je m³)', 'Gas supply price excl. VAT (cents per m³)', 'Leveringsprijs gas excl. btw (cent per m³)')} value={levCt} onChange={setLevCt} unit="ct/m³" decimals={2} max={1000} help={T(l, `Voreingestellt: CBS-Mittel ${mnd(laatst.maand)}`, `Preset: CBS average for ${mnd(laatst.maand)}`, `Ingevuld: CBS-gemiddelde ${mnd(laatst.maand)}`)} />
       <NumberField id={`${id}-m3`} label={T(l, 'Verbrauch pro Jahr', 'Use per year', 'Verbruik per jaar')} value={m3} onChange={setM3} unit="m³" max={100000} help={T(l, 'Laut Jahresrechnung', 'From your annual statement', 'Volgens je jaarafrekening')} />
     </Row2>
   );
