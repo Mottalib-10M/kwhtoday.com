@@ -1,0 +1,37 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { AUTHOR_NAME, CLARITY_ID, CONTACT_EMAIL, GA4_ID, LAST_UPDATED, LEGAL, SITE_NAMES, SITE_URL } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'nl';
+const title = `Disclaimer en colofon – ${SITE_NAMES[lang]}`;
+const description = 'Uitgever, verantwoordelijke voor de inhoud, host, geen advies, intellectueel eigendom, persoonsgegevens en toepasselijk recht.';
+---
+{/* Page générée par scripts/gen-legal-pages.py (trame, décision GA4 du 2026-10-17). Ne pas
+     retoucher à la main : relancer le script. Un passage propre au site se garde entre
+     les marqueurs site:debut et site:fin. */}
+<PageLayout title={title} description={description} lang={lang} noindex={true} breadcrumbs={[{ label: 'Disclaimer' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Disclaimer en colofon</h1>
+    <p>Gegevens van de aanbieder (artikel 3:15d BW) en gebruiksvoorwaarden van {SITE_URL}.</p>
+    <h2>Uitgever</h2>
+    <LegalIdentity lang={lang} />
+    <p>Verantwoordelijk voor de inhoud: {AUTHOR_NAME}.</p>
+    <h2>Hosting</h2>
+    <LegalIdentity mode="hosting" lang={lang} />
+    <h2>Doel van de site en geen advies</h2>
+    <p>De site biedt gratis rekenhulpen en uitleg ter informatie. De uitkomsten zijn schattingen op basis van de officiële regels en bedragen die op elke pagina worden genoemd; ze zijn geen persoonlijk advies, geen besluit en geen toezegging van een instantie. Methode en grenzen: <a href={route('method', lang)}>methode</a>.</p>
+    <h2>Aansprakelijkheid</h2>
+    <p>De parameters worden bijgewerkt en de berekeningen getoetst aan referentiegevallen, zonder garantie dat ze foutloos zijn. De uitgever is niet aansprakelijk voor een beslissing die alleen op een schatting berust. Fouten meldt u via de <a href={route('contact', lang)}>contactpagina</a>.</p>
+    <h2>Intellectueel eigendom</h2>
+    <p>Teksten, vormgeving en code zijn eigendom van de uitgever; korte citaten met een link naar de oorspronkelijke pagina zijn toegestaan.</p>
+    {/* gen-legal-pages:terms */}
+    <h2>Persoonsgegevens en cookies</h2>
+    {GA4_ID ? (<p>Wat u in de rekenhulpen invult, verlaat uw browser niet. De site plaatst cookies voor bezoekersmeting van Google Analytics (<code>_ga</code>, <code>_ga_{GA4_ID.replace('G-', '')}</code>, hoogstens 13 maanden), zonder advertenties{CLARITY_ID && '; de stabiliteit van de pagina’s wordt gemeten met Microsoft Clarity, zonder cookies'}. Details, grondslag en bezwaar: <a href={route('privacy', lang)}>privacyverklaring</a> en pagina <a href={route('cookies', lang)}>cookies</a>.</p>) : (<p>Wat u in de rekenhulpen invult, verlaat uw browser niet en de site plaatst geen cookies{CLARITY_ID && '; de stabiliteit van de pagina’s wordt anoniem gemeten met Microsoft Clarity, zonder cookies'}. Zie de <a href={route('privacy', lang)}>privacyverklaring</a> en de pagina <a href={route('cookies', lang)}>cookies</a>.</p>)}
+    {/* /gen-legal-pages:terms */}
+    <h2>Melden van onrechtmatige inhoud</h2>
+    <p>Meld onrechtmatige inhoud aan <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>, met het adres van de pagina en de reden.</p>
+    <h2>Toepasselijk recht</h2>
+    <p>Frans recht. Bij gebreke van een minnelijke regeling zijn de rechters van {LEGAL.jurisdiction} bevoegd. Laatst bijgewerkt: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

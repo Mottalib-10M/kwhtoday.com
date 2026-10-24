@@ -1,0 +1,36 @@
+{
+ "retrieved": "2026-10-24T11:30:38.887Z",
+ "source": "Bundesnetzagentur | SMARD.de",
+ "sourceUrl": "https://www.smard.de/home/marktdaten",
+ "licence": "CC BY 4.0",
+ "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+ "termsUrl": "https://www.smard.de/home/datennutzung",
+ "unit": "EUR/MWh",
+ "zones": {
+  "DE-LU": {
+   "last": "2026-10-24T21:45:00.000Z",
+   "points": 4033,
+   "filter": 4169
+  },
+  "AT": {
+   "last": "2026-10-24T21:45:00.000Z",
+   "points": 4033,
+   "filter": 4170
+  },
+  "NL": {
+   "last": "2026-10-24T21:45:00.000Z",
+   "points": 4033,
+   "filter": 256
+  },
+  "BE": {
+   "last": "2026-10-24T21:45:00.000Z",
+   "points": 4033,
+   "filter": 4996
+  },
+  "PL": {
+   "last": "2026-10-24T21:45:00.000Z",
+   "points": 4033,
+   "filter": 257
+  }
+ }
+}

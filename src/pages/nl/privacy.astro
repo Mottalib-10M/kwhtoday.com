@@ -1,0 +1,53 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { CLARITY_ID, CONTACT_EMAIL, GA4_ID, LAST_UPDATED, LEGAL, SITE_NAMES, SITE_URL } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'nl';
+const title = `Privacyverklaring – ${SITE_NAMES[lang]}`;
+const description = GA4_ID ? 'Bezoekersmeting met Google Analytics en cookies, zonder advertenties; uw invoer blijft in uw browser; serverlogs van de host; uw rechten en de toezichthouder.' : 'Uw invoer blijft in uw browser, geen cookies, serverlogs van de host: welke gegevens de site verwerkt, uw rechten en de bevoegde toezichthouder.';
+---
+{/* Page générée par scripts/gen-legal-pages.py (trame, décision GA4 du 2026-10-17). Ne pas
+     retoucher à la main : relancer le script. Un passage propre au site se garde entre
+     les marqueurs site:debut et site:fin. */}
+<PageLayout title={title} description={description} lang={lang} noindex={true} breadcrumbs={[{ label: 'Privacy' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Privacyverklaring</h1>
+    <p>Deze pagina beschrijft de verwerking van persoonsgegevens bij het gebruik van {SITE_URL}, op grond van de artikelen 12 tot en met 14 van Verordening (EU) 2016/679 (AVG) en de Uitvoeringswet AVG.</p>
+    <h2>1. Verwerkingsverantwoordelijke</h2>
+    <LegalIdentity lang={lang} />
+    <p>Vragen over uw gegevens: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Er is geen functionaris voor gegevensbescherming aangesteld, omdat niet aan de voorwaarden van artikel 37 AVG is voldaan.</p>
+    <h2>2. Uw invoer blijft in uw browser</h2>
+    <p>De berekeningen draaien in uw browser. Bedragen, data en omstandigheden die u invult <strong>worden naar geen enkele server gestuurd</strong>, nergens opgeslagen en aan geen enkele identificatie gekoppeld. De site vraagt geen account, naam of e-mailadres. Een deellink bevat uw invoer in het adres van de pagina: stuur hem alleen naar mensen die u kiest.</p>
+    <h2>3. Verwerkingen</h2>
+    <h3>Serverlogs van de host</h3>
+    <p>De host legt bij elk verzoek het IP-adres, de datum en tijd, de opgevraagde pagina, de browser en de verwijzende pagina vast. Doel: beveiliging van de dienst en storingsonderzoek. Grondslag: het gerechtvaardigd belang van de uitgever (art. 6 lid 1 sub f AVG). Bewaartermijn: volgens het beleid van de host.</p>
+    {GA4_ID ? (<>
+    <h3>Bezoekersmeting met Google Analytics</h3>
+    <p>De site gebruikt Google Analytics 4 om bezoeken te tellen en te zien welke pagina’s helpen: bekeken pagina’s, verwijzende pagina, duur van het bezoek, type apparaat en browser, land en stad bij benadering. Daarvoor plaatst Google Analytics twee cookies op uw apparaat: <code>_ga</code>, dat bezoekers onderscheidt met een willekeurige code, en <code>_ga_{GA4_ID.replace('G-', '')}</code>, dat de stand van het bezoek bewaart. De looptijd is ingesteld op hoogstens 13 maanden (390 dagen) en wordt niet bij elk bezoek verlengd; Google gaat standaard uit van 2 jaar.</p>
+    <p>Het IP-adres wordt geanonimiseerd: Google Analytics 4 legt het niet vast en bewaart het niet, en gebruikt het alleen bij het verzamelen om land en stad bij benadering te bepalen. Het paginaadres dat naar Google Analytics gaat, is ontdaan van parameters, zodat de invoer uit een deellink niet wordt meegestuurd. De site toont geen advertenties: advertentieopslag, advertentiegegevens, gepersonaliseerde advertenties en Google-signalen staan uit, en meetgegevens worden met geen enkele adverteerder gedeeld.</p>
+    <p>Doel: bezoekersmeting. Grondslag: het gerechtvaardigd belang van de uitgever (art. 6 lid 1 sub f AVG). Aanbieder: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ierland. Bewaartermijn bij Google: 14 maanden voor gegevens op het niveau van bezoeken en codes, daarna verwijdering; alleen anonieme totalen blijven over.</p>
+    </>) : (<>
+    <h3>Geen bezoekersmeting</h3>
+    <p>De site plaatst geen cookies en gebruikt geen analyse- of advertentietools.</p>
+    </>)}
+    {CLARITY_ID && (<>
+    <h3>Technische stabiliteitsmeting met Microsoft Clarity, zonder cookies</h3>
+    <p>Om fouten, trage pagina’s en knoppen die niet reageren op te sporen, gebruikt de site Microsoft Clarity in de modus zonder cookies: Clarity plaatst geen cookies, elke paginaweergave krijgt een eigen code en de tekst van de pagina’s en uw invoer worden afgeschermd. Clarity ontvangt de opbouw van de pagina, klikken, scrollen, type apparaat, laadtijden en fouten. Doel: stabiliteit van de site. Grondslag: het gerechtvaardigd belang van de uitgever (art. 6 lid 1 sub f AVG). Aanbieder: Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ierland. Bewaartermijn: 30 dagen voor paginaopnames, hoogstens 13 maanden voor samengevoegde gegevens.</p>
+    </>)}
+    <h3>Berichten die u ons stuurt</h3>
+    <p>Schrijft u naar het contactadres, dan bewaren we uw e-mailadres en bericht zo lang als nodig is om te antwoorden en zo nodig een fout te herstellen, en verwijderen we ze uiterlijk drie jaar na het laatste contact. Grondslag: het gerechtvaardigd belang van de uitgever (art. 6 lid 1 sub f AVG).</p>
+    <h2>4. Ontvangers</h2>
+    <p>Er worden geen gegevens verkocht, verhuurd of doorgegeven. Toegang hebben alleen de host{GA4_ID && ', Google Ireland Limited voor Google Analytics'}{CLARITY_ID && ', Microsoft Ireland Operations Limited voor Clarity'}, als verwerkers in de zin van artikel 28 AVG. Er is geen advertentienetwerk actief op de site.</p>
+    <h2>5. Doorgifte buiten de Europese Unie</h2>
+    <p>Serverlogs van de host kunnen in de Verenigde Staten worden verwerkt.{GA4_ID && ' Gegevens van Google Analytics kunnen worden doorgegeven aan Google LLC in de Verenigde Staten.'}{CLARITY_ID && ' Gegevens van Clarity kunnen worden doorgegeven aan Microsoft Corporation in de Verenigde Staten.'} Deze doorgifte steunt op het EU-VS-kader voor gegevensbescherming (EU–U.S. Data Privacy Framework) en de standaardcontractbepalingen van de Europese Commissie.</p>
+    <h2>6. Uw rechten</h2>
+    <p>U hebt recht op inzage, rectificatie, wissing, beperking, bezwaar en overdraagbaarheid (artikelen 15 tot en met 22 AVG). Schrijf naar <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>; we antwoorden binnen een maand. Zonder gebruikersaccounts hebben we meestal geen gegevens die u identificeren; dat laten we u dan weten.</p>
+    {GA4_ID && (<p>Bezwaar maken tegen de bezoekersmeting kan ook zonder ons te schrijven: blokkeer of verwijder cookies in de instellingen van uw browser, of installeer de <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow noopener" target="_blank">browser-add-on voor het uitschakelen van Google Analytics</a>. De site werkt dan precies hetzelfde.</p>)}
+    {CLARITY_ID && (<p>Voor de stabiliteitsmeting: blokkeer het domein <code>clarity.ms</code> in uw browser of met een contentblocker.</p>)}
+    <p>U kunt een klacht indienen bij de toezichthouder: {LEGAL.supervisoryAuthority} (<a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>). In Nederland kunt u ook een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
+    <h2>7. Geen geautomatiseerde besluiten</h2>
+    <p>Een rekenresultaat is een schatting die op uw verzoek, met uw invoer, in uw browser wordt gemaakt. Het heeft geen rechtsgevolg en is geen geautomatiseerd besluit in de zin van artikel 22 AVG. Er vindt geen profilering plaats.</p>
+    <p>Zie ook de pagina <a href={route('cookies', lang)}>cookies</a>. Laatst bijgewerkt: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

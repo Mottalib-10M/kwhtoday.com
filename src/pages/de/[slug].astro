@@ -1,0 +1,9 @@
+---
+/** Seiten aus src/content/outils/ in dieser Sprache (CONTRIBUTING-GUIDES.md). */
+import ContentPage from '../../components/ContentPage.astro';
+import { PAGES } from '../../lib/guides';
+import type { PageDef } from '../../lib/guide-types';
+export function getStaticPaths() { return PAGES.filter((page) => page.de).map((page) => ({ params: { slug: page.de!.slug }, props: { page } })); }
+const { page } = Astro.props as { page: PageDef };
+---
+<ContentPage page={page} lang="de" />

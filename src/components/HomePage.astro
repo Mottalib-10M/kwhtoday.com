@@ -1,0 +1,53 @@
+---
+/**
+ * Startseite einer Sprache (RECETTE §5) : zuerst der Endpreis je Viertelstunde (das ist die Frage),
+ * dann der zitierfähige Block, die Tabelle der fünf Preiszonen, die Links auf Methode und Über uns, und der Leitfaden.
+ * Text in src/content/home/ ; alle Zahlen kommen aus den SMARD-Reihen.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import ToolFor from './ToolFor.astro';
+import { zoneName } from './outils/Strom';
+import { letzter } from '../lib/fakten';
+import { ZONES } from '../lib/engine/tarif';
+import { EUR_PLN } from '../lib/engine/markt';
+import Clamp from './Clamp.astro';
+import { HOME } from '../content/accueil';
+import { route, type Locale } from '../i18n/routes';
+import { label } from '../i18n/nav';
+import { helpers } from '../lib/helpers';
+import { P, sourceUrl } from '../lib/engine/params';
+import type { SourceKey } from '../lib/engine/params';
+import { AUTHOR_NAME } from '../data/site-config';
+import { faqSchema, organizationSchema, websiteSchema, webPageSchema, webApplicationSchema } from '../lib/seo';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const x = HOME[lang];
+const H = helpers(lang);
+const path = route('home', lang);
+const resume = x.resume(H);
+const faqs = x.faqs(H);
+const keys: SourceKey[] = ['smard', 'smardLizenz', 'cbs', 'stromstg', 'ustg', 'kav', 'ihk', 'monitoring', 'enwg41a', 'wbm', 'wetob', 'ezb'];
+const reihen = ZONES.map((z) => ({ z, f: letzter(z) }));
+const pl = (z: string, eurMwh: number) => (z === 'PL' ? `${H.num((eurMwh * EUR_PLN.latest.value) / 1000, 2)} zł` : H.spot(eurMwh));
+const sources = keys.map((k) => ({ name: P.sources[k].label[lang], url: sourceUrl(k, lang) }));
+const jsonLd = [websiteSchema(lang), organizationSchema(lang), webPageSchema({ name: x.h1, description: x.description, path, lang }), webApplicationSchema({ name: x.h1, description: x.description, path, lang }), faqSchema(faqs, lang)];
+const by = H.T('Von', 'By', 'Door');
+---
+<PageLayout title={x.title} description={x.description} lang={lang} jsonLd={jsonLd} faqs={faqs} sources={sources}>
+  <header class="mb-3">
+    <h1 style="hyphens: manual" class="text-[1.75rem] font-bold text-navy-900 max-sm:leading-tight sm:text-3xl md:text-4xl">{x.h1}</h1>
+    <p class="mt-2 text-base text-navy-700 max-sm:text-[0.95rem] sm:text-lg">{x.intro}</p>
+  </header>
+  <div data-outil><ToolFor tool="preis" zonen={x.zonen} lang={lang} id="start" methodHref={route('method', lang)} /></div>
+  <Clamp text={resume} lang={lang} id="clamp-home" sentences={2} class="mt-4" />
+  <p class="mt-3 text-sm text-navy-600">{by} <a href={route('about', lang)} class="underline">{AUTHOR_NAME}</a> · <a href={route('method', lang)} class="underline">{label('method', lang)}</a> · <a href={route('about', lang)} class="underline">{label('about', lang)}</a></p>
+  <section class="mt-8" aria-labelledby="zonen-h">
+    <h2 id="zonen-h" class="text-xl font-semibold text-navy-900">{H.T(`Börsenpreis am ${H.date(reihen[0].f.d)} in fünf Preiszonen`, `Exchange price on ${H.date(reihen[0].f.d)} in five bidding zones`, `Beursprijs op ${H.date(reihen[0].f.d)} in vijf biedzones`)}</h2>
+    <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
+      <thead><tr>{[H.T('Preiszone', 'Bidding zone', 'Biedzone'), H.T('Mittel', 'Average', 'Gemiddelde'), H.T('Günstigste Stunde', 'Cheapest hour', 'Goedkoopste uur'), H.T('Teuerste Stunde', 'Dearest hour', 'Duurste uur'), H.T('Negative Viertelstunden', 'Negative quarters', 'Negatieve kwartieren')].map((h, i) => <th scope="col" class={`border-b border-navy-300 bg-navy-50 px-3 py-2 font-semibold text-navy-900 ${i ? 'text-right' : 'text-left'}`}>{h}</th>)}</tr></thead>
+      <tbody>{reihen.map(({ z, f }) => <tr><td class="border-b border-navy-100 px-3 py-2 text-navy-800">{zoneName(z, lang)}</td><td class="tabular-nums border-b border-navy-100 px-3 py-2 text-right text-navy-800">{pl(z, f.mittel)}</td><td class="tabular-nums border-b border-navy-100 px-3 py-2 text-right text-navy-800">{f.billigH} · {pl(z, f.billigWert)}</td><td class="tabular-nums border-b border-navy-100 px-3 py-2 text-right text-navy-800">{f.teuerH} · {pl(z, f.teuerWert)}</td><td class="tabular-nums border-b border-navy-100 px-3 py-2 text-right text-navy-800">{H.num(f.negativ)}</td></tr>)}</tbody>
+    </table></div>
+    <p class="mt-2 text-xs text-navy-600">{H.T('Day-Ahead-Börsenpreis ohne Steuern und Netz; Polen in Złoty zum EZB-Kurs. Quelle: Bundesnetzagentur | SMARD.de, CC BY 4.0.', 'Day-ahead exchange price without taxes or grid fees; Poland in złoty at the ECB rate. Source: Bundesnetzagentur | SMARD.de, CC BY 4.0.', 'Day-aheadbeursprijs zonder belastingen of netkosten; Polen in zloty tegen de ECB-koers. Bron: Bundesnetzagentur | SMARD.de, CC BY 4.0.')}</p>
+  </section>
+  <div class="prose prose-slate mt-8 max-w-none"><Fragment set:html={x.body(H)} /></div>
+</PageLayout>

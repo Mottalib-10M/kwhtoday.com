@@ -1,0 +1,839 @@
+{
+ "source": "CBS StatLine, Gemiddelde energietarieven voor consumenten (85592NED)",
+ "sourceUrl": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85592NED/table",
+ "licence": "CC BY 4.0",
+ "terms": "https://www.cbs.nl/nl-nl/over-ons/website/copyright",
+ "units": {
+  "gas": "euro per m3",
+  "stroom": "euro per kWh",
+  "transport": "euro per jaar"
+ },
+ "laatste": "2026-09",
+ "maanden": [
+  {
+   "maand": "2024-01",
+   "incl": {
+    "gasVariabel": 0.698,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1998,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5769,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1651,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-02",
+   "incl": {
+    "gasVariabel": 0.6896,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1988,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.57,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1643,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-03",
+   "incl": {
+    "gasVariabel": 0.6769,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1936,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5594,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.16,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-04",
+   "incl": {
+    "gasVariabel": 0.6381,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1823,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5274,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1507,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-05",
+   "incl": {
+    "gasVariabel": 0.5904,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1729,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.488,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1429,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-06",
+   "incl": {
+    "gasVariabel": 0.5859,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1703,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.4842,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1407,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-07",
+   "incl": {
+    "gasVariabel": 0.5752,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.157,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.4754,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1298,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-08",
+   "incl": {
+    "gasVariabel": 0.587,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1515,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.4851,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1252,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-09",
+   "incl": {
+    "gasVariabel": 0.588,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1512,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.486,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1249,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-10",
+   "incl": {
+    "gasVariabel": 0.6097,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1572,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5039,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1299,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-11",
+   "incl": {
+    "gasVariabel": 0.6224,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1595,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5144,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1318,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2024-12",
+   "incl": {
+    "gasVariabel": 0.6222,
+    "gasEb": 0.70544,
+    "gasTransport": 232.39,
+    "stroomVariabel": 0.1584,
+    "stroomDynamisch": null,
+    "stroomEb": 0.13165,
+    "vermindering": -631.35,
+    "stroomTransport": 415.67,
+    "vastDynamisch": null
+   },
+   "excl": {
+    "gasVariabel": 0.5142,
+    "gasEb": 0.58301,
+    "gasTransport": 192.06,
+    "stroomVariabel": 0.1309,
+    "stroomDynamisch": null,
+    "stroomEb": 0.1088,
+    "vermindering": -521.78,
+    "stroomTransport": 343.53,
+    "vastDynamisch": null
+   }
+  },
+  {
+   "maand": "2025-01",
+   "incl": {
+    "gasVariabel": 0.6332,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1589,
+    "stroomDynamisch": 0.1773,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 81.01
+   },
+   "excl": {
+    "gasVariabel": 0.5233,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1313,
+    "stroomDynamisch": 0.1466,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 66.95
+   }
+  },
+  {
+   "maand": "2025-02",
+   "incl": {
+    "gasVariabel": 0.6454,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1584,
+    "stroomDynamisch": 0.1885,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 81.01
+   },
+   "excl": {
+    "gasVariabel": 0.5334,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1309,
+    "stroomDynamisch": 0.1558,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 66.95
+   }
+  },
+  {
+   "maand": "2025-03",
+   "incl": {
+    "gasVariabel": 0.6494,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.156,
+    "stroomDynamisch": 0.1472,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 81.01
+   },
+   "excl": {
+    "gasVariabel": 0.5367,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1289,
+    "stroomDynamisch": 0.1216,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 66.95
+   }
+  },
+  {
+   "maand": "2025-04",
+   "incl": {
+    "gasVariabel": 0.6596,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.152,
+    "stroomDynamisch": 0.1267,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 81.01
+   },
+   "excl": {
+    "gasVariabel": 0.5451,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1256,
+    "stroomDynamisch": 0.1047,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 66.95
+   }
+  },
+  {
+   "maand": "2025-05",
+   "incl": {
+    "gasVariabel": 0.6595,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1481,
+    "stroomDynamisch": 0.1139,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.545,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1224,
+    "stroomDynamisch": 0.0941,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-06",
+   "incl": {
+    "gasVariabel": 0.6563,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.147,
+    "stroomDynamisch": 0.1181,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.5424,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1214,
+    "stroomDynamisch": 0.0976,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-07",
+   "incl": {
+    "gasVariabel": 0.6447,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1479,
+    "stroomDynamisch": 0.1422,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.5328,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1222,
+    "stroomDynamisch": 0.1176,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-08",
+   "incl": {
+    "gasVariabel": 0.6286,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.148,
+    "stroomDynamisch": 0.1265,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.5195,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1223,
+    "stroomDynamisch": 0.1045,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-09",
+   "incl": {
+    "gasVariabel": 0.6269,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1485,
+    "stroomDynamisch": 0.1301,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.5181,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1227,
+    "stroomDynamisch": 0.1076,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-10",
+   "incl": {
+    "gasVariabel": 0.6126,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1514,
+    "stroomDynamisch": 0.1358,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.26
+   },
+   "excl": {
+    "gasVariabel": 0.5062,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1251,
+    "stroomDynamisch": 0.1122,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.5
+   }
+  },
+  {
+   "maand": "2025-11",
+   "incl": {
+    "gasVariabel": 0.6058,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.1518,
+    "stroomDynamisch": 0.1335,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.19
+   },
+   "excl": {
+    "gasVariabel": 0.5007,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1254,
+    "stroomDynamisch": 0.1103,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.45
+   }
+  },
+  {
+   "maand": "2025-12",
+   "incl": {
+    "gasVariabel": 0.601,
+    "gasEb": 0.69957,
+    "gasTransport": 247.55,
+    "stroomVariabel": 0.152,
+    "stroomDynamisch": 0.1262,
+    "stroomEb": 0.12286,
+    "vermindering": -635.19,
+    "stroomTransport": 467.17,
+    "vastDynamisch": 79.19
+   },
+   "excl": {
+    "gasVariabel": 0.4967,
+    "gasEb": 0.57816,
+    "gasTransport": 204.59,
+    "stroomVariabel": 0.1256,
+    "stroomDynamisch": 0.1043,
+    "stroomEb": 0.10154,
+    "vermindering": -524.95,
+    "stroomTransport": 386.09,
+    "vastDynamisch": 65.45
+   }
+  },
+  {
+   "maand": "2026-01",
+   "incl": {
+    "gasVariabel": 0.5868,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1497,
+    "stroomDynamisch": 0.1499,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.485,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1237,
+    "stroomDynamisch": 0.1239,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-02",
+   "incl": {
+    "gasVariabel": 0.5767,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1474,
+    "stroomDynamisch": 0.1316,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.4766,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1218,
+    "stroomDynamisch": 0.1088,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-03",
+   "incl": {
+    "gasVariabel": 0.5737,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1457,
+    "stroomDynamisch": 0.1389,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.4741,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1204,
+    "stroomDynamisch": 0.1148,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-04",
+   "incl": {
+    "gasVariabel": 0.5641,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1383,
+    "stroomDynamisch": 0.1215,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.4662,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1143,
+    "stroomDynamisch": 0.1004,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-05",
+   "incl": {
+    "gasVariabel": 0.5783,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1387,
+    "stroomDynamisch": 0.1353,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.4779,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1146,
+    "stroomDynamisch": 0.1118,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-06",
+   "incl": {
+    "gasVariabel": 0.5852,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1397,
+    "stroomDynamisch": 0.1534,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.4837,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1155,
+    "stroomDynamisch": 0.1267,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-07",
+   "incl": {
+    "gasVariabel": 0.6277,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1447,
+    "stroomDynamisch": 0.1481,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.5187,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1196,
+    "stroomDynamisch": 0.1224,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-08",
+   "incl": {
+    "gasVariabel": 0.6526,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1469,
+    "stroomDynamisch": 0.1716,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 88.25
+   },
+   "excl": {
+    "gasVariabel": 0.5394,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1214,
+    "stroomDynamisch": 0.1418,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 72.94
+   }
+  },
+  {
+   "maand": "2026-09",
+   "incl": {
+    "gasVariabel": 0.6618,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1487,
+    "stroomDynamisch": 0.2057,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 98.21
+   },
+   "excl": {
+    "gasVariabel": 0.547,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1229,
+    "stroomDynamisch": 0.17,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 81.16
+   }
+  }
+ ]
+}

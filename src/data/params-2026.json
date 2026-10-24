@@ -1,0 +1,166 @@
+{
+ "_lisezmoi": "Paramètres réglementaires du site (RECETTE §4). Chaque valeur relue sur sa source le jour indiqué ; aucune valeur en dur dans les pages. Les prix de marché ne sont PAS ici : src/data/prices/*.json (SMARD) et cbs-nl.json (CBS), régénérés par scripts/update-data.mjs.",
+ "year": 2026,
+ "retrieved_at": "2026-10-24",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "de": {
+  "ust": 0.19,
+  "stromsteuer_ct": 2.05,
+  "umlagen_ct": {
+   "kwkg": 0.446,
+   "offshore": 0.941,
+   "besondereNetznutzung": 1.559
+  },
+  "konzessionsabgabe_ct": {
+   "bis25000": 1.32,
+   "bis100000": 1.59,
+   "bis500000": 1.99,
+   "ueber500000": 2.39
+  },
+  "netzentgelt2025_ct": {
+   "_quelle": "BNetzA/BKartA Monitoringbericht 2025, Tabelle 25 (mengengewichteter Mittelwert Haushaltskunden 2.500–5.000 kWh, Stand 1. April 2025, inklusive Grundpreisanteil)",
+   "DE": 10.72,
+   "BW": 11.71,
+   "BY": 9.74,
+   "BE": 10.87,
+   "BB": 10.28,
+   "HB": 7.96,
+   "HH": 14.17,
+   "HE": 10.77,
+   "MV": 9.31,
+   "NI": 9.82,
+   "NW": 11.19,
+   "RP": 11.7,
+   "SL": 11.21,
+   "SN": 9.71,
+   "ST": 10.27,
+   "SH": 10.58,
+   "TH": 9.69
+  },
+  "haushaltspreise2025_ct": {
+   "_quelle": "Monitoringbericht 2025, Strompreise Haushaltskunden, Stichtag 1. April 2025, inkl. USt, 2.500–5.000 kWh; Modellpreise = Jahresmittel 2025",
+   "durchschnitt": 40.05,
+   "grundversorgung": 44.93,
+   "grundversorgerAusserhalb": 39.51,
+   "andererLieferant": 38.2,
+   "modellNeukunden": 36.9,
+   "modellDynamisch": 36.3
+  }
+ },
+ "nl": {
+  "btw": 0.21,
+  "eb_stroom_eur_kwh": 0.09161,
+  "eb_gas_eur_m3": 0.60066,
+  "vermindering_eur": 519.8
+ },
+ "at": {
+  "ust": 0.2
+ },
+ "sources": {
+  "smard": {
+   "url": "https://www.smard.de/home/marktdaten",
+   "label": {
+    "de": "Bundesnetzagentur | SMARD.de: Großhandelspreise Strom (CC BY 4.0)",
+    "en": "Bundesnetzagentur | SMARD.de: wholesale electricity prices (CC BY 4.0)",
+    "nl": "Bundesnetzagentur | SMARD.de: groothandelsprijzen elektriciteit (CC BY 4.0)"
+   }
+  },
+  "smardLizenz": {
+   "url": "https://www.smard.de/home/datennutzung",
+   "label": {
+    "de": "SMARD.de: Datennutzung und Lizenz CC BY 4.0",
+    "en": "SMARD.de: data use and CC BY 4.0 licence",
+    "nl": "SMARD.de: gebruik van de gegevens en licentie CC BY 4.0"
+   }
+  },
+  "cbs": {
+   "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85592NED/table",
+   "label": {
+    "de": "CBS StatLine 85592NED: Durchschnittliche Energietarife für Verbraucher (CC BY 4.0)",
+    "en": "CBS StatLine 85592NED: average energy rates for consumers (CC BY 4.0)",
+    "nl": "CBS StatLine 85592NED: Gemiddelde energietarieven voor consumenten (CC BY 4.0)"
+   }
+  },
+  "cbsLizenz": {
+   "url": "https://www.cbs.nl/nl-nl/over-ons/website/copyright",
+   "label": {
+    "de": "CBS: Copyright und Weiterverwendung",
+    "en": "CBS: copyright and reuse",
+    "nl": "CBS: copyright en hergebruik"
+   }
+  },
+  "ezb": {
+   "url": "https://data.ecb.europa.eu/data/datasets/EXR/EXR.D.PLN.EUR.SP00.A",
+   "label": {
+    "de": "Europäische Zentralbank: Referenzkurs Złoty je Euro",
+    "en": "European Central Bank: euro reference rate for the złoty",
+    "nl": "Europese Centrale Bank: referentiekoers zloty per euro"
+   }
+  },
+  "wbm": {
+   "url": "https://wetten.overheid.nl/BWBR0007168/2026-01-01",
+   "label": {
+    "de": "Wet belastingen op milieugrondslag, Art. 59 und 63 (Stand 1.1.2026)",
+    "en": "Environmental Taxes Act (Wbm), articles 59 and 63 (1 January 2026)",
+    "nl": "Wet belastingen op milieugrondslag, artikelen 59 en 63 (versie 1 januari 2026)"
+   }
+  },
+  "wetob": {
+   "url": "https://wetten.overheid.nl/BWBR0002629/2026-01-01",
+   "label": {
+    "de": "Wet op de omzetbelasting 1968, Art. 9 (21 % btw)",
+    "en": "Dutch VAT Act 1968, article 9 (21% VAT)",
+    "nl": "Wet op de omzetbelasting 1968, artikel 9 (21 % btw)"
+   }
+  },
+  "stromstg": {
+   "url": "https://www.gesetze-im-internet.de/stromstg/__3.html",
+   "label": {
+    "de": "Stromsteuergesetz § 3: Steuertarif",
+    "en": "Electricity Tax Act (StromStG), section 3",
+    "nl": "Stromsteuergesetz § 3: belastingtarief"
+   }
+  },
+  "ustg": {
+   "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+   "label": {
+    "de": "Umsatzsteuergesetz § 12: Steuersätze",
+    "en": "German VAT Act (UStG), section 12",
+    "nl": "Umsatzsteuergesetz § 12: btw-tarieven"
+   }
+  },
+  "kav": {
+   "url": "https://www.gesetze-im-internet.de/kav/__2.html",
+   "label": {
+    "de": "Konzessionsabgabenverordnung § 2: Höchstbeträge",
+    "en": "Concession Fee Ordinance (KAV), section 2",
+    "nl": "Konzessionsabgabenverordnung § 2: maximumbedragen"
+   }
+  },
+  "enwg41a": {
+   "url": "https://www.gesetze-im-internet.de/enwg_2005/__41a.html",
+   "label": {
+    "de": "Energiewirtschaftsgesetz § 41a: dynamische Stromtarife",
+    "en": "Energy Industry Act (EnWG), section 41a: dynamic tariffs",
+    "nl": "Energiewirtschaftsgesetz § 41a: dynamische stroomtarieven"
+   }
+  },
+  "ihk": {
+   "url": "https://www.ihk.de/lippe-detmold/hauptnavigation/beraten-und-informieren/energie/strompreis-umlagen-4208854",
+   "label": {
+    "de": "IHK Lippe zu Detmold: Strompreis-Umlagen 2026 der Übertragungsnetzbetreiber",
+    "en": "IHK Lippe zu Detmold: 2026 electricity levies set by the transmission operators",
+    "nl": "IHK Lippe zu Detmold: heffingen 2026 van de Duitse transmissienetbeheerders"
+   }
+  },
+  "monitoring": {
+   "url": "https://data.bundesnetzagentur.de/Bundesnetzagentur/SharedDocs/Mediathek/Monitoringberichte/MonitoringberichtEnergie2025.pdf",
+   "label": {
+    "de": "Bundesnetzagentur und Bundeskartellamt: Monitoringbericht 2025, Tabelle 25",
+    "en": "Federal Network Agency and Federal Cartel Office: Monitoring Report 2025, table 25",
+    "nl": "Bundesnetzagentur en Bundeskartellamt: Monitoringbericht 2025, tabel 25"
+   }
+  }
+ }
+}

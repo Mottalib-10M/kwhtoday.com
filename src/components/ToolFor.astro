@@ -1,0 +1,20 @@
+---
+/** Setzt den Rechner einer Seite mit seinen Daten ein (RECETTE §9.3 : jede Seite hat ihren Rechner). */
+import { PreisRechner, FensterRechner, LadenRechner, VergleichRechner, VerlaufRechner, GasRekenhulp } from './outils/Strom';
+import { tageFuer, verlaufFuer, cbsGas, festVorgabe, stand, PLN } from '../lib/tool-props';
+import type { Tool } from '../lib/guide-types';
+import type { Zone } from '../lib/engine/tarif';
+import type { Locale } from '../i18n/routes';
+import { REF_DAY } from '../lib/helpers';
+interface Props { tool: Tool; zonen: Zone[]; lang: Locale; id: string; methodHref: string; toolProps?: Record<string, unknown> }
+const { tool, zonen, lang, id, methodHref, toolProps = {} } = Astro.props;
+const zone = zonen[0];
+const base = { lang, refDay: REF_DAY, methodHref, id, zone, stand: stand(zone), pln: PLN };
+const tp = toolProps as any;
+---
+{(tool === 'preis' || tool === 'morgen' || tool === 'jetzt') && <PreisRechner client:load {...base} tage={tageFuer(tool, zonen)} modus={tool === 'preis' ? 'heute' : tool === 'morgen' ? 'morgen' : 'jetzt'} start={tp.start} />}
+{tool === 'fenster' && <FensterRechner client:load {...base} tage={tageFuer(tool, zonen)} dauerH={tp.dauerH} kwh={tp.kwh} zeitraum={tp.zeitraum} start={tp.start} />}
+{tool === 'laden' && <LadenRechner client:load {...base} tage={tageFuer(tool, zonen)} batterie={tp.batterie} kw={tp.kw} von={tp.von} bis={tp.bis} start={tp.start} />}
+{tool === 'vergleich' && <VergleichRechner client:load {...base} tage={tageFuer(tool, zonen)} kwhJahr={tp.kwhJahr} fest={tp.fest ?? festVorgabe(zone)} profil={tp.profil} start={tp.start} />}
+{(tool === 'verlauf' || tool === 'negativ') && <VerlaufRechner client:load {...base} verlauf={verlaufFuer(zonen)} ansicht={tool === 'negativ' ? 'negativ' : tp.ansicht} kwhMonat={tp.kwhMonat} />}
+{tool === 'gas' && <GasRekenhulp client:load lang={lang} methodHref={methodHref} id={id} cbs={cbsGas()} verbruik={tp.verbruik} />}

@@ -1,0 +1,46 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../LegalIdentity.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route, type Locale } from '../../i18n/routes';
+import { contactPageSchema } from '../../lib/seo';
+import { helpers } from '../../lib/helpers';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const H = helpers(lang); const T = H.T;
+const name = SITE_NAMES[lang];
+const crumb = T('Kontakt', 'Contact', 'Contact');
+const description = T(
+  `Schreiben Sie dem Herausgeber von ${name}: einen Preis melden, der nicht zur Börse passt, eine Steuer- oder Umlagenänderung nennen, eine Frage zur Rechnung stellen.`,
+  `Write to the publisher of ${name}: report a price that does not match the exchange, point to a change in a tax or levy, or ask how a figure was calculated.`,
+  `Schrijf de uitgever van ${name}: meld een prijs die niet met de beurs klopt, wijs op een gewijzigde belasting of heffing, of vraag hoe een bedrag berekend is.`);
+const mail = `mailto:${CONTACT_EMAIL}`;
+---
+<PageLayout title={`${crumb} – ${name}`} description={description} lang={lang} noindex={true} jsonLd={[contactPageSchema({ name: crumb, description, path: route('contact', lang), lang })]} breadcrumbs={[{ label: crumb }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>{crumb}</h1>
+    {lang === 'de' && <>
+      <p>Eine Adresse, die wir jede Woche lesen: <a href={mail}>{CONTACT_EMAIL}</a>. Telefon gibt es keines, Rückrufe auch nicht, und kein Anbieter bekommt Ihre Adresse: wir vermitteln keine Stromverträge.</p>
+      <h2>Ein Preis stimmt nicht</h2><p>Schreiben Sie die Preiszone, den Tag und die Viertelstunde, dazu den Wert, den Sie bei SMARD oder in der App Ihres Anbieters sehen. Weicht unser Börsenpreis ab, liegt der Fehler bei uns und wird behoben; weicht nur der Endpreis ab, liegt es meist an Aufschlag, Netzentgelt oder Konzessionsabgabe Ihres Vertrags.</p>
+      <h2>Eine Abgabe hat sich geändert</h2><p>Stromsteuer, Umlagen und Umsatzsteuer stehen mit Quelle in einer einzigen Datei. Nennen Sie uns die Fundstelle (Gesetz, Bekanntmachung der Übertragungsnetzbetreiber); wir lesen sie nach und tragen den neuen Wert mit Datum ein.</p>
+      <h2>Den Rechner einbinden</h2><p>Energiegemeinschaften, Solarvereine und Redaktionen können den Preisrechner kostenlos einbinden: Code auf der Seite <a href={route('widget', lang)}>Rechner einbinden</a>.</p>
+      <h2>Herausgeber</h2>
+    </>}
+    {lang === 'en' && <>
+      <p>One address, read every week: <a href={mail}>{CONTACT_EMAIL}</a>. No phone line, no call-backs, and no supplier ever receives your address: we do not broker electricity contracts.</p>
+      <h2>A price looks wrong</h2><p>Send the bidding zone, the day and the quarter hour, with the value you see on SMARD or in your supplier’s app. If our exchange price differs, the mistake is ours and gets fixed; if only the all-in price differs, the cause is usually your contract’s markup, grid fee or a local charge.</p>
+      <h2>A tax or levy has changed</h2><p>Electricity tax, levies and VAT sit, with their source, in a single file. Point us to the legal text or official notice and we will read it and enter the new value with its date.</p>
+      <h2>Embed the calculator</h2><p>Energy cooperatives, solar groups and newsrooms can embed the price calculator for free: the code is on the <a href={route('widget', lang)}>Embed the calculator</a> page.</p>
+      <h2>Publisher</h2>
+    </>}
+    {lang === 'nl' && <>
+      <p>Eén adres, dat we elke week lezen: <a href={mail}>{CONTACT_EMAIL}</a>. Geen telefoon, geen terugbelverzoek, en geen leverancier krijgt je gegevens: wij bemiddelen niet in energiecontracten.</p>
+      <h2>Een prijs klopt niet</h2><p>Stuur de biedzone, de dag en het kwartier, met de waarde die je bij SMARD of in de app van je leverancier ziet. Wijkt onze beursprijs af, dan ligt de fout bij ons en wordt hij hersteld; wijkt alleen de eindprijs af, dan zit het meestal in de inkoopvergoeding van je contract.</p>
+      <h2>Een belasting is gewijzigd</h2><p>Energiebelasting en btw staan met hun bron in één bestand. Wijs ons op de wettekst of de publicatie van de Belastingdienst; we lezen ze na en voeren het nieuwe bedrag met datum in.</p>
+      <h2>De rekenhulp insluiten</h2><p>Energiecoöperaties, zonnepanelenclubs en redacties kunnen de prijsrekenhulp gratis insluiten: de code staat op de pagina <a href={route('widget', lang)}>Rekenhulp insluiten</a>.</p>
+      <h2>Uitgever</h2>
+    </>}
+    <LegalIdentity lang={lang} />
+    <p>{T(`${AUTHOR_NAME} ist für den Inhalt von ${name} verantwortlich; die vollständigen Angaben stehen im`, `${AUTHOR_NAME} is responsible for the content of ${name}; full details are in the`, `${AUTHOR_NAME} is verantwoordelijk voor de inhoud van ${name}; de volledige gegevens staan in het`)} <a href={route('terms', lang)}>{T('Impressum', 'legal notice', 'colofon')}</a>. {T('Seite geprüft am', 'Page reviewed on', 'Pagina nagekeken op')} {H.date(LAST_UPDATED)}.</p>
+  </div>
+</PageLayout>

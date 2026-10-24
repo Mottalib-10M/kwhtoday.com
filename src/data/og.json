@@ -1,0 +1,27 @@
+{
+ "accent": "#1F5FA8",
+ "symbol": "kWh",
+ "variants": [
+  {
+   "file": "og-de.png",
+   "title": "Strompreis heute\nund morgen je Viertelstunde",
+   "subtitle": "Deutschland · Österreich · Niederlande · Belgien · Polen",
+   "badge": "Day-Ahead-Preise Bundesnetzagentur | SMARD.de",
+   "brand": "kWh Today"
+  },
+  {
+   "file": "og-nl.png",
+   "title": "Stroomprijs vandaag\nen morgen per kwartier",
+   "subtitle": "Nederland · België · Duitsland · Oostenrijk · Polen",
+   "badge": "Day-aheadprijzen Bundesnetzagentur | SMARD.de",
+   "brand": "kWh Today"
+  },
+  {
+   "file": "og-en.png",
+   "title": "Electricity price today\nand tomorrow, every 15 minutes",
+   "subtitle": "Germany · Netherlands · Belgium · Austria · Poland",
+   "badge": "Day-ahead prices from Bundesnetzagentur | SMARD.de",
+   "brand": "kWh Today"
+  }
+ ]
+}

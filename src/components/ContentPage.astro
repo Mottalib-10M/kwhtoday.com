@@ -1,0 +1,49 @@
+---
+/**
+ * Darstellung einer Seite aus `src/content/outils/` (Preis- und Tarifseiten). Reihenfolge (RECETTE §5, §21) : H1 und Einleitung,
+ * gleich danach der Rechner (die Frage des Lesers), dann der zitierfähige Block, eingeklappt, dann der
+ * Text. FAQ, verwandte Seiten, Quellen und Autorenkasten kommen aus dem PageLayout.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Clamp from './Clamp.astro';
+import ToolFor from './ToolFor.astro';
+import { route, ROUTES, type Locale } from '../i18n/routes';
+import { label } from '../i18n/nav';
+import { t } from '../i18n/ui';
+import { pageById } from '../lib/guides';
+import { helpers, REF_DAY } from '../lib/helpers';
+import { P, sourceUrl } from '../lib/engine/params';
+import { articleSchema, faqSchema, breadcrumbSchema, webPageSchema, webApplicationSchema } from '../lib/seo';
+import { AUTHOR_NAME } from '../data/site-config';
+import { zonenOf, type PageDef } from '../lib/guide-types';
+interface Props { page: PageDef; lang: Locale }
+const { page, lang } = Astro.props;
+const x = page[lang]!;
+const ui = t(lang);
+const path = route(page.id, lang);
+const H = helpers(lang);
+const resume = x.resume(H);
+const faqs = x.faqs(H);
+const body = x.body(H);
+const jsonLd = [webApplicationSchema({ name: x.h1, description: x.description, path, lang }), articleSchema({ title: x.h1, description: x.description, path, lang }), webPageSchema({ name: x.h1, description: x.description, path, lang }), breadcrumbSchema([{ name: ui.breadcrumbHome, path: route('home', lang) }, { name: x.nav, path }])];
+if (faqs.length) jsonLd.push(faqSchema(faqs, lang));
+const hasLang = (id: string) => !!ROUTES.find((r) => r.id === id)?.paths[lang];
+const related = page.related.filter(hasLang).map((id) => ({ href: route(id, lang), name: label(id, lang), description: pageById(id)?.[lang]?.card ?? '' }));
+const sources = page.sources.map((k) => ({ name: P.sources[k].label[lang], url: sourceUrl(k, lang) }));
+const methodHref = route('method', lang);
+const id = `r-${page.id}`;
+---
+<PageLayout title={x.title} description={x.description} lang={lang} jsonLd={jsonLd} faqs={faqs} related={related} sources={sources} breadcrumbs={[{ label: x.nav }]}>
+  <article>
+    <header class="mb-4">
+      <h1 class="text-[1.75rem] font-bold text-navy-900 max-sm:leading-tight sm:text-3xl md:text-4xl">{x.h1}</h1>
+      <p class="mt-2 text-base text-navy-700 sm:text-lg">{x.intro}</p>
+    </header>
+    <div data-outil class="mb-4">
+      <ToolFor tool={page.tool} zonen={zonenOf(page, lang)} lang={lang} id={id} methodHref={methodHref} toolProps={page.toolProps} />
+    </div>
+    <Clamp text={resume} lang={lang} id={`clamp-${page.id}`} class="mb-3" />
+    <p class="mb-8 text-sm text-navy-600">{ui.reviewedBy} <a href={route('about', lang)} class="underline hover:text-navy-900">{AUTHOR_NAME}</a> · <a href={route('editorial', lang)} class="underline hover:text-navy-900">{ui.editorialPolicy}</a> · <a href={methodHref} class="underline hover:text-navy-900">{label('method', lang)}</a></p>
+    <div class="prose prose-slate max-w-none"><Fragment set:html={body} /></div>
+  </article>
+</PageLayout>

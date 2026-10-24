@@ -1,0 +1,21 @@
+{
+ "name": "kWh Today",
+ "short_name": "kWh Today",
+ "description": "Börsenstrompreis je Viertelstunde für heute und morgen, mit Steuern und Abgaben zum Endpreis gerechnet: günstigste Stunde, Kosten eines Geräts, E-Auto laden, dynamisch gegen fest.",
+ "start_url": "/de/",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#1F5FA8",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}

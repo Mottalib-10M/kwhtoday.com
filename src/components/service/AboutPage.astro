@@ -1,0 +1,64 @@
+---
+/** Über uns (Vertrauensseite, RECETTE §8): wer veröffentlicht, warum, woher die Zahlen kommen. */
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES } from '../../data/site-config';
+import { route, type Locale } from '../../i18n/routes';
+import { personSchema, organizationSchema, breadcrumbSchema, profilePageSchema } from '../../lib/seo';
+import { helpers } from '../../lib/helpers';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const H = helpers(lang); const T = H.T;
+const crumb = T('Über uns', 'About', 'Over ons');
+const name = SITE_NAMES[lang];
+const title = T(`${name}: wer die Strompreise je Viertelstunde herausgibt`, `${name}: who publishes these quarter-hourly power prices`, `${name}: wie deze stroomprijzen per kwartier publiceert`);
+const description = T(
+  `Wer ${name} herausgibt, warum ein Endpreis je Viertelstunde statt nur des Börsenwerts, woher Preise und Abgaben kommen und wie Sie einen Fehler melden können.`,
+  `Who publishes ${name}, why an all-in price per quarter hour rather than the bare exchange figure, where prices and taxes come from and how to report errors.`,
+  `Wie ${name} uitgeeft, waarom een eindprijs per kwartier in plaats van het kale beursbedrag, waar prijzen en belastingen vandaan komen en hoe je fouten meldt.`);
+const mail = `mailto:${CONTACT_EMAIL}`;
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={[personSchema(lang), organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: T('Startseite', 'Home', 'Home'), path: route('home', lang) }, { name: crumb, path: route('about', lang) }])]} breadcrumbs={[{ label: crumb }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">{T(`Über ${name}`, `About ${name}`, `Over ${name}`)}</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    {lang === 'de' && <>
+      <p>{name} wird von Radif Partners herausgegeben. Die Seite beantwortet eine Frage, die sich seit den dynamischen Tarifen jeden Tag stellt: was kostet die Kilowattstunde heute um 19 Uhr, was morgen um 13 Uhr, und lohnt es sich, Waschmaschine, Wärmepumpe oder Auto ein paar Stunden später laufen zu lassen?</p>
+      <h2>Warum es diese Seite gibt</h2>
+      <p>Die meisten Preisanzeigen zeigen nur den nackten Börsenwert, ein paar Cent, der mit der Rechnung wenig zu tun hat; andere zeigen den Endpreis eines einzigen Anbieters. Wir wollten beides zusammen: den amtlich veröffentlichten Börsenpreis je Viertelstunde und daneben, was davon mit Steuern, Umlagen und Ihrem eigenen Aufschlag am Ende auf der Rechnung steht.</p>
+      <p><strong>{name} rechnet jeden Viertelstundenpreis der Börse in den Preis um, den Sie zahlen, mit den nachgelesenen Abgaben Ihres Landes und dem Aufschlag Ihres Vertrags, zeigt die günstigste Stunde für ein Gerät und vergleicht den dynamischen Tarif mit Ihrem Festpreis, ohne Anmeldung und ohne Vermittlung eines Vertrags.</strong></p>
+      <h2>Woher die Zahlen kommen</h2>
+      <p>Börsenpreise: SMARD, die Strommarktplattform der Bundesnetzagentur (Lizenz CC BY 4.0). Niederländische Verbraucherpreise: CBS StatLine. Abgaben: Stromsteuergesetz, Umsatzsteuergesetz, Konzessionsabgabenverordnung, die Umlagen der Übertragungsnetzbetreiber und die niederländische Energiebelastung. Netzentgelt-Mittelwerte: Monitoringbericht von Bundesnetzagentur und Bundeskartellamt. Kurs des Złoty: die Europäische Zentralbank. Formeln und Tests stehen in der <a href={route('method', lang)}>Methode</a>.</p>
+      <h2>Was wir nicht sind</h2>
+      <p>Radif Partners ist keine Behörde, keine Strombörse und kein Stromanbieter. Wir verkaufen keine Verträge, bekommen keine Provision und verlinken auf keinen Anbieter. Maßgeblich ist immer die Abrechnung Ihres Anbieters.</p>
+      <h2>Finanzierung und Daten</h2><p>Die Seite ist kostenlos und ohne Anmeldung. Die Rechner laufen in Ihrem Browser, nichts von dem, was Sie eingeben, wird gespeichert. Falls hier eines Tages Werbung erscheint, steht sie nie über einem Rechner und nie als Empfehlung.</p>
+      <h2>Drei Sprachen</h2><p>Die Seite gibt es auf Deutsch, Niederländisch und Englisch: für Haushalte in Deutschland und Österreich, in den Niederlanden und Flandern, die alle am selben europäischen Day-Ahead-Markt hängen, und für alle, die dort auf Englisch leben.</p>
+      <h2>Schreiben Sie uns</h2><p>Ein Preis, der nicht passt, eine neue Abgabe, eine Zone, die fehlt: <a href={mail}>{CONTACT_EMAIL}</a>. Siehe auch die <a href={route('editorial', lang)}>redaktionellen Grundsätze</a> und das <a href={route('terms', lang)}>Impressum</a>.</p>
+    </>}
+    {lang === 'en' && <>
+      <p>{name} is published by Radif Partners. It answers a question that dynamic tariffs raise every single day: what does a kilowatt-hour cost at 7 pm today, at 1 pm tomorrow, and is it worth running the washing machine, the heat pump or the car charger a few hours later?</p>
+      <h2>Why this site exists</h2>
+      <p>Most price displays show only the bare exchange value, a few cents that bear little relation to the bill; others show the all-in price of one single supplier. We wanted both side by side: the officially published exchange price for every quarter hour and, next to it, what ends up on the bill once taxes, levies and your own contract markup are added.</p>
+      <p><strong>{name} turns every quarter-hourly exchange price into the price you pay, with the checked taxes of your country and the markup of your contract, finds the cheapest hour for an appliance and compares a dynamic tariff with your fixed price, with no sign-up and no contract brokering.</strong></p>
+      <h2>Where the figures come from</h2>
+      <p>Exchange prices: SMARD, the electricity market platform of Germany’s Federal Network Agency (CC BY 4.0 licence). Dutch consumer prices: CBS StatLine. Taxes: the German Electricity Tax Act, VAT Act and Concession Fee Ordinance, the transmission operators’ levies and the Dutch energy tax. Average grid fees: the monitoring report of the Federal Network Agency and the Federal Cartel Office. Zloty rate: the European Central Bank. Formulas and tests are in the <a href={route('method', lang)}>method</a>.</p>
+      <h2>What we are not</h2>
+      <p>Radif Partners is not an authority, not a power exchange and not an electricity supplier. We sell no contracts, take no commission and link to no supplier. Your supplier’s bill is always what counts.</p>
+      <h2>Funding and data</h2><p>The site is free and needs no sign-up. The calculators run in your browser and nothing you type is stored. If advertising ever appears here, it will never sit above a calculator or be presented as a recommendation.</p>
+      <h2>Three languages</h2><p>The site exists in German, Dutch and English: for households in Germany and Austria, in the Netherlands and Flanders, all tied to the same European day-ahead market, and for everyone living there in English.</p>
+      <h2>Write to us</h2><p>A price that looks off, a new levy, a missing zone: <a href={mail}>{CONTACT_EMAIL}</a>. See also the <a href={route('editorial', lang)}>editorial policy</a> and the <a href={route('terms', lang)}>legal notice</a>.</p>
+    </>}
+    {lang === 'nl' && <>
+      <p>{name} wordt uitgegeven door Radif Partners. De site beantwoordt een vraag die met dynamische contracten elke dag terugkomt: wat kost een kilowattuur vandaag om 19 uur, morgen om 13 uur, en loont het om de wasmachine, de warmtepomp of de laadpaal een paar uur later te laten draaien?</p>
+      <h2>Waarom deze site bestaat</h2>
+      <p>De meeste prijsoverzichten tonen alleen het kale beursbedrag, een paar cent dat weinig met je rekening te maken heeft; andere tonen de eindprijs van één leverancier. Wij wilden beide naast elkaar: de officieel gepubliceerde beursprijs per kwartier en daarnaast wat er met energiebelasting, btw en je eigen inkoopvergoeding op de rekening komt.</p>
+      <p><strong>{name} rekent elke kwartierprijs van de beurs om naar de prijs die je betaalt, met de nagelezen belastingen van je land en de opslag van je contract, zoekt het goedkoopste uur voor een apparaat en vergelijkt een dynamisch contract met je vaste prijs, zonder registratie en zonder bemiddeling.</strong></p>
+      <h2>Waar de cijfers vandaan komen</h2>
+      <p>Beursprijzen: SMARD, het stroommarktplatform van de Duitse Bundesnetzagentur (licentie CC BY 4.0). Nederlandse consumentenprijzen: CBS StatLine. Belastingen: de Wet belastingen op milieugrondslag en de Wet op de omzetbelasting, en voor Duitsland de Stromsteuer, btw, concessieheffing en de heffingen van de netbeheerders. Koers van de złoty: de Europese Centrale Bank. Formules en tests staan in de <a href={route('method', lang)}>methode</a>.</p>
+      <h2>Wat we niet zijn</h2>
+      <p>Radif Partners is geen overheid, geen stroombeurs en geen energieleverancier. We verkopen geen contracten, krijgen geen commissie en verwijzen naar geen enkele leverancier. Bepalend is altijd de afrekening van je leverancier.</p>
+      <h2>Financiering en gegevens</h2><p>De site is gratis en zonder registratie. De rekenhulpen werken in je browser, niets van wat je invult wordt bewaard. Komt hier ooit reclame, dan staat die nooit boven een rekenhulp en nooit als aanbeveling.</p>
+      <h2>Drie talen</h2><p>De site bestaat in het Nederlands, het Duits en het Engels: voor huishoudens in Nederland en Vlaanderen, in Duitsland en Oostenrijk, die allemaal aan dezelfde Europese day-aheadmarkt hangen, en voor wie daar in het Engels woont.</p>
+      <h2>Schrijf ons</h2><p>Een prijs die niet klopt, een nieuwe heffing, een zone die ontbreekt: <a href={mail}>{CONTACT_EMAIL}</a>. Zie ook het <a href={route('editorial', lang)}>redactiestatuut</a> en het <a href={route('terms', lang)}>colofon</a>.</p>
+    </>}
+  </div>
+</PageLayout>

@@ -1,0 +1,83 @@
+---
+/** Methode und Quellen (Vertrauensseite, RECETTE §8.2): Börsenpreise, Endpreis je Land, Fenster, Vergleich, Tests, Grenzen. */
+import PageLayout from '../layouts/PageLayout.astro';
+import { route, type Locale } from '../i18n/routes';
+import { P, sourceUrl } from '../lib/engine/params';
+import type { SourceKey } from '../lib/engine/params';
+import { zerlegen, umlagenDe } from '../lib/engine/tarif';
+import { META, EUR_PLN, CBS } from '../lib/engine/markt';
+import { letzter } from '../lib/fakten';
+import { helpers } from '../lib/helpers';
+import { breadcrumbSchema, webPageSchema } from '../lib/seo';
+import { CONTACT_EMAIL } from '../data/site-config';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const H = helpers(lang);
+const { T, num, date, ct, spot, eur } = H;
+const title = T('Strompreis je Viertelstunde: unsere Methode und Quellen', 'Quarter-hourly power prices: our method and sources', 'Stroomprijs per kwartier: onze rekenmethode en bronnen');
+const description = T(
+  'Methode: Day-Ahead-Preise von SMARD unter CC BY 4.0, Endpreis mit Stromsteuer, Umlagen, Netzentgelt und Umsatzsteuer, günstigstes Fenster, Vergleich, Tests.',
+  'Method: SMARD day-ahead prices under CC BY 4.0, all-in price with taxes, levies, grid fee and VAT, cheapest window, tariff comparison, tests and known limits.',
+  'Methode: day-aheadprijzen van SMARD onder CC BY 4.0, eindprijs met energiebelasting en btw, goedkoopste venster, vergelijking van contracten, tests en grenzen.');
+const h1 = T('Methode der Berechnung und Quellen', 'Calculation method and sources', 'Rekenmethode en bronnen');
+const path = route('method', lang);
+const sources = (Object.keys(P.sources) as SourceKey[]).map((k) => ({ name: P.sources[k].label[lang], url: sourceUrl(k, lang) }));
+const d = letzter('DE-LU'), n = letzter('NL');
+const zd = zerlegen('DE-LU', d.mittel, { aufschlag: 2, netz: P.de.netzentgelt2025_ct.DE, gemeinde: 'bis100000' });
+const zn = zerlegen('NL', n.mittel, { aufschlag: 2 });
+const c = CBS.maanden.at(-1)!;
+const stand = META.retrieved;
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={[webPageSchema({ name: h1, description, path, lang }), breadcrumbSchema([{ name: T('Startseite', 'Home', 'Home'), path: route('home', lang) }, { name: h1, path }])]} breadcrumbs={[{ label: h1 }]} sources={sources}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">{h1}</h1>
+    <p class="mt-3 text-lg text-navy-700">{T('Woher jeder Preis kommt, wie wir daraus den Endpreis rechnen und was wir bewusst nicht einrechnen.', 'Where every price comes from, how we turn it into an all-in price and what we deliberately leave out.', 'Waar elke prijs vandaan komt, hoe we er de eindprijs van maken en wat we bewust niet meerekenen.')}</p></header>
+  <div class="prose prose-slate max-w-none">
+    {lang === 'de' && <>
+      <p>Alle Rechner der Seite benutzen dieselben Daten und denselben Rechenkern. Die Börsenpreise stehen in fünf Dateien, eine je Preiszone, die ein Skript aus der Schnittstelle von SMARD lädt; zuletzt abgerufen am {date(stand.slice(0, 10))}. Steuern, Umlagen und Mittelwerte stehen mit Fundstelle in einer einzigen Datei (<code>params-2026.json</code>), kein Betrag steht im Programmcode.</p>
+      <h2>1. Die Börsenpreise</h2>
+      <p>SMARD, die Strommarktplattform der Bundesnetzagentur, veröffentlicht das Ergebnis der Day-Ahead-Marktkopplung für Deutschland/Luxemburg, Österreich, die Niederlande, Belgien, Polen und weitere Zonen, seit Oktober 2025 je Viertelstunde, in Euro je Megawattstunde. Die Daten stehen unter der Lizenz CC BY 4.0 mit der Nennung „Bundesnetzagentur | SMARD.de“, die unter jedem Rechner steht. Wir laden die letzten sechs Wochen in Viertelstunden, die Tagesmittel und die Monatsmittel seit 2018. Ein Tag gilt als vollständig, wenn er um 0 Uhr Berliner Zeit beginnt und mindestens 92 Viertelstunden hat (die Zeitumstellung gibt 92 oder 100). Alle Uhrzeiten sind Berliner Zeit, die in allen fünf Zonen gilt.</p>
+      <h2>2. Vom Börsenpreis zum Endpreis</h2>
+      <p><strong>Deutschland.</strong> Endpreis = (Börsenpreis + Aufschlag des Anbieters + Netzentgelt + Stromsteuer {ct(P.de.stromsteuer_ct, 2)} + Umlagen {ct(umlagenDe(), 3)} + Konzessionsabgabe) × (1 + {num(P.de.ust * 100)} % Umsatzsteuer). Die Umlagen sind die KWKG-Umlage ({ct(P.de.umlagen_ct.kwkg, 3)}), die Offshore-Netzumlage ({ct(P.de.umlagen_ct.offshore, 3)}) und der Aufschlag für besondere Netznutzung ({ct(P.de.umlagen_ct.besondereNetznutzung, 3)}, Kategorie A bis 1 GWh). Die Konzessionsabgabe ist der Höchstbetrag für Tarifkunden nach Gemeindegröße ({ct(P.de.konzessionsabgabe_ct.bis25000, 2)} bis {ct(P.de.konzessionsabgabe_ct.ueber500000, 2)}). Das Netzentgelt ist eine Annahme: der Mittelwert 2025 je Bundesland aus dem Monitoringbericht (Bund: {ct(P.de.netzentgelt2025_ct.DE, 2)}); dieser Mittelwert enthält den auf die Kilowattstunde umgelegten Grundpreis und liegt deshalb etwas über dem reinen Arbeitspreis des Netzes.</p>
+      <p>Beispiel, Tagesmittel des {date(d.d)} ({spot(d.mittel, 2)}), Aufschlag 2 ct: netto {ct(zd.netto, 2)}, Umsatzsteuer {ct(zd.steuer, 2)}, Endpreis {ct(zd.brutto, 2)}.</p>
+      <p><strong>Niederlande.</strong> Endpreis = (Börsenpreis + Einkaufsaufschlag + Energiesteuer {ct(P.nl.eb_stroom_eur_kwh * 100, 3)}) × (1 + {num(P.nl.btw * 100)} %). Netzkosten sind dort ein fester Betrag je Anschluss und gehören nicht in den Stundenpreis; die Steuerermäßigung von {eur(P.nl.vermindering_eur, 2)} im Jahr (netto) ebenso. Beispiel {date(n.d)} ({spot(n.mittel, 2)}), Aufschlag 2 ct: {ct(zn.brutto, 2)}.</p>
+      <p><strong>Österreich, Belgien, Polen.</strong> Wir zeigen den Börsenpreis und addieren, was Sie als „Netz, Abgaben und Steuern“ von Ihrer Rechnung eintragen. Die Abgaben dieser Länder haben wir nicht Zeile für Zeile im Gesetz nachgelesen, also rechnen wir sie nicht ein. Polen: Umrechnung in Złoty mit dem Referenzkurs der EZB vom {date(EUR_PLN.latest.date)} (1 € = {num(EUR_PLN.latest.value, 4)} zł).</p>
+      <h2>3. Günstigste Stunde, Laden, Vergleich</h2>
+      <p>Das günstigste Fenster ist die Folge von Viertelstunden mit der gewünschten Laufzeit, deren mittlerer Preis am niedrigsten ist, gesucht ab der aktuellen Viertelstunde bis zum Ende der veröffentlichten Preise. Die Kosten eines Geräts verteilen dessen kWh gleichmäßig auf die Laufzeit. Beim Laden kommt ein Ladeverlust hinzu (Annahme 10 %, änderbar). Der Tarifvergleich legt Ihren Jahresverbrauch mit einem Tagesprofil (gleichmäßig oder eines der Beispielprofile) auf die letzten 30 vollständigen Tage und vergleicht das mit Ihrem Festpreis; die Hochrechnung aufs Jahr ist eine Annahme, weil Winter und Sommer verschieden teuer sind.</p>
+      <h2>4. Vergleichswerte</h2>
+      <p>Haushaltspreise Deutschland: Monitoringbericht 2025 von Bundesnetzagentur und Bundeskartellamt (Stichtag 1. April 2025). Niederlande: CBS StatLine, Tabelle 85592NED, zuletzt {H.monat(c.maand)}, Lizenz CC BY 4.0.</p>
+      <h2>5. Tests und Aktualisierung</h2>
+      <p>Jeder Build prüft den Rechenkern mit festen Fällen (Zerlegung des Endpreises, Viertelstunden der Zeitumstellung, günstigstes Fenster, Ladezeit, Vergleich); ein abweichender Wert verhindert die Veröffentlichung. Die Preise lädt <code>scripts/update-data.mjs</code> viermal täglich neu (14:30, 17:00, 20:00 und 23:00 Uhr), die Seite wird danach neu gebaut. Steuern und Umlagen lesen wir zu jedem Jahreswechsel neu. Ein Fehler? <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    </>}
+    {lang === 'en' && <>
+      <p>Every calculator on the site uses the same data and the same calculation core. Exchange prices sit in five files, one per bidding zone, loaded by a script from the SMARD interface; last fetched on {date(stand.slice(0, 10))}. Taxes, levies and averages sit with their legal reference in a single file (<code>params-2026.json</code>); no amount is written into the code.</p>
+      <h2>1. Exchange prices</h2>
+      <p>SMARD, the electricity market platform of Germany’s Federal Network Agency, publishes the result of European day-ahead market coupling for Germany/Luxembourg, Austria, the Netherlands, Belgium, Poland and other zones, per quarter hour since October 2025, in euros per megawatt-hour. The data are licensed CC BY 4.0 with the credit “Bundesnetzagentur | SMARD.de”, shown under every calculator. We load the last six weeks in quarter hours, daily averages and monthly averages since 2018. A day counts as complete when it starts at midnight Berlin time and has at least 92 quarter hours (clock changes give 92 or 100). All times are Berlin time, which applies in all five zones.</p>
+      <h2>2. From exchange price to all-in price</h2>
+      <p><strong>Germany.</strong> All-in = (exchange price + supplier markup + grid fee + electricity tax {ct(P.de.stromsteuer_ct, 2)} + levies {ct(umlagenDe(), 3)} + concession fee) × (1 + {num(P.de.ust * 100)}% VAT). The levies are the CHP levy ({ct(P.de.umlagen_ct.kwkg, 3)}), the offshore grid levy ({ct(P.de.umlagen_ct.offshore, 3)}) and the special grid use surcharge ({ct(P.de.umlagen_ct.besondereNetznutzung, 3)}, category A up to 1 GWh). The concession fee is the cap for standard customers by municipality size ({ct(P.de.konzessionsabgabe_ct.bis25000, 2)} to {ct(P.de.konzessionsabgabe_ct.ueber500000, 2)}). The grid fee is an assumption: the 2025 average per federal state from the monitoring report (national: {ct(P.de.netzentgelt2025_ct.DE, 2)}); that average spreads the standing part of the grid charge over each kWh, so it sits slightly above the pure unit rate.</p>
+      <p>Example, daily average of {date(d.d)} ({spot(d.mittel, 2)}) with a 2 ct markup: net {ct(zd.netto, 2)}, VAT {ct(zd.steuer, 2)}, all-in {ct(zd.brutto, 2)}.</p>
+      <p><strong>Netherlands.</strong> All-in = (exchange price + purchase fee + energy tax {ct(P.nl.eb_stroom_eur_kwh * 100, 3)}) × (1 + {num(P.nl.btw * 100)}%). Network costs there are a fixed amount per connection and do not belong in an hourly price; nor does the annual tax reduction of {eur(P.nl.vermindering_eur, 2)} (net). Example {date(n.d)} ({spot(n.mittel, 2)}) with a 2 ct fee: {ct(zn.brutto, 2)}.</p>
+      <p><strong>Austria, Belgium, Poland.</strong> We show the exchange price and add whatever you enter as “grid, levies and taxes” from your bill. We have not checked those countries’ charges line by line in the law, so we do not add them ourselves. Poland: converted to złoty at the ECB reference rate of {date(EUR_PLN.latest.date)} (€1 = {num(EUR_PLN.latest.value, 4)} zł).</p>
+      <h2>3. Cheapest hour, charging, comparison</h2>
+      <p>The cheapest window is the run of quarter hours with the requested duration whose average price is lowest, searched from the current quarter hour to the end of the published prices. An appliance’s cost spreads its kWh evenly over its running time. Charging adds a loss (assumed 10%, editable). The tariff comparison lays your annual use, with a daily profile (flat or one of the example profiles), over the last 30 complete days and compares it with your fixed price; scaling that to a year is an assumption, since winter and summer are priced differently.</p>
+      <h2>4. Reference figures</h2>
+      <p>German household prices: 2025 monitoring report of the Federal Network Agency and the Federal Cartel Office (reference date 1 April 2025). Netherlands: CBS StatLine, table 85592NED, latest month {H.monat(c.maand)}, CC BY 4.0 licence.</p>
+      <h2>5. Tests and updates</h2>
+      <p>Every build checks the calculation core against fixed cases (price breakdown, clock-change quarter hours, cheapest window, charging time, comparison); a mismatch stops publication. <code>scripts/update-data.mjs</code> reloads prices four times a day (2:30 pm, 5 pm, 8 pm and 11 pm Berlin time) and the site is rebuilt afterwards. Taxes and levies are read again at each new year. Found an error? <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    </>}
+    {lang === 'nl' && <>
+      <p>Alle rekenhulpen van de site gebruiken dezelfde gegevens en dezelfde rekenkern. De beursprijzen staan in vijf bestanden, één per biedzone, die een script uit de interface van SMARD laadt; laatst opgehaald op {date(stand.slice(0, 10))}. Belastingen, heffingen en gemiddelden staan met hun bron in één bestand (<code>params-2026.json</code>); geen enkel bedrag staat in de programmacode.</p>
+      <h2>1. De beursprijzen</h2>
+      <p>SMARD, het stroommarktplatform van de Duitse Bundesnetzagentur, publiceert de uitkomst van de Europese day-aheadmarktkoppeling voor Duitsland/Luxemburg, Oostenrijk, Nederland, België, Polen en andere zones, sinds oktober 2025 per kwartier, in euro per megawattuur. De gegevens vallen onder licentie CC BY 4.0 met de vermelding „Bundesnetzagentur | SMARD.de”, die onder elke rekenhulp staat. We laden de laatste zes weken per kwartier, de daggemiddelden en de maandgemiddelden sinds 2018. Een dag is volledig als hij om middernacht begint en minstens 92 kwartieren heeft (de klokwissel geeft 92 of 100). Alle tijden zijn Nederlandse tijd, die in alle vijf zones gelijk is.</p>
+      <h2>2. Van beursprijs naar eindprijs</h2>
+      <p><strong>Nederland.</strong> Eindprijs = (beursprijs + inkoopvergoeding + energiebelasting {ct(P.nl.eb_stroom_eur_kwh * 100, 3)}) × (1 + {num(P.nl.btw * 100)} % btw). Netbeheerkosten zijn een vast bedrag per aansluiting en horen niet in een uurprijs; de vermindering energiebelasting van {eur(P.nl.vermindering_eur, 2)} per jaar (excl. btw) evenmin. Voorbeeld {date(n.d)} ({spot(n.mittel, 2)}), inkoopvergoeding 2 ct: {ct(zn.brutto, 2)}.</p>
+      <p><strong>Duitsland.</strong> Eindprijs = (beursprijs + opslag + netkosten + Stromsteuer {ct(P.de.stromsteuer_ct, 2)} + heffingen {ct(umlagenDe(), 3)} + concessieheffing) × (1 + {num(P.de.ust * 100)} % btw). De netkosten zijn een aanname: het gemiddelde 2025 per deelstaat uit het Monitoringbericht van de Bundesnetzagentur (landelijk {ct(P.de.netzentgelt2025_ct.DE, 2)}). Voorbeeld {date(d.d)} ({spot(d.mittel, 2)}), opslag 2 ct: {ct(zd.brutto, 2)}.</p>
+      <p><strong>België, Oostenrijk, Polen.</strong> We tonen de beursprijs en tellen op wat je als „net, heffingen en belastingen” van je factuur invult. De heffingen van die landen hebben we niet regel voor regel in de wet nagelezen, dus rekenen we ze niet zelf mee. Polen: omgerekend in zloty tegen de referentiekoers van de ECB van {date(EUR_PLN.latest.date)} (1 € = {num(EUR_PLN.latest.value, 4)} zł).</p>
+      <h2>3. Goedkoopste uur, laden, vergelijken</h2>
+      <p>Het goedkoopste venster is de reeks kwartieren met de gevraagde duur waarvan de gemiddelde prijs het laagst is, gezocht vanaf het huidige kwartier tot het einde van de gepubliceerde prijzen. De kosten van een apparaat verdelen zijn kWh gelijkmatig over de looptijd. Bij het laden komt er laadverlies bij (aanname 10 %, aan te passen). De vergelijking legt je jaarverbruik met een dagprofiel (gelijkmatig of een van de voorbeeldprofielen) op de laatste 30 volledige dagen en vergelijkt dat met je vaste prijs; de omrekening naar een jaar is een aanname, omdat winter en zomer anders geprijsd zijn.</p>
+      <h2>4. Vergelijkingscijfers</h2>
+      <p>Consumentenprijzen Nederland: CBS StatLine, tabel 85592NED, laatste maand {H.monat(c.maand)}, licentie CC BY 4.0. Gasprijs: hetzelfde CBS-leveringstarief met de energiebelasting van {eur(P.nl.eb_gas_eur_m3, 5)} per m³ en btw.</p>
+      <h2>5. Tests en bijwerking</h2>
+      <p>Elke build toetst de rekenkern aan vaste gevallen (opbouw van de eindprijs, kwartieren van de klokwissel, goedkoopste venster, laadtijd, vergelijking); een afwijking houdt de publicatie tegen. <code>scripts/update-data.mjs</code> laadt de prijzen vier keer per dag opnieuw (14.30, 17.00, 20.00 en 23.00 uur) en daarna wordt de site opnieuw gebouwd. Belastingen en heffingen lezen we bij elke jaarwisseling opnieuw. Een fout gevonden? <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    </>}
+  </div>
+</PageLayout>

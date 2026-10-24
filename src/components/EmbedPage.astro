@@ -1,0 +1,29 @@
+---
+/** Einbettbare Seite (iframe) : Rechner der ganzen Fahrt, ohne Navigation. noindex, außerhalb der Sitemap. */
+import '../styles/global.css';
+import ToolFor from './ToolFor.astro';
+import { ZONES } from '../lib/engine/tarif';
+import { SITE_URL, LANG_TAGS, SITE_NAMES } from '../data/site-config';
+import { route, type Locale } from '../i18n/routes';
+import { helpers } from '../lib/helpers';
+import { EMBED } from '../lib/embed';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const H = helpers(lang);
+const home = `${SITE_URL}${route('home', lang)}`;
+---
+<!doctype html>
+<html lang={LANG_TAGS[lang]}>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{EMBED[lang].title} – widget</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={home} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  </head>
+  <body class="bg-white p-2 text-navy-900">
+    <ToolFor tool="preis" zonen={lang === 'nl' ? ['NL', 'BE', 'DE-LU', 'AT', 'PL'] : [...ZONES]} lang={lang} id="embed" methodHref={`${SITE_URL}${route('method', lang)}`} />
+    <p class="mt-2 text-center text-xs text-navy-600"><a href={home} target="_blank" rel="noopener" class="underline">{SITE_NAMES[lang]}</a> · {H.T('Börsenpreise: Bundesnetzagentur | SMARD.de, CC BY 4.0', 'exchange prices: Bundesnetzagentur | SMARD.de, CC BY 4.0', 'beursprijzen: Bundesnetzagentur | SMARD.de, CC BY 4.0')}</p>
+  </body>
+</html>

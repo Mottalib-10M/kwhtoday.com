@@ -1,0 +1,48 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route, type Locale } from '../../i18n/routes';
+import { helpers } from '../../lib/helpers';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const H = helpers(lang); const T = H.T;
+const name = SITE_NAMES[lang];
+const crumb = T('Redaktionelle Grundsätze', 'Editorial policy', 'Redactiestatuut');
+const description = T(
+  `Woher die Strompreise auf ${name} kommen, wie oft wir sie laden, welche Abgaben wir nachgelesen haben, was als Annahme gilt und was bei einem Fehler geschieht.`,
+  `Where the power prices on ${name} come from, how often we load them, which taxes we have checked, what counts as an assumption and what happens after an error.`,
+  `Waar de stroomprijzen op ${name} vandaan komen, hoe vaak we ze laden, welke belastingen we nagelezen hebben, wat een aanname is en wat er bij een fout gebeurt.`);
+const mail = `mailto:${CONTACT_EMAIL}`;
+---
+<PageLayout title={`${crumb} – ${name}`} description={description} lang={lang} noindex={true} breadcrumbs={[{ label: crumb }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    {lang === 'de' && <>
+      <h1>Redaktionelle Grundsätze und Korrekturen</h1>
+      <p>Wer die Waschmaschine nach unserer Kurve startet, verlässt sich auf eine Uhrzeit und einen Betrag. Deshalb steht hier, woher beide kommen und was wir tun, wenn einer nicht stimmt.</p>
+      <h2>Die Börsenpreise</h2><p>Alle Day-Ahead-Preise kommen von SMARD, der Plattform der Bundesnetzagentur, unter der Lizenz CC BY 4.0, mit der Nennung „Bundesnetzagentur | SMARD.de“ auf jeder Seite. Wir übernehmen keine Preise aus Apps, von Anbietern oder anderen Preisseiten und verändern die Werte nicht: wir rechnen nur Steuern und Ihre Angaben dazu.</p>
+      <h2>Die Abgaben</h2><p>Jeder feste Bestandteil des Endpreises ist im Gesetz oder bei einer Behörde nachgelesen, mit Datum: Stromsteuergesetz, Umsatzsteuergesetz, Konzessionsabgabenverordnung, die Umlagen der Übertragungsnetzbetreiber, die niederländische Wet belastingen op milieugrondslag. Was wir für ein Land nicht nachgelesen haben, rechnen wir nicht ein; die Seite sagt das.</p>
+      <h2>Annahmen, immer benannt</h2><p>Netzentgelt-Mittelwerte, Verbrauchsprofile, Ladeverluste und Hochrechnungen aufs Jahr sind Annahmen und heißen auf der Seite auch so. Sie lassen sich in jedem Rechner überschreiben.</p>
+      <h2>Rhythmus</h2><p>Die Preise werden viermal am Tag neu geladen, nach der Veröffentlichung des Folgetags durch die Börse. Die Abgaben lesen wir zu jedem Jahreswechsel und bei jeder Änderung neu.</p>
+      <h2>Fehler</h2><p>Ein gemeldeter Fehler wird an der Quelle geprüft; bestätigt, wird er korrigiert und als Test aufgenommen, damit er nicht wiederkommt. Meldung an <a href={mail}>{CONTACT_EMAIL}</a>. {AUTHOR_NAME} hat keine geschäftliche Verbindung zu einem Stromanbieter oder einer Börse.</p>
+    </>}
+    {lang === 'en' && <>
+      <h1>Editorial and corrections policy</h1>
+      <p>Someone who starts the washing machine by our curve is trusting a time and an amount. So here is where both come from and what we do when one is wrong.</p>
+      <h2>Exchange prices</h2><p>Every day-ahead price comes from SMARD, the Federal Network Agency’s platform, under the CC BY 4.0 licence, credited “Bundesnetzagentur | SMARD.de” on every page. We take no prices from apps, suppliers or other price sites and never alter the values: we only add taxes and your own inputs.</p>
+      <h2>Taxes and levies</h2><p>Each fixed part of the all-in price was read in the law or from an authority, with a date: the German Electricity Tax Act, VAT Act and Concession Fee Ordinance, the levies set by the transmission operators, and the Dutch Environmental Taxes Act. Anything we have not checked for a country stays out of the sum, and the page says so.</p>
+      <h2>Assumptions, always named</h2><p>Average grid fees, usage profiles, charging losses and yearly extrapolations are assumptions and labelled that way. Every calculator lets you overwrite them.</p>
+      <h2>Rhythm</h2><p>Prices are reloaded four times a day, after the exchange publishes the next day. Taxes are read again at every new year and whenever they change.</p>
+      <h2>Errors</h2><p>A reported error is checked at the source; once confirmed, it is fixed and turned into a test so it cannot return. Write to <a href={mail}>{CONTACT_EMAIL}</a>. {AUTHOR_NAME} has no business link with any supplier or exchange.</p>
+    </>}
+    {lang === 'nl' && <>
+      <h1>Redactiestatuut en correctiebeleid</h1>
+      <p>Wie de wasmachine start op onze grafiek, vertrouwt op een tijdstip en een bedrag. Daarom staat hier waar beide vandaan komen en wat we doen als er één niet klopt.</p>
+      <h2>De beursprijzen</h2><p>Alle day-aheadprijzen komen van SMARD, het platform van de Duitse Bundesnetzagentur, onder licentie CC BY 4.0, met de vermelding „Bundesnetzagentur | SMARD.de” op elke pagina. We nemen geen prijzen over uit apps, van leveranciers of van andere prijssites en wijzigen de waarden niet: we tellen alleen belastingen en jouw gegevens erbij.</p>
+      <h2>De belastingen</h2><p>Elk vast onderdeel van de eindprijs is nagelezen in de wet of bij een overheid, met datum: de Wet belastingen op milieugrondslag, de Wet op de omzetbelasting, en voor Duitsland de wetten op Stromsteuer, btw en concessieheffing. Wat we voor een land niet nagelezen hebben, rekenen we niet mee; de pagina zegt dat.</p>
+      <h2>Aannames, altijd benoemd</h2><p>Gemiddelde netkosten, verbruiksprofielen, laadverlies en jaarramingen zijn aannames en heten ook zo. In elke rekenhulp kun je ze aanpassen.</p>
+      <h2>Ritme</h2><p>De prijzen worden vier keer per dag opnieuw geladen, na de publicatie van de volgende dag door de beurs. De belastingen lezen we bij elke jaarwisseling en bij elke wijziging opnieuw.</p>
+      <h2>Fouten</h2><p>Een gemelde fout toetsen we aan de bron; bevestigd, wordt ze hersteld en een test, zodat ze niet terugkomt. Meld het via <a href={mail}>{CONTACT_EMAIL}</a>. {AUTHOR_NAME} heeft geen zakelijke band met een energieleverancier of een beurs.</p>
+    </>}
+    <p>{T('Siehe auch die', 'See also the', 'Zie ook de')} <a href={route('method', lang)}>{T('Methode', 'method', 'methode')}</a>. {T('Fassung:', 'Version:', 'Versie:')} {H.date(LAST_UPDATED)}.</p>
+  </div>
+</PageLayout>
