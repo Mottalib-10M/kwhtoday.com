@@ -103,14 +103,14 @@ const crumbAside = Astro.slots.has('crumb-aside') ? (await Astro.slots.render('c
     <header>
     <nav class="fixed top-0 z-50 w-full border-b border-navy-200 bg-white" aria-label={ui.mainNav}>
       <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <a href={homeHref} class="flex items-center gap-2 font-bold text-navy-900">
+        <a href={homeHref} class="shrink-0 whitespace-nowrap flex items-center gap-2 font-bold text-navy-900">
           <img src="/logo.svg" class="h-8 w-8" width="32" height="32" alt="" />
           <span>{SITE_NAMES[lang]}</span>
         </a>
         <div class="hidden items-center gap-1 lg:flex">
           {cats.map((cat, idx) => (
             <div class="nav-dropdown relative">
-              <button class="nav-dropdown-trigger flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-navy-600 hover:bg-navy-50 hover:text-navy-900" aria-haspopup="true" aria-expanded="false">
+              <button class="nav-dropdown-trigger whitespace-nowrap flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-navy-600 hover:bg-navy-50 hover:text-navy-900" aria-haspopup="true" aria-expanded="false">
                 {cat.label}<svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
               </button>
               <div class={`nav-dropdown-panel absolute top-full z-50 mt-1 hidden w-72 rounded-xl border border-navy-200 bg-white p-3 shadow-lg ${idx >= cats.length - 1 ? 'right-0' : 'left-0'}`}>
@@ -118,8 +118,8 @@ const crumbAside = Astro.slots.has('crumb-aside') ? (await Astro.slots.render('c
               </div>
             </div>
           ))}
-          {direct.map((l) => <a href={l.href} class="rounded-lg px-3 py-2 text-sm font-medium text-navy-600 hover:bg-navy-50 hover:text-navy-900">{l.label}</a>)}
-          {otherLocales.map((l) => <a href={alts?.[l] ?? route('home', l)} hreflang={l} class="ml-2 rounded-lg border border-navy-200 px-2.5 py-1.5 text-xs font-semibold uppercase text-navy-600 hover:bg-navy-50">{l}</a>)}
+          {direct.map((l) => <a href={l.href} class="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-navy-600 hover:bg-navy-50 hover:text-navy-900">{l.label}</a>)}
+          {otherLocales.map((l) => <a href={alts?.[l] ?? route('home', l)} hreflang={l} class="whitespace-nowrap ml-2 rounded-lg border border-navy-200 px-2.5 py-1.5 text-xs font-semibold uppercase text-navy-600 hover:bg-navy-50">{l}</a>)}
         </div>
         <div class="flex items-center gap-2 lg:hidden">
           {otherLocales.map((l) => <a href={alts?.[l] ?? route('home', l)} class="rounded-lg border border-navy-200 px-2 py-1 text-xs font-semibold uppercase text-navy-600">{l}</a>)}
