@@ -1,6 +1,6 @@
 /** Props der Rechner beim Build : nur die Tage und Reihen, die der Rechner braucht (nie die ganzen Dateien). */
 import { markt, letzteTage, negativeJeTag, EUR_PLN, CBS } from './engine/markt';
-import type { Zone } from './engine/tarif';
+import { preisFn, type Zone } from './engine/tarif';
 import type { Tool } from './guide-types';
 import { P } from './engine/params';
 
@@ -24,3 +24,13 @@ export function festVorgabe(zone: Zone): number {
 }
 export const stand = (zone: Zone) => markt(zone).abgerufen;
 export const PLN = EUR_PLN.latest.value;
+/** NL : kale leveringsprijs variabel excl. btw en EB (CBS, laatste maand), ct/kWh. */
+export const kaleNl = () => Math.round((CBS.maanden.at(-1)!.excl.stroomVariabel as number) * 10000) / 100;
+/** DE : Endpreis beim Börsenmittel der letzten 30 Tage (Bundesmittel Netzentgelt, ohne Aufschlag), ct/kWh, 2 Stellen. */
+export function preisDe30() {
+  const tage = markt('DE-LU').tage.slice(-30);
+  const alle = tage.flatMap((t) => t.v);
+  const spot = alle.reduce((s, v) => s + v, 0) / alle.length;
+  const preis = Math.round(preisFn('DE-LU', { aufschlag: 0, netz: P.de.netzentgelt2025_ct.DE, gemeinde: 'bis100000' })(spot) * 100) / 100;
+  return { preisCt: preis, preis, von: tage[0].d, bis: tage.at(-1)!.d };
+}

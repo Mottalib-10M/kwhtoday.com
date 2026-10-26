@@ -1,7 +1,7 @@
 {
  "_lisezmoi": "Paramètres réglementaires du site (RECETTE §4). Chaque valeur relue sur sa source le jour indiqué ; aucune valeur en dur dans les pages. Les prix de marché ne sont PAS ici : src/data/prices/*.json (SMARD) et cbs-nl.json (CBS), régénérés par scripts/update-data.mjs.",
  "year": 2026,
- "retrieved_at": "2026-10-24",
+ "retrieved_at": "2026-10-26",
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "de": {
@@ -46,13 +46,51 @@
    "andererLieferant": 38.2,
    "modellNeukunden": 36.9,
    "modellDynamisch": 36.3
+  },
+  "einspeiseverguetung_ct": {
+   "_quelle": "Bundesnetzagentur, EEG-Förderung und -Fördersätze: feste Einspeisevergütung für Solaranlagen auf Gebäuden (§ 48 Abs. 2, 2a EEG 2023), Inbetriebnahme 1. August bis 31. Dezember 2026, abgerufen 2026-10-26",
+   "ab": "2026-08-01",
+   "bis": "2026-12-31",
+   "teil": {
+    "bis10": 7.7,
+    "bis40": 6.66,
+    "bis100": 5.44
+   },
+   "voll": {
+    "bis10": 12.22,
+    "bis40": 10.24,
+    "bis100": 10.24
+   },
+   "sonstige": 6.19,
+   "optInAufschlag": 0.6
+  },
+  "netzentgelt2026": {
+   "_quelle": "Bundesnetzagentur, Preise und Abschläge (Verbraucherportal), abgerufen 2026-10-26: Zuschuss 6,5 Mrd. Euro zu den Übertragungsnetzentgelten 2026; Haushaltsnetzentgelte bei den 15 größten Netzbetreibern im Schnitt knapp 2 ct/kWh niedriger",
+   "zuschuss_mrd_eur": 6.5,
+   "senkung_ct": 2,
+   "netzbetreiber": 15
+  },
+  "p14a": {
+   "_quelle": "Bundesnetzagentur, Steuerbare Verbrauchseinrichtungen: Reduzierung des Netzentgelts (Festlegung BK8-22/010-A), abgerufen 2026-10-26",
+   "modul1_min_eur": 110,
+   "modul1_max_eur": 190,
+   "modul1_stand": 2023,
+   "modul2_restfaktor": 0.4,
+   "modul3_ab": "2025-04-01",
+   "ab": "2024-01-01"
   }
  },
  "nl": {
   "btw": 0.21,
   "eb_stroom_eur_kwh": 0.09161,
   "eb_gas_eur_m3": 0.60066,
-  "vermindering_eur": 519.8
+  "vermindering_eur": 519.8,
+  "saldering": {
+   "_quelle": "Rijksoverheid, Salderingsregeling stopt in 2027; ACM ConsuWijzer, Salderen en terugleveren; abgerufen 2026-10-26",
+   "einde": "2027-01-01",
+   "min_vergoeding_aandeel": 0.5,
+   "min_vergoeding_tot": "2030-01-01"
+  }
  },
  "at": {
   "ust": 0.2
@@ -160,6 +198,94 @@
     "de": "Bundesnetzagentur und Bundeskartellamt: Monitoringbericht 2025, Tabelle 25",
     "en": "Federal Network Agency and Federal Cartel Office: Monitoring Report 2025, table 25",
     "nl": "Bundesnetzagentur en Bundeskartellamt: Monitoringbericht 2025, tabel 25"
+   }
+  },
+  "rijksSaldering": {
+   "url": "https://www.rijksoverheid.nl/themas/klimaat-milieu-en-natuur/energie-thuis/salderingsregeling",
+   "label": {
+    "de": "Rijksoverheid: Salderingsregeling stopt in 2027",
+    "en": "Dutch government (Rijksoverheid): net metering scheme ends in 2027",
+    "nl": "Rijksoverheid: Salderingsregeling stopt in 2027"
+   }
+  },
+  "acmSalderen": {
+   "url": "https://consument.acm.nl/elektriciteit-en-gas/duurzame-energie/wat-is-salderen",
+   "label": {
+    "de": "ACM ConsuWijzer: Salderen und Rückspeisung",
+    "en": "ACM ConsuWijzer: net metering and feeding power back",
+    "nl": "ACM ConsuWijzer: Salderen en terugleveren"
+   }
+  },
+  "bnetzaEeg": {
+   "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/EEG_Foerderung/start.html",
+   "label": {
+    "de": "Bundesnetzagentur: EEG-Förderung und -Fördersätze",
+    "en": "Federal Network Agency: EEG support and feed-in rates",
+    "nl": "Bundesnetzagentur: EEG-steun en vergoedingen"
+   }
+  },
+  "eeg51": {
+   "url": "https://www.gesetze-im-internet.de/eeg_2014/__51.html",
+   "label": {
+    "de": "EEG 2023 § 51: Verringerung bei negativen Preisen",
+    "en": "Renewable Energy Sources Act (EEG) section 51: negative prices",
+    "nl": "EEG 2023 § 51: verlaging bij negatieve prijzen"
+   }
+  },
+  "eeg51a": {
+   "url": "https://www.gesetze-im-internet.de/eeg_2014/__51a.html",
+   "label": {
+    "de": "EEG 2023 § 51a: Verlängerung des Vergütungszeitraums",
+    "en": "EEG section 51a: extension of the payment period",
+    "nl": "EEG 2023 § 51a: verlenging van de vergoedingsperiode"
+   }
+  },
+  "eeg9": {
+   "url": "https://www.gesetze-im-internet.de/eeg_2014/__9.html",
+   "label": {
+    "de": "EEG 2023 § 9: technische Vorgaben, 60-Prozent-Begrenzung",
+    "en": "EEG section 9: technical rules and the 60 percent cap",
+    "nl": "EEG 2023 § 9: technische eisen, begrenzing op 60 procent"
+   }
+  },
+  "eeg100": {
+   "url": "https://www.gesetze-im-internet.de/eeg_2014/__100.html",
+   "label": {
+    "de": "EEG 2023 § 100: Übergangsbestimmungen",
+    "en": "EEG section 100: transitional provisions",
+    "nl": "EEG 2023 § 100: overgangsbepalingen"
+   }
+  },
+  "bmwkSpitzen": {
+   "url": "https://www.bundeswirtschaftsministerium.de/Redaktion/DE/Dossier/ErneuerbareEnergien/faq-zur-energierechtsnovelle-zur-vermeidung-von-stromspitzen-und-zum-biomassepaket.html",
+   "label": {
+    "de": "Bundeswirtschaftsministerium: FAQ zur Novelle zur Vermeidung von Stromspitzen",
+    "en": "Federal Ministry for Economic Affairs: FAQ on the solar peak law",
+    "nl": "Duits ministerie van Economische Zaken: FAQ over de wet tegen stroompieken"
+   }
+  },
+  "bnetzaPreise": {
+   "url": "https://www.bundesnetzagentur.de/DE/Vportal/Energie/PreiseAbschlaege/start.html",
+   "label": {
+    "de": "Bundesnetzagentur: Preise und Abschläge (Netzentgelte 2026)",
+    "en": "Federal Network Agency: prices and instalments (2026 grid fees)",
+    "nl": "Bundesnetzagentur: prijzen en voorschotten (netkosten 2026)"
+   }
+  },
+  "bnetza14a": {
+   "url": "https://www.bundesnetzagentur.de/DE/Vportal/Energie/SteuerbareVBE/Netzentgelt_table.html",
+   "label": {
+    "de": "Bundesnetzagentur: Reduzierung des Netzentgelts nach § 14a EnWG",
+    "en": "Federal Network Agency: grid fee reduction under section 14a EnWG",
+    "nl": "Bundesnetzagentur: verlaging van de netkosten volgens § 14a EnWG"
+   }
+  },
+  "enwg14a": {
+   "url": "https://www.gesetze-im-internet.de/enwg_2005/__14a.html",
+   "label": {
+    "de": "Energiewirtschaftsgesetz § 14a: steuerbare Verbrauchseinrichtungen",
+    "en": "Energy Industry Act (EnWG), section 14a: controllable devices",
+    "nl": "Energiewirtschaftsgesetz § 14a: stuurbare verbruikers"
    }
   }
  }

@@ -19,7 +19,7 @@ export default defineGuide({
   tool: 'vergleich',
   zone: { de: 'DE-LU', en: 'DE-LU', nl: 'NL' },
   toolProps: { start: { aufschlag: 2 } },
-  related: ['fenster', 'laden', 'preis', 'verlauf'],
+  related: ['fenster', 'laden', 'saldering', 'thuisbatterij', 'stromkosten', 'preis', 'verlauf'],
   sources: ['enwg41a', 'monitoring', 'smard', 'stromstg', 'cbs', 'wbm'],
   de: {
     slug: 'dynamischer-stromtarif',

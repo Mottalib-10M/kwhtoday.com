@@ -171,3 +171,23 @@ describe('tage et marché', () => {
     expect(f(50)).toBeCloseTo(zerlegen('NL', 50, { aufschlag: 1 }).brutto, 12);
   });
 });
+
+import { einspeiseSatz, saldering, modul14a } from './eigen';
+describe('Eigenerzeugung (eigen.ts)', () => {
+  it('Einspeisevergütung anteilig : 15 kWp Teileinspeisung = (10 × 7,70 + 5 × 6,66) / 15', () => {
+    expect(einspeiseSatz(10, 'teil')).toBeCloseTo(7.7, 6);
+    expect(einspeiseSatz(15, 'teil')).toBeCloseTo((10 * 7.7 + 5 * 6.66) / 15, 6);
+    expect(einspeiseSatz(100, 'voll')).toBeCloseTo((10 * 12.22 + 90 * 10.24) / 100, 6);
+  });
+  it('Saldering : verlies = gesaldeerde kWh × (prijs − vergoeding)', () => {
+    const r = saldering({ opwek: 3000, direct: 0.3, verbruik: 2500, prijsIncl: 26, vergoeding: 6, kosten: 0 });
+    expect(r.terug).toBeCloseTo(2100, 6);
+    expect(r.gesaldeerd).toBeCloseTo(1600, 6);
+    expect(r.verlies).toBeCloseTo((1600 * 20) / 100, 6);
+  });
+  it('§ 14a : Modul 2 = kWh × AP × 60 % × 1,19 − Zähler', () => {
+    const r = modul14a({ kwh: 4000, arbeitspreis: 10, pauschale: 150, zaehler: 20 });
+    expect(r.modul2).toBeCloseTo((4000 * 10 * 0.6 * 1.19) / 100 - 20, 6);
+    expect(r.besser).toBe(2);
+  });
+});

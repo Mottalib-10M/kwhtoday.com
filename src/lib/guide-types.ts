@@ -8,7 +8,7 @@ import type { Zone } from './engine/tarif';
 export type { Lang };
 export type Group = 'preise' | 'tarif' | 'nutzen' | 'laender' | 'gas';
 /** Rechner am Kopf der Seite (components/outils/Strom.tsx). */
-export type Tool = 'preis' | 'morgen' | 'jetzt' | 'fenster' | 'laden' | 'vergleich' | 'verlauf' | 'negativ' | 'gas';
+export type Tool = 'preis' | 'morgen' | 'jetzt' | 'fenster' | 'laden' | 'vergleich' | 'verlauf' | 'negativ' | 'gas' | 'saldering' | 'speicher' | 'einspeisung' | 'modul14a' | 'stromkosten';
 export interface FAQ { q: string; a: string }
 
 /** Schreibwerkzeuge für den Seitentext : Links, Zahlen im Format der Sprache, Motor, Marktdaten. */

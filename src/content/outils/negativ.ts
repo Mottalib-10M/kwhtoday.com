@@ -27,7 +27,7 @@ export default defineGuide({
   tool: 'negativ',
   zone: { de: 'DE-LU', en: 'DE-LU', nl: 'NL' },
   zonen: { de: ['AT', 'NL', 'BE', 'PL'], en: ['NL', 'AT', 'BE', 'PL'], nl: ['BE', 'DE-LU', 'AT', 'PL'] },
-  related: ['verlauf', 'fenster', 'vergleich', 'morgen'],
+  related: ['verlauf', 'fenster', 'terugleververgoeding', 'einspeiseverguetung', 'vergleich', 'morgen'],
   sources: ['smard', 'smardLizenz', 'stromstg', 'ustg', 'wbm'],
   de: {
     slug: 'negative-strompreise',

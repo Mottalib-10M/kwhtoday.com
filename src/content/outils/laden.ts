@@ -18,7 +18,7 @@ export default defineGuide({
   zone: { de: 'DE-LU', en: 'DE-LU', nl: 'NL' },
   zonen: { de: ['AT'], en: ['NL', 'AT', 'BE'], nl: ['BE', 'DE-LU'] },
   toolProps: { batterie: 60, kw: 11, von: 20, bis: 80 },
-  related: ['fenster', 'vergleich', 'morgen', 'negativ'],
+  related: ['fenster', 'paragraph14a', 'vergleich', 'thuisbatterij', 'morgen', 'negativ'],
   sources: ['smard', 'smardLizenz', 'enwg41a', 'stromstg', 'wbm'],
   de: {
     slug: 'e-auto-laden',

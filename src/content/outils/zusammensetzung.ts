@@ -24,7 +24,7 @@ export default defineGuide({
   order: 20,
   tool: 'preis',
   zone: 'DE-LU',
-  related: ['vergleich', 'preis', 'verlauf', 'negativ'],
+  related: ['netzentgelte', 'vergleich', 'stromkosten', 'preis', 'verlauf', 'negativ'],
   sources: ['stromstg', 'ustg', 'kav', 'ihk', 'monitoring', 'smard'],
   de: {
     slug: 'strompreis-zusammensetzung',

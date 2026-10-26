@@ -1,7 +1,10 @@
 ---
 /** Setzt den Rechner einer Seite mit seinen Daten ein (RECETTE §9.3 : jede Seite hat ihren Rechner). */
 import { PreisRechner, FensterRechner, LadenRechner, VergleichRechner, VerlaufRechner, GasRekenhulp } from './outils/Strom';
-import { tageFuer, verlaufFuer, cbsGas, festVorgabe, stand, PLN } from '../lib/tool-props';
+import { SalderingRekenhulp, SpeicherRechner, EinspeiseRechner, Modul14aRechner, StromkostenRechner } from './outils/Eigen';
+import { tageFuer, verlaufFuer, cbsGas, festVorgabe, stand, PLN, kaleNl, preisDe30 } from '../lib/tool-props';
+import { letzteTage } from '../lib/engine/markt';
+import { P } from '../lib/engine/params';
 import type { Tool } from '../lib/guide-types';
 import type { Zone } from '../lib/engine/tarif';
 import type { Locale } from '../i18n/routes';
@@ -18,3 +21,8 @@ const tp = toolProps as any;
 {tool === 'vergleich' && <VergleichRechner client:load {...base} tage={tageFuer(tool, zonen)} kwhJahr={tp.kwhJahr} fest={tp.fest ?? festVorgabe(zone)} profil={tp.profil} start={tp.start} />}
 {(tool === 'verlauf' || tool === 'negativ') && <VerlaufRechner client:load {...base} verlauf={verlaufFuer(zonen)} ansicht={tool === 'negativ' ? 'negativ' : tp.ansicht} kwhMonat={tp.kwhMonat} />}
 {tool === 'gas' && <GasRekenhulp client:load lang={lang} methodHref={methodHref} id={id} cbs={cbsGas()} verbruik={tp.verbruik} />}
+{tool === 'saldering' && <SalderingRekenhulp client:load lang={lang} methodHref={methodHref} id={id} prijsIncl={festVorgabe('NL')} kale={kaleNl()} />}
+{tool === 'speicher' && <SpeicherRechner client:load lang={lang} methodHref={methodHref} id={id} tage={letzteTage('NL', 30)} />}
+{tool === 'einspeisung' && <EinspeiseRechner client:load lang={lang} methodHref={methodHref} id={id} preisCt={preisDe30().preis} />}
+{tool === 'modul14a' && <Modul14aRechner client:load lang={lang} methodHref={methodHref} id={id} arbeitspreis={P.de.netzentgelt2025_ct.DE} />}
+{tool === 'stromkosten' && <StromkostenRechner client:load lang={lang} methodHref={methodHref} id={id} {...preisDe30()} />}
