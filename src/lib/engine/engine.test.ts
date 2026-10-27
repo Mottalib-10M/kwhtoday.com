@@ -191,3 +191,49 @@ describe('Eigenerzeugung (eigen.ts)', () => {
     expect(r.besser).toBe(2);
   });
 });
+
+describe('Haus und Verbrauch (haus.ts)', async () => {
+  const H = await import('./haus');
+  it('energiebelasting 2026 : schijven en vermindering (Belastingdienst)', () => {
+    const r = H.energiebelasting({ kwh: 12000, m3: 1000, vermindering: true });
+    expect(r.stroom.som).toBeCloseTo(10000 * 0.09161 + 2000 * 0.06671, 6);
+    expect(r.gas.som).toBeCloseTo(1000 * 0.60066, 6);
+    expect(r.excl).toBeCloseTo(916.1 + 133.42 + 600.66 - 519.8, 6);
+    expect(r.incl).toBeCloseTo(r.excl * 1.21, 6);
+  });
+  it('capaciteitstarief Antwerpen : minimum 2,5 kW, btw 6 %', () => {
+    const r = H.capaciteit({ gebied: 'Antwerpen', piekKw: 1, kwh: 0 });
+    expect(r.kw).toBe(2.5);
+    expect(r.cap).toBeCloseTo(2.5 * 49.4036563 * 1.06, 6);
+    expect(r.data).toBeCloseTo(17.85 * 1.06, 6);
+  });
+  it('KfW 458 ab 21.7.2026 : Deckel 70 %, 80 % bis 30.000 €, 28.000 € förderfähig', () => {
+    expect(H.kfw({ kosten: 40000, klima: false, einkommen: 'nein' }).zuschuss).toBeCloseTo(28000 * 0.3, 6);
+    expect(H.kfw({ kosten: 20000, klima: true, einkommen: 'bis40000' }).satz).toBeCloseTo(0.7, 9);
+    expect(H.kfw({ kosten: 20000, klima: true, einkommen: 'bis30000' }).satz).toBeCloseTo(0.8, 9);
+    expect(H.kfw({ kosten: 20000, klima: false, einkommen: 'bis50000' }).satz).toBeCloseTo(0.4, 9);
+  });
+  it('ISDE 2026 : 1.025 € + 225 €/kW + 200 € A+++ (4 kW = 2.125 €), minimum 500 €', () => {
+    expect(H.isde({ kw: 4, label: true })).toBe(2125);
+    expect(H.isde({ kw: 0, label: false })).toBe(1025);
+  });
+  it('CO₂-Preis 65 €/t × 0,1814 t/MWh ≈ 1,18 ct/kWh ; bei 55 € ≈ 0,998 ct (Monitoringbericht)', () => {
+    expect(H.co2Ct()).toBeCloseTo(1.1791, 3);
+    expect(H.co2Ct(55)).toBeCloseTo(0.998, 2);
+  });
+  it('Wasser : 1,163 Wh je Liter und Kelvin', () => {
+    expect(H.wasserKwh(1000, 1, 1)).toBeCloseTo(1.163, 9);
+  });
+  it('Balkonkraftwerk : Ertrag × Eigenverbrauch × Preis', () => {
+    const r = H.balkon({ wp: 800, ertrag: 800, eigen: 0.7, preisCt: 30, kosten: 500 });
+    expect(r.erzeugt).toBe(640);
+    expect(r.ersparnis).toBeCloseTo(640 * 0.7 * 0.3, 9);
+    expect(r.amortisation).toBeCloseTo(500 / (640 * 0.7 * 0.3), 9);
+  });
+  it('Wärmepumpe : Heizwärme / JAZ, hybride rest blijft gas', () => {
+    const r = H.waermepumpe({ gasKwh: 10000, wirkungsgrad: 0.9, jaz: 3, anteil: 0.5, stromCt: 30, gasCt: 10, gasGrundJahr: 100, invest: 0, foerderung: 0 });
+    expect(r.stromKwh).toBeCloseTo(1500, 9);
+    expect(r.restGasKwh).toBeCloseTo(5000, 9);
+    expect(r.kostenWp).toBeCloseTo(450 + 500 + 100, 9);
+  });
+});

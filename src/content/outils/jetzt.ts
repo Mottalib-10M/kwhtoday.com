@@ -16,7 +16,7 @@ export default defineGuide({
   tool: 'jetzt',
   zone: { en: 'NL', nl: 'NL' },
   zonen: ['BE', 'DE-LU'],
-  related: ['morgen', 'preis', 'fenster', 'negativ', 'vergleich'],
+  related: ['morgen', 'preis', 'fenster', 'negativ', 'vergleich', 'energiebelasting'],
   sources: ['smard', 'smardLizenz', 'wbm', 'wetob', 'cbs'],
   en: {
     slug: 'electricity-price-now',

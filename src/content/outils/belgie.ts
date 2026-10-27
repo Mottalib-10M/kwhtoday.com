@@ -19,7 +19,7 @@ export default defineGuide({
   tool: 'preis',
   zone: 'BE',
   zonen: ['NL', 'DE-LU'],
-  related: ['morgen', 'verlauf', 'negativ', 'fenster', 'jetzt'],
+  related: ['morgen', 'verlauf', 'negativ', 'fenster', 'jetzt', 'capaciteitstarief'],
   sources: ['smard', 'smardLizenz'],
   nl: {
     slug: 'stroomprijs-belgie',

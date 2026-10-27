@@ -24,8 +24,8 @@ export default defineGuide({
   order: 20,
   tool: 'preis',
   zone: 'DE-LU',
-  related: ['netzentgelte', 'vergleich', 'stromkosten', 'preis', 'verlauf', 'negativ'],
-  sources: ['stromstg', 'ustg', 'kav', 'ihk', 'monitoring', 'smard'],
+  related: ['netzentgelte', 'vergleich', 'stromkosten', 'preis', 'verlauf', 'negativ', 'gaspreis'],
+  sources: ['stromstg', 'stromstg9b', 'bregNetzentgelte', 'ustg', 'kav', 'ihk', 'monitoring', 'smard'],
   de: {
     slug: 'strompreis-zusammensetzung',
     nav: 'Strompreis-Zusammensetzung',
@@ -42,6 +42,7 @@ export default defineGuide({
       { q: 'Wer bekommt das Netzentgelt?', a: 'Der Betreiber des örtlichen Verteilnetzes, an das Ihr Haus angeschlossen ist, und über ihn die vorgelagerten Netzbetreiber bis zum Übertragungsnetz. Die Höhe genehmigt die Bundesnetzagentur oder die Landesregulierungsbehörde; sie unterscheidet sich stark von Netz zu Netz. Ihr Anbieter zieht das Entgelt mit der Stromrechnung ein und reicht es weiter, auch bei einem dynamischen Tarif.' },
       { q: 'Wofür sind die drei Umlagen auf der Stromrechnung?', a: 'Die KWKG-Umlage finanziert die Förderung von Kraft-Wärme-Kopplungsanlagen, die Offshore-Netzumlage die Anbindung der Windparks auf See, und der Aufschlag für besondere Netznutzung gleicht Netzentgeltrabatte für stromintensive Betriebe aus. Die Übertragungsnetzbetreiber legen die Sätze jedes Jahr im Oktober für das Folgejahr fest. Die frühere EEG-Umlage gibt es seit Juli 2022 nicht mehr.' },
       { q: 'Warum ist das Netzentgelt im Norden oft anders als im Süden?', a: 'Weil Netzbetreiber ihre Kosten auf die Kunden in ihrem Gebiet umlegen: dünn besiedelte Regionen mit viel Leitung je Einwohner und hohem Ausbau für Wind- und Solaranlagen hatten lange höhere Entgelte. Seit 2025 verteilt die Bundesnetzagentur einen Teil dieser Mehrkosten bundesweit. Die Tabelle zeigt die Mittelwerte 2025 je Land aus dem Monitoringbericht.' },
+      { q: 'Sinkt die Stromsteuer 2026 auch für private Haushalte?', a: 'Nein. Für Haushalte bleibt es nach § 3 StromStG bei 20,50 Euro je Megawattstunde, also 2,05 Cent je Kilowattstunde vor Umsatzsteuer. Seit dem 1. Januar 2026 erhalten Unternehmen des Produzierenden Gewerbes und der Land- und Forstwirtschaft nach § 9b eine dauerhafte Entlastung von 2 Cent, sodass sie nur den EU-Mindestsatz zahlen. Eine Strompreisbremse wie 2023 gibt es 2026 nicht; der Bund senkt stattdessen mit 6,5 Milliarden Euro die Übertragungsnetzentgelte.' },
     ],
     body: (h) => {
       const { z, w, laender } = D(h);
@@ -85,6 +86,7 @@ ${h.table(['Bundesland', 'Netzentgelt netto 2025', 'Endpreis ohne Aufschlag'], l
       { q: 'Who receives the German grid fee?', a: 'The operator of the local distribution grid your home is connected to, and through it the upstream operators up to the transmission grid. The level is approved by the Federal Network Agency or a state regulator and varies widely between grids. Your supplier collects the fee on your bill and passes it on, on a dynamic tariff as well.' },
       { q: 'What are the three levies on a German bill for?', a: 'The CHP levy funds support for combined heat and power plants, the offshore grid levy pays for connecting wind farms at sea, and the special grid use surcharge offsets grid fee discounts for energy-intensive businesses. The transmission operators set the rates every October for the following year. The former renewable energy (EEG) levy was abolished in July 2022.' },
       { q: 'Why do grid fees differ so much between German states?', a: 'Grid operators spread their costs over the customers in their area, so sparsely populated regions with a lot of line per inhabitant and heavy investment for wind and solar had higher fees for years. Since 2025 the Federal Network Agency spreads part of those extra costs nationwide. The table shows the 2025 averages per state from the monitoring report.' },
+      { q: 'Does the German electricity tax fall for households in 2026?', a: 'No. For households it stays at 20.50 euros per megawatt-hour under section 3 of the Electricity Tax Act, or 2.05 cents per kilowatt-hour before VAT. Since 1 January 2026 manufacturing, farming and forestry businesses get a permanent relief of 2 cents under section 9b, so they pay only the EU minimum. There is no price brake like the one of 2023; instead the federal government spends 6.5 billion euros to lower transmission grid fees.' },
     ],
     body: (h) => {
       const { z, w, laender } = D(h);

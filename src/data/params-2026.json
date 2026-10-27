@@ -1,7 +1,7 @@
 {
  "_lisezmoi": "Paramètres réglementaires du site (RECETTE §4). Chaque valeur relue sur sa source le jour indiqué ; aucune valeur en dur dans les pages. Les prix de marché ne sont PAS ici : src/data/prices/*.json (SMARD) et cbs-nl.json (CBS), régénérés par scripts/update-data.mjs.",
  "year": 2026,
- "retrieved_at": "2026-10-26",
+ "retrieved_at": "2026-10-27",
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "de": {
@@ -78,6 +78,123 @@
    "modul2_restfaktor": 0.4,
    "modul3_ab": "2025-04-01",
    "ab": "2024-01-01"
+  },
+  "steckersolar": {
+   "_quelle": "EEG 2023 § 8 Abs. 5a (bis 2 kW installierte Leistung, bis 800 VA Wechselrichterleistung); Bundesnetzagentur, Balkonkraftwerke: keine Meldung beim Netzbetreiber, Eintrag im Marktstammdatenregister binnen eines Monats (§ 5 Abs. 5 MaStRV); USt 0 % bis 30 kWp (§ 12 Abs. 3 UStG); § 554 BGB, § 20 Abs. 2 Nr. 5 WEG; abgerufen 2026-10-27",
+   "wp_max": 2000,
+   "va_max": 800,
+   "ust": 0,
+   "ust_bis_kwp": 30,
+   "mastr_frist_monate": 1
+  },
+  "gas": {
+   "_quelle": "EnergieStG § 2 Abs. 3 Nr. 4 (5,50 EUR/MWh); BEHG § 10 (Korridor 55–65 EUR/t 2026), DEHSt Veräußerungsbericht 08/2026 (durchschnittlicher Zuschlagspreis 65 EUR); EBeV 2030 Anlage 2 Teil 4 Nr. 6 (0,0558 t CO2/GJ, 3,6 GJ/MWh × 0,903); Gasspeicherumlage seit 1.1.2026 abgeschafft (Bundesregierung); Monitoringbericht 2025 Tabelle 68/69 (Stichtag 1.4.2025); Eurostat nrg_pc_202, DE, Band D2, abgerufen 2026-10-27",
+   "energiesteuer_ct": 0.55,
+   "co2_eur_t": 65,
+   "co2_min_eur_t": 55,
+   "co2_max_eur_t": 65,
+   "co2_2027_eur_t": 70,
+   "co2_t_mwh": 0.1814,
+   "speicherumlage_bis2025_ct": 0.289,
+   "speicherumlage_ab": "2026-01-01",
+   "monitoring2025_ct": {
+    "stichtag": "2025-04-01",
+    "netz": 2.26,
+    "messung": 0.03,
+    "messstellenbetrieb": 0.06,
+    "konzession": 0.08,
+    "co2": 0.998,
+    "energiesteuer": 0.55,
+    "ust": 1.93,
+    "beschaffung": 4.75,
+    "vertrieb": 1.47,
+    "gesamt": 12.13,
+    "vorjahr": 12.49,
+    "grundversorgung": 13.57,
+    "grundversorgerAusserhalb": 12.07,
+    "andererLieferant": 11.56,
+    "ersatzversorgung": 14.47
+   },
+   "eurostat_ct": {
+    "_band": "D2, 20–199 GJ, Haushalte",
+    "2025S1": {
+     "brutto": 12.16,
+     "ohneUst": 10.22,
+     "ohneSteuern": 8.3
+    },
+    "2025S2": {
+     "brutto": 12.23,
+     "ohneUst": 10.28,
+     "ohneSteuern": 8.37
+    },
+    "2026S1": {
+     "brutto": 11.56,
+     "ohneUst": 9.71,
+     "ohneSteuern": 7.94
+    }
+   },
+   "konzession_ct": {
+    "_quelle": "KAV § 2 Abs. 2 Nr. 2: Tarifkunden Gas ohne Kochen/Warmwasser-Beschränkung",
+    "bis25000": 0.22,
+    "bis100000": 0.27,
+    "bis500000": 0.33,
+    "ueber500000": 0.4,
+    "sondervertrag": 0.03
+   }
+  },
+  "kfw": {
+   "_quelle": "KfW Merkblatt 458 (Stand 09/2026) und Pressemitteilung vom 08.07.2026: neue Förderbedingungen ab 21.07.2026; abgerufen 2026-10-27",
+   "ab": "2026-07-21",
+   "grund": 0.3,
+   "klima": 0.16,
+   "einkommen": {
+    "bis30000": 0.4,
+    "bis40000": 0.3,
+    "bis50000": 0.1
+   },
+   "max": 0.7,
+   "max_niedrig": 0.8,
+   "kosten_max": 28000,
+   "kosten_2_6": 15000,
+   "kosten_ab7": 8000,
+   "klima_minus_ab": "2027-02-01",
+   "grund_2027": 0.15
+  },
+  "stromsteuer_industrie_ct": 0.05,
+  "stromspiegel": {
+   "_quelle": "co2online, Stromverbrauch im Haushalt (Stromspiegel 2025, Durchschnittswerte, veröffentlicht 13.05.2025); Klassen A–G im Stromspiegel-Flyer 2025",
+   "haus": {
+    "ohneWw": [
+     1800,
+     2700,
+     3500,
+     3800,
+     4500
+    ],
+    "mitWw": [
+     2100,
+     3200,
+     4100,
+     4700,
+     6000
+    ]
+   },
+   "wohnung": {
+    "ohneWw": [
+     1200,
+     1900,
+     2400,
+     2600,
+     3100
+    ],
+    "mitWw": [
+     1600,
+     2500,
+     3500,
+     4000,
+     5000
+    ]
+   }
   }
  },
  "nl": {
@@ -90,10 +207,236 @@
    "einde": "2027-01-01",
    "min_vergoeding_aandeel": 0.5,
    "min_vergoeding_tot": "2030-01-01"
-  }
+  },
+  "eb2026": {
+   "_quelle": "Belastingdienst, Aangifte energiebelasting 2026 (ML 040 2Z63FOL), tarieven excl. btw; Wbm art. 59 en 63",
+   "stroom": [
+    {
+     "tot": 10000,
+     "tarief": 0.09161
+    },
+    {
+     "tot": 50000,
+     "tarief": 0.06671
+    },
+    {
+     "tot": 10000000,
+     "tarief": 0.03735
+    },
+    {
+     "tot": null,
+     "tarief": 0.00379
+    }
+   ],
+   "gas": [
+    {
+     "tot": 170000,
+     "tarief": 0.60066
+    },
+    {
+     "tot": 1000000,
+     "tarief": 0.33085
+    },
+    {
+     "tot": 10000000,
+     "tarief": 0.21396
+    },
+    {
+     "tot": null,
+     "tarief": 0.05313
+    }
+   ]
+  },
+  "eb2027_ct": {
+   "_quelle": "Fiscale sleuteltabel 2027 incl. correctie tarieven energiebelasting (Belastingplan 2027, september 2026), afgerond in cent, wetsvoorstel nog niet aangenomen",
+   "stroom1": 8.8,
+   "stroom2": 6.78,
+   "stroom3": 3.78,
+   "gas1": 61.63,
+   "gas2": 35.01,
+   "vermindering_eur": 519.58
+  },
+  "vermindering_2025_eur": 524.95,
+  "netbeheer2026_incl": {
+   "_quelle": "Tarievenbladen 2026 van Liander, Stedin en Enexis (incl. btw): stroom 3x25A, gas G4/G6 met standaardjaarverbruik 500–4.000 m³",
+   "liander": {
+    "stroom": 478.04,
+    "gas": 266.62
+   },
+   "stedin": {
+    "stroom": 476.76,
+    "gas": 274.46
+   },
+   "enexis": {
+    "stroom": 475.83,
+    "gas": 266.36
+   }
+  },
+  "gas_kwh_m3": 9.77,
+  "isde": {
+   "_quelle": "RVO, ISDE wat wijzigt er in 2026 (gecontroleerd 15 oktober 2026) en ISDE warmtepomp woningeigenaren: lucht-waterwarmtepomp incl. hybride",
+   "start_eur": 1025,
+   "per_kw_eur": 225,
+   "label_bonus_eur": 200,
+   "minimum_eur": 500,
+   "start_2025_eur": 1250,
+   "per_kw_2027_eur": 120,
+   "hybride_voorbeeld_eur": 2125
+  },
+  "verbruik_cbs2024": {
+   "_quelle": "CBS StatLine 85140NED, energieverbruik particuliere woningen 2024 (nader voorlopig): gas m³ (temperatuurgecorrigeerd), elektriciteit geleverd kWh",
+   "alle": {
+    "gas": [
+     730,
+     920,
+     1010,
+     1080,
+     1200
+    ],
+    "stroom": [
+     1650,
+     2610,
+     3170,
+     3710,
+     4070
+    ],
+    "netto": [
+     1420,
+     1820,
+     2230,
+     2460,
+     2880
+    ]
+   },
+   "appartement": {
+    "gas": [
+     560,
+     650,
+     800,
+     920,
+     1040
+    ],
+    "stroom": [
+     1490,
+     2130,
+     2450,
+     2860,
+     3250
+    ]
+   },
+   "tussenwoning": {
+    "gas": [
+     790,
+     860,
+     910,
+     950,
+     1040
+    ],
+    "stroom": [
+     1690,
+     2410,
+     2910,
+     3300,
+     3570
+    ]
+   },
+   "hoekwoning": {
+    "gas": [
+     940,
+     990,
+     1050,
+     1080,
+     1170
+    ],
+    "stroom": [
+     1790,
+     2600,
+     3160,
+     3580,
+     3860
+    ]
+   },
+   "twee_onder_een_kap": {
+    "gas": [
+     1120,
+     1110,
+     1170,
+     1170,
+     1280
+    ],
+    "stroom": [
+     2000,
+     2920,
+     3640,
+     4090,
+     4470
+    ]
+   },
+   "vrijstaand": {
+    "gas": [
+     1510,
+     1380,
+     1450,
+     1410,
+     1580
+    ],
+    "stroom": [
+     2650,
+     3720,
+     4610,
+     5080,
+     5510
+    ]
+   },
+   "totaal": {
+    "gas": 900,
+    "stroom": 2550,
+    "netto": 1870
+   }
+  },
+  "milieucentraal": {
+   "_quelle": "Milieu Centraal, Gemiddeld energieverbruik (gewijzigd 4 september 2026) en Kosten en opbrengst zonnepanelen (gewijzigd 22 oktober 2026)",
+   "gas_m3": 1040,
+   "stroom_kwh": 2430,
+   "zon": [
+    {
+     "panelen": 6,
+     "kwh": 2300,
+     "kosten": 2500,
+     "besparing2027": 170
+    },
+    {
+     "panelen": 8,
+     "kwh": 3000,
+     "kosten": 3200,
+     "besparing2027": 190
+    },
+    {
+     "panelen": 10,
+     "kwh": 3800,
+     "kosten": 3800,
+     "besparing2027": 260
+    }
+   ],
+   "wp_paneel": 435
+  },
+  "btw_zonnepanelen": 0
  },
  "at": {
-  "ust": 0.2
+  "ust": 0.2,
+  "oemag_ct": {
+   "_quelle": "OeMAG Abwicklungsstelle für Ökostrom, Marktpreis nach § 13 Abs. 3 iVm § 41 ÖSG (PV), abgerufen 2026-10-27",
+   "2026-01": 8.842,
+   "2026-02": 8.457,
+   "2026-03": 5.72,
+   "2026-04": 6.772,
+   "2026-05": 6.772,
+   "2026-06": 6.772,
+   "2026-07": 6.146,
+   "2026-08": 8.997,
+   "2026-09": 10.168
+  },
+  "steckersolar_w": 800
  },
  "sources": {
   "smard": {
@@ -287,6 +630,445 @@
     "en": "Energy Industry Act (EnWG), section 14a: controllable devices",
     "nl": "Energiewirtschaftsgesetz § 14a: stuurbare verbruikers"
    }
+  },
+  "eeg8": {
+   "url": "https://www.gesetze-im-internet.de/eeg_2014/__8.html",
+   "label": {
+    "de": "EEG 2023 § 8 Abs. 5a: Steckersolargeräte bis 2 kW und 800 VA",
+    "en": "Renewable Energy Sources Act (EEG) section 8(5a): plug-in solar up to 2 kW and 800 VA",
+    "nl": "EEG 2023 § 8 lid 5a: stekkerpanelen tot 2 kW en 800 VA"
+   }
+  },
+  "bnetzaBalkon": {
+   "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/Solaranlagen/Balkon_table.html",
+   "label": {
+    "de": "Bundesnetzagentur: Balkonkraftwerke (Steckersolargeräte)",
+    "en": "Federal Network Agency: balcony solar (plug-in solar devices)",
+    "nl": "Bundesnetzagentur: balkoncentrales (stekkerpanelen)"
+   }
+  },
+  "mastrv": {
+   "url": "https://www.gesetze-im-internet.de/mastrv/__5.html",
+   "label": {
+    "de": "Marktstammdatenregisterverordnung § 5: Registrierungsfristen",
+    "en": "Market Master Data Register Ordinance, section 5: registration deadlines",
+    "nl": "Marktstammdatenregisterverordnung § 5: registratietermijnen"
+   }
+  },
+  "bgb554": {
+   "url": "https://www.gesetze-im-internet.de/bgb/__554.html",
+   "label": {
+    "de": "BGB § 554: bauliche Veränderungen durch den Mieter",
+    "en": "German Civil Code (BGB), section 554: alterations by tenants",
+    "nl": "BGB § 554: bouwkundige wijzigingen door de huurder"
+   }
+  },
+  "weg20": {
+   "url": "https://www.gesetze-im-internet.de/woeigg/__20.html",
+   "label": {
+    "de": "WEG § 20: bauliche Veränderungen in der Eigentümergemeinschaft",
+    "en": "Condominium Act (WEG), section 20: structural alterations",
+    "nl": "WEG § 20: bouwkundige wijzigingen in de VvE"
+   }
+  },
+  "oesterreichBalkon": {
+   "url": "https://www.oesterreich.gv.at/de/themen/umwelt_und_klima/energie_und_ressourcen_sparen/selbsterzeugung-von-strom-mit-erneuerbaren-energietraegern",
+   "label": {
+    "de": "oesterreich.gv.at: Selbsterzeugung von Strom, Balkonkraftwerke",
+    "en": "oesterreich.gv.at (Austrian government portal): generating your own power, balcony solar",
+    "nl": "oesterreich.gv.at: zelf stroom opwekken, balkoncentrales"
+   }
+  },
+  "bmfAtPv": {
+   "url": "https://www.bmf.gv.at/themen/steuern/fuer-unternehmen/umsatzsteuer/informationen/steuersatz-fuer-photovoltaikmodule.html",
+   "label": {
+    "de": "BMF Österreich: Steuersatz für Photovoltaikmodule",
+    "en": "Austrian Ministry of Finance: VAT rate for solar panels",
+    "nl": "BMF Oostenrijk: btw-tarief voor zonnepanelen"
+   }
+  },
+  "oemag": {
+   "url": "https://www.oem-ag.at/marktpreis",
+   "label": {
+    "de": "OeMAG: Marktpreis nach § 41 ÖSG",
+    "en": "OeMAG (Austrian green power settlement agency): market price under section 41 ÖSG",
+    "nl": "OeMAG: marktprijs volgens § 41 ÖSG"
+   }
+  },
+  "energiestg": {
+   "url": "https://www.gesetze-im-internet.de/energiestg/__2.html",
+   "label": {
+    "de": "Energiesteuergesetz § 2: Steuertarif Erdgas",
+    "en": "Energy Tax Act (EnergieStG), section 2: natural gas rate",
+    "nl": "Energiesteuergesetz § 2: tarief aardgas"
+   }
+  },
+  "behg": {
+   "url": "https://www.gesetze-im-internet.de/behg/__10.html",
+   "label": {
+    "de": "Brennstoffemissionshandelsgesetz § 10: Preiskorridor 2026",
+    "en": "Fuel Emissions Trading Act (BEHG), section 10: 2026 price corridor",
+    "nl": "Brennstoffemissionshandelsgesetz § 10: prijscorridor 2026"
+   }
+  },
+  "dehst": {
+   "url": "https://www.dehst.de/SharedDocs/FAQ/DE/nehs/063-nEHS-versteigerung-ab-2026.html",
+   "label": {
+    "de": "Deutsche Emissionshandelsstelle: Versteigerung im nEHS ab 2026",
+    "en": "German Emissions Trading Authority (DEHSt): auctions in the national scheme from 2026",
+    "nl": "Deutsche Emissionshandelsstelle: veilingen in het nEHS vanaf 2026"
+   }
+  },
+  "ebev": {
+   "url": "https://www.gesetze-im-internet.de/ebev_2030/BJNR286800022.html",
+   "label": {
+    "de": "Emissionsberichterstattungsverordnung 2030, Anlage 2: Emissionsfaktor Erdgas",
+    "en": "Emissions Reporting Ordinance 2030, annex 2: natural gas emission factor",
+    "nl": "Emissionsberichterstattungsverordnung 2030, bijlage 2: emissiefactor aardgas"
+   }
+  },
+  "bregSpeicher": {
+   "url": "https://www.bundesregierung.de/breg-de/aktuelles/abschaffung-gasspeicherumlage-2375074",
+   "label": {
+    "de": "Bundesregierung: Gasspeicherumlage seit 1. Januar 2026 abgeschafft",
+    "en": "German government: gas storage levy abolished from 1 January 2026",
+    "nl": "Duitse regering: heffing gasopslag afgeschaft per 1 januari 2026"
+   }
+  },
+  "monitoringGas": {
+   "url": "https://data.bundesnetzagentur.de/Bundesnetzagentur/SharedDocs/Mediathek/Monitoringberichte/MonitoringberichtEnergie2025.pdf",
+   "label": {
+    "de": "Bundesnetzagentur und Bundeskartellamt: Monitoringbericht 2025, Tabellen 68 und 69 (Gaspreise)",
+    "en": "Federal Network Agency and Federal Cartel Office: Monitoring Report 2025, tables 68 and 69 (gas prices)",
+    "nl": "Bundesnetzagentur en Bundeskartellamt: Monitoringbericht 2025, tabellen 68 en 69 (gasprijzen)"
+   }
+  },
+  "bnetzaGas": {
+   "url": "https://www.bundesnetzagentur.de/DE/Vportal/Energie/PreiseAbschlaege/Tarife-table.html",
+   "label": {
+    "de": "Bundesnetzagentur: Tarife und Preise für Haushaltskunden",
+    "en": "Federal Network Agency: household tariffs and prices",
+    "nl": "Bundesnetzagentur: tarieven en prijzen voor huishoudens"
+   }
+  },
+  "eurostatGas": {
+   "url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_202/default/table",
+   "label": {
+    "de": "Eurostat nrg_pc_202: Gaspreise für Haushalte, halbjährlich (CC BY 4.0)",
+    "en": "Eurostat nrg_pc_202: gas prices for household consumers, half-yearly (CC BY 4.0)",
+    "nl": "Eurostat nrg_pc_202: gasprijzen voor huishoudens, per halfjaar (CC BY 4.0)"
+   }
+  },
+  "stromstg9b": {
+   "url": "https://www.gesetze-im-internet.de/stromstg/__9b.html",
+   "label": {
+    "de": "Stromsteuergesetz § 9b: Entlastung für Unternehmen des Produzierenden Gewerbes",
+    "en": "Electricity Tax Act, section 9b: relief for manufacturing businesses",
+    "nl": "Stromsteuergesetz § 9b: verlaging voor de industrie"
+   }
+  },
+  "bregNetzentgelte": {
+   "url": "https://www.bundesregierung.de/breg-de/aktuelles/niedrigere-netzentgelte-2382396",
+   "label": {
+    "de": "Bundesregierung: Zuschuss zu den Netzentgelten 2026",
+    "en": "German government: 2026 grid fee subsidy",
+    "nl": "Duitse regering: subsidie op de netkosten 2026"
+   }
+  },
+  "kfw458": {
+   "url": "https://www.kfw.de/PDF/Download-Center/F%C3%B6rderprogramme-%28Inlandsf%C3%B6rderung%29/PDF-Dokumente/6000005131_M_458.pdf",
+   "label": {
+    "de": "KfW Merkblatt 458: Heizungsförderung für Privatpersonen (Stand 09/2026)",
+    "en": "KfW leaflet 458: heating grant for private owners (September 2026)",
+    "nl": "KfW Merkblatt 458: subsidie voor verwarming (stand 09/2026)"
+   }
+  },
+  "kfwPresse": {
+   "url": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/Pressemitteilungen-Details_900928.html",
+   "label": {
+    "de": "KfW: neue Förderbedingungen ab 21. Juli 2026",
+    "en": "KfW: new grant conditions from 21 July 2026",
+    "nl": "KfW: nieuwe voorwaarden vanaf 21 juli 2026"
+   }
+  },
+  "gmg": {
+   "url": "https://www.bundesregierung.de/breg-de/aktuelles/neues-gebaeudemodernisierungsgesetz-2430284",
+   "label": {
+    "de": "Bundesregierung: Gebäudemodernisierungsgesetz gilt ab 29. Juli 2026",
+    "en": "German government: Building Modernisation Act in force from 29 July 2026",
+    "nl": "Duitse regering: Gebäudemodernisierungsgesetz geldt vanaf 29 juli 2026"
+   }
+  },
+  "stromspiegel": {
+   "url": "https://www.co2online.de/energie-sparen/strom-sparen/strom-sparen-stromspartipps/stromverbrauch-im-haushalt/",
+   "label": {
+    "de": "co2online: Stromverbrauch im Haushalt (Stromspiegel 2025)",
+    "en": "co2online: household electricity use (Stromspiegel 2025)",
+    "nl": "co2online: stroomverbruik in het huishouden (Stromspiegel 2025)"
+   }
+  },
+  "stromspiegelFlyer": {
+   "url": "https://www.stromspiegel.de/fileadmin/ssi/stromspiegel/Downloads/stromspiegel-flyer-2025-web.pdf",
+   "label": {
+    "de": "Stromspiegel für Deutschland 2025: Vergleichswerte und Klassen A bis G",
+    "en": "Stromspiegel for Germany 2025: benchmarks and classes A to G",
+    "nl": "Stromspiegel voor Duitsland 2025: vergelijkingswaarden en klassen A tot G"
+   }
+  },
+  "euLabel": {
+   "url": "https://energy-efficient-products.ec.europa.eu/product-list/washing-machines_en",
+   "label": {
+    "de": "Europäische Kommission: Energielabel für Waschmaschinen (kWh je 100 Zyklen)",
+    "en": "European Commission: energy label for washing machines (kWh per 100 cycles)",
+    "nl": "Europese Commissie: energielabel voor wasmachines (kWh per 100 cycli)"
+   }
+  },
+  "euLabelInfo": {
+   "url": "https://energy-efficient-products.ec.europa.eu/ecodesign-and-energy-label/understanding-energy-label_en",
+   "label": {
+    "de": "Europäische Kommission: das EU-Energielabel verstehen",
+    "en": "European Commission: understanding the EU energy label",
+    "nl": "Europese Commissie: het EU-energielabel begrijpen"
+   }
+  },
+  "belastingdienstEb": {
+   "url": "https://download.belastingdienst.nl/belastingdienst/docs/aangifte_energiebelasting_ml0402z63fol.pdf",
+   "label": {
+    "de": "Belastingdienst: Aangifte energiebelasting 2026, Tarife",
+    "en": "Dutch Tax Administration: 2026 energy tax return, rates",
+    "nl": "Belastingdienst: aangifte energiebelasting 2026, tarieven"
+   }
+  },
+  "rijksEb": {
+   "url": "https://www.rijksoverheid.nl/onderwerpen/energie-thuis/vraag-en-antwoord/opbouw-energierekening",
+   "label": {
+    "de": "Rijksoverheid: Aufbau der Energierechnung",
+    "en": "Dutch government: how the energy bill is built up",
+    "nl": "Rijksoverheid: opbouw van de energierekening"
+   }
+  },
+  "sleutel2027": {
+   "url": "https://www.rijksfinancien.nl/sites/default/files/bestanden/belastingplan-2027/pakket-belastingplan-2027/Fiscale-sleuteltabel-2027-incl-correctie-tarieven-energiebelasting-zelfstandigenaftrek.pdf",
+   "label": {
+    "de": "Belastingplan 2027: Fiscale sleuteltabel 2027 (Entwurf)",
+    "en": "Tax Plan 2027: fiscal key table 2027 (bill)",
+    "nl": "Belastingplan 2027: fiscale sleuteltabel 2027 (wetsvoorstel)"
+   }
+  },
+  "acmNetbeheer": {
+   "url": "https://www.acm.nl/nl/energie/elektriciteit-en-gas/energietarieven/netbeheerkosten",
+   "label": {
+    "de": "ACM: Netzkosten",
+    "en": "Netherlands Authority for Consumers and Markets (ACM): grid charges",
+    "nl": "ACM: netbeheerkosten"
+   }
+  },
+  "mcVerbruik": {
+   "url": "https://www.milieucentraal.nl/energie-besparen/inzicht-in-je-energierekening/gemiddeld-energieverbruik/",
+   "label": {
+    "de": "Milieu Centraal: durchschnittlicher Energieverbrauch",
+    "en": "Milieu Centraal: average energy use",
+    "nl": "Milieu Centraal: gemiddeld energieverbruik"
+   }
+  },
+  "cbsVerbruik": {
+   "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85140NED/table",
+   "label": {
+    "de": "CBS StatLine 85140NED: Energieverbrauch privater Wohnungen (CC BY 4.0)",
+    "en": "CBS StatLine 85140NED: energy use of private homes (CC BY 4.0)",
+    "nl": "CBS StatLine 85140NED: energieverbruik particuliere woningen (CC BY 4.0)"
+   }
+  },
+  "rvoIsde": {
+   "url": "https://www.rvo.nl/subsidies-financiering/isde/woningeigenaren/warmtepomp",
+   "label": {
+    "de": "RVO: ISDE für Wärmepumpen",
+    "en": "Netherlands Enterprise Agency (RVO): ISDE grant for heat pumps",
+    "nl": "RVO: ISDE voor een warmtepomp"
+   }
+  },
+  "rvoIsde2026": {
+   "url": "https://www.rvo.nl/subsidies-financiering/isde/isde-wat-wijzigt-er-2026",
+   "label": {
+    "de": "RVO: ISDE, was sich 2026 ändert",
+    "en": "RVO: ISDE, what changes in 2026",
+    "nl": "RVO: ISDE, wat wijzigt er in 2026"
+   }
+  },
+  "rvoIsde2027": {
+   "url": "https://www.rvo.nl/subsidies-financiering/isde/isde-wat-wijzigt-er-2027",
+   "label": {
+    "de": "RVO: ISDE, was sich 2027 ändert",
+    "en": "RVO: ISDE, what changes in 2027",
+    "nl": "RVO: ISDE, wat wijzigt er in 2027"
+   }
+  },
+  "rijksNormering": {
+   "url": "https://www.rijksoverheid.nl/documenten/2024/10/31/rapporten-onderzoeken-voor-vervallen-normering-verwarmingsinstallaties-in-2026",
+   "label": {
+    "de": "Rijksoverheid: Normierung von Heizanlagen 2026 entfällt",
+    "en": "Dutch government: 2026 heating system standard dropped",
+    "nl": "Rijksoverheid: normering verwarmingsinstallaties 2026 vervallen"
+   }
+  },
+  "btwZon": {
+   "url": "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/tarieven_en_vrijstellingen/goederen_0_btw/btw-tarief-zonnepanelen",
+   "label": {
+    "de": "Belastingdienst: 0 % MwSt. auf Solarmodule",
+    "en": "Dutch Tax Administration: 0% VAT on solar panels",
+    "nl": "Belastingdienst: btw-tarief zonnepanelen 0 %"
+   }
+  },
+  "mcZon": {
+   "url": "https://www.milieucentraal.nl/energie-besparen/zonnepanelen/kosten-en-opbrengst-zonnepanelen/",
+   "label": {
+    "de": "Milieu Centraal: Kosten und Ertrag von Solarmodulen",
+    "en": "Milieu Centraal: cost and yield of solar panels",
+    "nl": "Milieu Centraal: kosten en opbrengst zonnepanelen"
+   }
+  },
+  "acmModel": {
+   "url": "https://www.acm.nl/nl/publicaties/acm-stelt-nieuwe-modelcontracten-vast",
+   "label": {
+    "de": "ACM: neue Musterverträge",
+    "en": "ACM: new model contracts",
+    "nl": "ACM: nieuwe modelcontracten vastgesteld"
+   }
+  },
+  "fluviusCapaciteit": {
+   "url": "https://www.fluvius.be/nl/factuur-en-tarieven/capaciteitstarief/gezinnen-en-kleine-ondernemingen/aangerekend",
+   "label": {
+    "de": "Fluvius: wie das Kapazitätsentgelt berechnet wird",
+    "en": "Fluvius: how the capacity tariff is charged",
+    "nl": "Fluvius: hoe het capaciteitstarief wordt aangerekend"
+   }
+  },
+  "fluviusTarieven": {
+   "url": "https://www.fluvius.be/nl/factuur-en-tarieven/netkosten/netkosten-afname-elektriciteit",
+   "label": {
+    "de": "Fluvius: Netzkosten Abnahme Strom 2026",
+    "en": "Fluvius: 2026 distribution charges for electricity",
+    "nl": "Fluvius: netkosten afname elektriciteit 2026"
+   }
+  },
+  "creg": {
+   "url": "https://www.creg.be/nl/consumenten/prijzen-en-tarieven/hoe-de-energieprijs-opgebouwd",
+   "label": {
+    "de": "CREG: wie der Energiepreis aufgebaut ist",
+    "en": "CREG (Belgian energy regulator): how the energy price is built up",
+    "nl": "CREG: hoe is de energieprijs opgebouwd"
+   }
+  },
+  "cwapeOres": {
+   "url": "https://www.cwape.be/sites/default/files/cwape-documents/ORES%20-%20Tarifs%20p%C3%A9riodiques%20de%20pr%C3%A9l%C3%A8vement%202026_0.pdf",
+   "label": {
+    "de": "CWaPE: ORES-Tarife 2026 (Wallonie)",
+    "en": "CWaPE: ORES 2026 tariffs (Wallonia)",
+    "nl": "CWaPE: tarieven ORES 2026 (Wallonië)"
+   }
+  },
+  "rijksPlafond": {
+   "url": "https://www.rijksoverheid.nl/actueel/nieuws/2022/12/09/uitwerking-prijsplafond-afgerond---vanaf-1-januari-2023-van-start",
+   "label": {
+    "de": "Rijksoverheid: Preisobergrenze ab 1. Januar 2023",
+    "en": "Dutch government: price cap from 1 January 2023",
+    "nl": "Rijksoverheid: prijsplafond vanaf 1 januari 2023 van start"
+   }
+  },
+  "estg3": {
+   "url": "https://www.gesetze-im-internet.de/estg/__3.html",
+   "label": {
+    "de": "Einkommensteuergesetz § 3 Nr. 72: steuerfreie Photovoltaikanlagen",
+    "en": "Income Tax Act (EStG), section 3 no. 72: tax-free solar systems",
+    "nl": "Einkommensteuergesetz § 3 nr. 72: belastingvrije zonnepanelen"
+   }
+  }
+ },
+ "annahmen": {
+  "_lisezmoi": "Annahmen der Rechner (keine amtlichen Werte), auf der Seite als Annahme ausgewiesen",
+  "kessel_wirkungsgrad": 0.9,
+  "brennwert_kwh_m3": 10.0,
+  "zustandszahl": 0.95,
+  "dle_wirkungsgrad": 0.98
+ },
+ "be": {
+  "btw": 0.06,
+  "capaciteit": {
+   "_quelle": "Fluvius, distributienettarieven elektriciteit afname 2026 per netgebied (xlsx, excl. btw); Fluvius, capaciteitstarief: gemiddelde van de laatste 12 maandpieken, minimum 2,5 kW",
+   "min_kw": 2.5,
+   "databeheer_eur": 17.85,
+   "max_eur_kwh": 0.3276168,
+   "netgebieden": {
+    "Antwerpen": {
+     "kw": 49.4036563,
+     "kwh": [
+      0.0234492,
+      0.0254845,
+      0.001569
+     ]
+    },
+    "Halle-Vilvoorde": {
+     "kw": 56.0429,
+     "kwh": [
+      0.0270335,
+      0.0244354,
+      0.0017081
+     ]
+    },
+    "Imewo": {
+     "kw": 54.201,
+     "kwh": [
+      0.0259311,
+      0.0249198,
+      0.0014355
+     ]
+    },
+    "Kempen": {
+     "kw": 56.207,
+     "kwh": [
+      0.0263561,
+      0.0319098,
+      0.0015179
+     ]
+    },
+    "Limburg": {
+     "kw": 49.0469,
+     "kwh": [
+      0.0232082,
+      0.0266707,
+      0.0043906
+     ]
+    },
+    "Midden-Vlaanderen": {
+     "kw": 50.124,
+     "kwh": [
+      0.0248638,
+      0.0236385,
+      0.0013038
+     ]
+    },
+    "West": {
+     "kw": 57.0996,
+     "kwh": [
+      0.0280823,
+      0.0332887,
+      0.0018227
+     ]
+    },
+    "Zenne-Dijle": {
+     "kw": 56.1229,
+     "kwh": [
+      0.0271123,
+      0.0262323,
+      0.0020475
+     ]
+    }
+   },
+   "wallonie_eur_kw": 0,
+   "brussel_vanaf": "2028-01-01",
+   "gemiddelde_piek_kw": 4.26,
+   "gemiddeld_verbruik_kwh": 3500,
+   "sinds": 2023
   }
  }
 }

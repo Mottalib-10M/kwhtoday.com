@@ -20,7 +20,7 @@ export default defineGuide({
   order: 50,
   tool: 'einspeisung',
   zone: 'DE-LU',
-  related: ['negativ', 'zusammensetzung', 'netzentgelte', 'laden'],
+  related: ['negativ', 'zusammensetzung', 'netzentgelte', 'laden', 'photovoltaik', 'balkonkraftwerk'],
   sources: ['bnetzaEeg', 'eeg51', 'eeg51a', 'eeg9', 'eeg100', 'bmwkSpitzen', 'smard'],
   de: {
     slug: 'einspeiseverguetung-2026',

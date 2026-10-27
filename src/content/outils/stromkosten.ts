@@ -26,7 +26,7 @@ export default defineGuide({
   order: 50,
   tool: 'stromkosten',
   zone: 'DE-LU',
-  related: ['zusammensetzung', 'fenster', 'netzentgelte', 'vergleich'],
+  related: ['zusammensetzung', 'fenster', 'netzentgelte', 'vergleich', 'geraete', 'haushalt'],
   sources: ['smard', 'smardLizenz', 'monitoring', 'stromstg', 'ustg'],
   de: {
     slug: 'stromkosten-berechnen',

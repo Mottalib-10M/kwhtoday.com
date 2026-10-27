@@ -19,7 +19,7 @@ export default defineGuide({
   tool: 'gas',
   zone: 'NL',
   toolProps: { verbruik: 1000 },
-  related: ['vergleich', 'preis', 'morgen'],
+  related: ['vergleich', 'preis', 'morgen', 'energiebelasting', 'wpkosten'],
   sources: ['cbs', 'cbsLizenz', 'wbm', 'wetob'],
   nl: {
     slug: 'gasprijs-vandaag',

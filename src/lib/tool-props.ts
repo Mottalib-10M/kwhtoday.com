@@ -34,3 +34,16 @@ export function preisDe30() {
   const preis = Math.round(preisFn('DE-LU', { aufschlag: 0, netz: P.de.netzentgelt2025_ct.DE, gemeinde: 'bis100000' })(spot) * 100) / 100;
   return { preisCt: preis, preis, von: tage[0].d, bis: tage.at(-1)!.d };
 }
+/** NL : gemiddelden van de laatste CBS-maand, incl. btw : stroom ct/kWh (variabel + EB), gas €/m³ (variabel + EB), vaste kosten per jaar. */
+export function nlCbs() {
+  const m = CBS.maanden.at(-1)!;
+  const r2 = (x: number) => Math.round(x * 100) / 100;
+  return {
+    maand: m.maand,
+    stroomCt: festVorgabe('NL'),
+    gasM3: Math.round(((m.incl.gasVariabel as number) + (m.incl.gasEb as number)) * 1000) / 1000,
+    gasVast: r2(m.incl.gasTransport as number),
+    stroomVast: r2(m.incl.stroomTransport as number),
+    vermindering: r2(-(m.incl.vermindering as number)),
+  };
+}

@@ -2,7 +2,8 @@
 /** Setzt den Rechner einer Seite mit seinen Daten ein (RECETTE §9.3 : jede Seite hat ihren Rechner). */
 import { PreisRechner, FensterRechner, LadenRechner, VergleichRechner, VerlaufRechner, GasRekenhulp } from './outils/Strom';
 import { SalderingRekenhulp, SpeicherRechner, EinspeiseRechner, Modul14aRechner, StromkostenRechner } from './outils/Eigen';
-import { tageFuer, verlaufFuer, cbsGas, festVorgabe, stand, PLN, kaleNl, preisDe30 } from '../lib/tool-props';
+import { BalkonRechner, PvRechner, WpKostenRechner, GasDeRechner, GeraeteRechner, HaushaltRechner, EbRekenhulp, CapaciteitRekenhulp } from './outils/Haus';
+import { tageFuer, verlaufFuer, cbsGas, festVorgabe, stand, PLN, kaleNl, preisDe30, nlCbs } from '../lib/tool-props';
 import { letzteTage } from '../lib/engine/markt';
 import { P } from '../lib/engine/params';
 import type { Tool } from '../lib/guide-types';
@@ -14,6 +15,9 @@ const { tool, zonen, lang, id, methodHref, toolProps = {} } = Astro.props;
 const zone = zonen[0];
 const base = { lang, refDay: REF_DAY, methodHref, id, zone, stand: stand(zone), pln: PLN };
 const tp = toolProps as any;
+const land = lang === 'de' ? 'DE' : lang === 'nl' ? 'NL' : 'beide';
+const de30 = preisDe30();
+const nlc = nlCbs();
 ---
 {(tool === 'preis' || tool === 'morgen' || tool === 'jetzt') && <PreisRechner client:load {...base} tage={tageFuer(tool, zonen)} modus={tool === 'preis' ? 'heute' : tool === 'morgen' ? 'morgen' : 'jetzt'} start={tp.start} />}
 {tool === 'fenster' && <FensterRechner client:load {...base} tage={tageFuer(tool, zonen)} dauerH={tp.dauerH} kwh={tp.kwh} zeitraum={tp.zeitraum} start={tp.start} />}
@@ -26,3 +30,11 @@ const tp = toolProps as any;
 {tool === 'einspeisung' && <EinspeiseRechner client:load lang={lang} methodHref={methodHref} id={id} preisCt={preisDe30().preis} />}
 {tool === 'modul14a' && <Modul14aRechner client:load lang={lang} methodHref={methodHref} id={id} arbeitspreis={P.de.netzentgelt2025_ct.DE} />}
 {tool === 'stromkosten' && <StromkostenRechner client:load lang={lang} methodHref={methodHref} id={id} {...preisDe30()} />}
+{tool === 'balkon' && <BalkonRechner client:load lang={lang} methodHref={methodHref} id={id} {...de30} />}
+{tool === 'pv' && <PvRechner client:load lang={lang} methodHref={methodHref} id={id} land={land} preisDe={de30.preis} prijsNl={nlc.stroomCt} kaleNl={kaleNl()} />}
+{tool === 'wpkosten' && <WpKostenRechner client:load lang={lang} methodHref={methodHref} id={id} land={land} stromDe={de30.preis} gasDe={P.de.gas.eurostat_ct['2026S1'].brutto} stromNl={nlc.stroomCt} gasNlM3={nlc.gasM3} gasNlVast={nlc.gasVast} />}
+{tool === 'gasde' && <GasDeRechner client:load lang={lang} methodHref={methodHref} id={id} arbeitspreis={P.de.gas.eurostat_ct['2026S1'].brutto} />}
+{tool === 'geraete' && <GeraeteRechner client:load lang={lang} methodHref={methodHref} id={id} {...de30} />}
+{tool === 'haushalt' && <HaushaltRechner client:load lang={lang} methodHref={methodHref} id={id} land={land} preisDe={de30.preis} prijsNl={nlc.stroomCt} netNl={nlc.stroomVast} verminderingNl={nlc.vermindering} />}
+{tool === 'eb' && <EbRekenhulp client:load lang={lang} methodHref={methodHref} id={id} />}
+{tool === 'capaciteit' && <CapaciteitRekenhulp client:load lang={lang} methodHref={methodHref} id={id} />}

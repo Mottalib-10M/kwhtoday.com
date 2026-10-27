@@ -28,7 +28,7 @@ export default defineGuide({
   order: 40,
   tool: 'saldering',
   zone: 'NL',
-  related: ['terugleververgoeding', 'thuisbatterij', 'vergleich', 'negativ'],
+  related: ['terugleververgoeding', 'thuisbatterij', 'vergleich', 'negativ', 'photovoltaik'],
   sources: ['rijksSaldering', 'acmSalderen', 'cbs', 'wbm', 'wetob'],
   nl: {
     slug: 'salderingsregeling-2027',

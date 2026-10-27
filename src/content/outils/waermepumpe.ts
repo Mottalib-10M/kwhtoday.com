@@ -19,7 +19,7 @@ export default defineGuide({
   zone: 'DE-LU',
   zonen: ['AT'],
   toolProps: { dauerH: 4, kwh: 8, zeitraum: 'beide' },
-  related: ['fenster', 'paragraph14a', 'vergleich', 'zusammensetzung', 'laden'],
+  related: ['fenster', 'paragraph14a', 'vergleich', 'zusammensetzung', 'laden', 'wpkosten'],
   sources: ['smard', 'smardLizenz', 'monitoring', 'enwg41a', 'stromstg'],
   de: {
     slug: 'waermepumpe-strompreis',

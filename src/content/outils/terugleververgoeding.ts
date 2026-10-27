@@ -24,7 +24,7 @@ export default defineGuide({
   tool: 'negativ',
   zone: 'NL',
   zonen: ['BE', 'DE-LU'],
-  related: ['saldering', 'thuisbatterij', 'negativ', 'vergleich'],
+  related: ['saldering', 'thuisbatterij', 'negativ', 'vergleich', 'photovoltaik'],
   sources: ['acmSalderen', 'rijksSaldering', 'smard', 'smardLizenz', 'cbs'],
   nl: {
     slug: 'terugleververgoeding',
