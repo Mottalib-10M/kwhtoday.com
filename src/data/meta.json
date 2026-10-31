@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-30T19:53:13.629Z",
+ "retrieved": "2026-10-31T19:11:20.075Z",
  "source": "Bundesnetzagentur | SMARD.de",
  "sourceUrl": "https://www.smard.de/home/marktdaten",
  "licence": "CC BY 4.0",
@@ -8,32 +8,32 @@
  "unit": "EUR/MWh",
  "zones": {
   "DE-LU": {
-   "last": "2026-10-31T22:45:00.000Z",
-   "lastDay": "2026-10-31",
+   "last": "2026-11-01T22:45:00.000Z",
+   "lastDay": "2026-11-01",
    "points": 4033,
    "filter": 4169
   },
   "AT": {
-   "last": "2026-10-31T22:45:00.000Z",
-   "lastDay": "2026-10-31",
+   "last": "2026-11-01T22:45:00.000Z",
+   "lastDay": "2026-11-01",
    "points": 4033,
    "filter": 4170
   },
   "NL": {
-   "last": "2026-10-31T22:45:00.000Z",
-   "lastDay": "2026-10-31",
+   "last": "2026-11-01T22:45:00.000Z",
+   "lastDay": "2026-11-01",
    "points": 4033,
    "filter": 256
   },
   "BE": {
-   "last": "2026-10-31T22:45:00.000Z",
-   "lastDay": "2026-10-31",
+   "last": "2026-11-01T22:45:00.000Z",
+   "lastDay": "2026-11-01",
    "points": 4033,
    "filter": 4996
   },
   "PL": {
-   "last": "2026-10-31T22:45:00.000Z",
-   "lastDay": "2026-10-31",
+   "last": "2026-11-01T22:45:00.000Z",
+   "lastDay": "2026-11-01",
    "points": 4033,
    "filter": 257
   }
