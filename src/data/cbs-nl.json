@@ -8,7 +8,7 @@
   "stroom": "euro per kWh",
   "transport": "euro per jaar"
  },
- "laatste": "2026-09",
+ "laatste": "2026-10",
  "maanden": [
   {
    "maand": "2024-01",
@@ -829,6 +829,31 @@
     "gasTransport": 221.79,
     "stroomVariabel": 0.1229,
     "stroomDynamisch": 0.17,
+    "stroomEb": 0.09161,
+    "vermindering": -519.8,
+    "stroomTransport": 394.11,
+    "vastDynamisch": 81.16
+   }
+  },
+  {
+   "maand": "2026-10",
+   "incl": {
+    "gasVariabel": 0.6965,
+    "gasEb": 0.7268,
+    "gasTransport": 268.37,
+    "stroomVariabel": 0.1601,
+    "stroomDynamisch": 0.2295,
+    "stroomEb": 0.11085,
+    "vermindering": -628.96,
+    "stroomTransport": 476.87,
+    "vastDynamisch": 98.21
+   },
+   "excl": {
+    "gasVariabel": 0.5756,
+    "gasEb": 0.60066,
+    "gasTransport": 221.79,
+    "stroomVariabel": 0.1323,
+    "stroomDynamisch": 0.1896,
     "stroomEb": 0.09161,
     "vermindering": -519.8,
     "stroomTransport": 394.11,
