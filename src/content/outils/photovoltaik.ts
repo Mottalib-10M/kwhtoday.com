@@ -67,7 +67,7 @@ ${h.table(['Anlage', 'Erzeugung', 'Mischsatz', 'Ertrag pro Jahr', '1.200 €/kWp
     title: 'Zonnepanelen terugverdientijd 2027: opbrengst berekenen',
     description: 'Zonnepanelen terugverdientijd na het einde van salderen: opwek, eigen verbruik en terugleververgoeding invullen, opbrengst per jaar en terugverdientijd zien.',
     h1: 'Zonnepanelen: opbrengst en terugverdientijd na 2027',
-    intro: 'Vul het vermogen, de opbrengst, je eigen verbruik en de prijs van de panelen in. De rekenhulp rekent met de CBS-stroomprijs en het wettelijke minimum voor terugleveren.',
+    intro: 'Vul het vermogen, de opbrengst, je eigen verbruik en de prijs van de panelen in. De rekenhulp rekent de terugverdientijd van je zonnepanelen uit met de CBS-stroomprijs en het wettelijke minimum voor terugleveren.',
     resume: (h) => {
       const { prijs, verg, n10 } = D(h);
       return `Zonnepanelen verdienen zich terug via de stroom die je niet meer van het net koopt. Tot en met 2026 telt elke teruggeleverde kilowattuur dankzij de salderingsregeling mee tegen de volle prijs; vanaf 1 januari 2027 stopt die regeling en krijg je voor teruggeleverde stroom alleen nog een terugleververgoeding van je leverancier. Die moet tot 2030 minstens de helft zijn van de kale leveringsprijs. Daarom telt na 2027 vooral wat je direct zelf verbruikt. Milieu Centraal rekent met panelen van ${h.num(h.P.nl.milieucentraal.wp_paneel)} Wp: tien stuks leveren ongeveer ${h.num(n10.kwh)} kWh per jaar en kosten ongeveer ${h.eur(n10.kosten)}. Bij 30 % direct eigen verbruik (aanname), een stroomprijs van ${h.ct(prijs, 2)} inclusief energiebelasting en btw volgens het CBS en een vergoeding van ${h.ct(verg, 2)} levert dat vanaf 2027 ${h.eur(n10.r.jaar2027)} per jaar op, in 2026 nog ${h.eur(n10.r.jaar2026)}. De terugverdientijd komt daarmee op ${j(h, n10.r.terugverdien)} jaar. Op zonnepanelen voor woningen geldt 0 % btw. Terugleverkosten van je leverancier verlengen de terugverdientijd; vul ze in als je contract ze noemt.`;
@@ -80,7 +80,7 @@ ${h.table(['Anlage', 'Erzeugung', 'Mischsatz', 'Ertrag pro Jahr', '1.200 €/kWp
     body: (h) => {
       const { nl, verbruik, prijs, verg } = D(h);
       const rows = nl.map((z) => [String(z.panelen), `${h.num(z.kwh)} kWh`, h.eur(z.kosten), h.eur(z.r.jaar2026), h.eur(z.r.jaar2027), j(h, z.r.terugverdien)]);
-      return `<h2>Zes, acht of tien panelen</h2>
+      return `<h2>Terugverdientijd van zes, acht of tien zonnepanelen</h2>
 ${h.table(['Panelen', 'Opwek per jaar', 'Prijs', 'Opbrengst 2026', 'Vanaf 2027', 'Terugverdientijd'], rows, `Opwek en prijs: Milieu Centraal (panelen van 435 Wp). Jaarverbruik ${h.num(verbruik)} kWh (CBS-gemiddelde), 30 % direct eigen verbruik (aanname), stroomprijs ${h.ct(prijs, 2)}, vergoeding ${h.ct(verg, 2)}, geen terugleverkosten`, ['r', 'r', 'r', 'r', 'r', 'r'])}
 <p>De opwek en de prijzen zijn de voorbeelden van ${h.src('mcZon', 'Milieu Centraal')}. De opbrengst rekenen we zelf: direct eigen verbruik tegen de volle prijs, de rest tegen de vergoeding, en in 2026 nog gesaldeerd tot je jaarverbruik. Het gemiddelde jaarverbruik is het CBS-cijfer voor alle huishoudens uit ${h.src('cbsVerbruik', 'CBS StatLine 85140NED')}; de stroomprijs het CBS-gemiddelde voor een variabel contract plus energiebelasting.</p>
 <h2>Wat er in 2027 verandert</h2>
@@ -96,7 +96,7 @@ ${h.table(['Panelen', 'Opwek per jaar', 'Prijs', 'Opbrengst 2026', 'Vanaf 2027',
     title: 'Solar panel payback 2026: Germany and the Netherlands',
     description: 'Solar panel payback calculator for Germany and the Netherlands: yield, own use, feed-in tariff or net metering, yearly value and years until the panels pay off.',
     h1: 'Solar panel payback in Germany and the Netherlands',
-    intro: 'Choose the country, then enter system size, yield, own use and price. The calculator applies the German feed-in tariff or the Dutch net metering rules and their 2027 end.',
+    intro: 'Choose the country, then enter system size, yield, own use and price. The calculator works out the payback of your solar panels under the German feed-in tariff or the Dutch net metering rules and their 2027 end.',
     resume: (h) => {
       const { p, bsp, prijs, verg, n10 } = D(h);
       return `Rooftop solar pays back through power you no longer buy from the grid, and the rules for the surplus differ sharply between Germany and the Netherlands. In Germany the grid operator pays a fixed feed-in tariff for 20 years, far below the retail price, so own use drives the return. An 8 kWp system yielding 950 kWh per kWp with 30% own use (assumptions) produces ${h.num(bsp.erzeugt)} kWh a year and earns ${h.eur(bsp.summe)} in feed-in payments and savings at an all-in price of ${h.ct(p.preis, 2)}; at 12,000 euros (assumption) it pays back in ${j(h, bsp.amortisation)} years. In the Netherlands net metering offsets exports at the full price until the end of 2026; from 1 January 2027 exports earn only the supplier’s feed-in payment, which must be at least half the bare supply price until 2030. Ten 435 Wp panels, which Milieu Centraal puts at about ${h.num(n10.kwh)} kWh a year and ${h.eur(n10.kosten)}, then yield ${h.eur(n10.r.jaar2027)} a year at a CBS price of ${h.ct(prijs, 2)} and a payment of ${h.ct(verg, 2)}, a payback of ${j(h, n10.r.terugverdien)} years. Both countries charge zero VAT on home solar panels.`;
@@ -110,7 +110,7 @@ ${h.table(['Panelen', 'Opwek per jaar', 'Prijs', 'Opbrengst 2026', 'Vanaf 2027',
       const { p, de, nl, prijs, verg } = D(h);
       const r1 = de.map((x) => [`${h.num(x.kwp)} kWp`, `${h.num(x.r.erzeugt)} kWh`, h.ct(x.r.satz, 2), h.eur(x.r.summe), ...x.jahre.map((y) => j(h, y))]);
       const r2 = nl.map((z) => [String(z.panelen), `${h.num(z.kwh)} kWh`, h.eur(z.kosten), h.eur(z.r.jaar2026), h.eur(z.r.jaar2027), j(h, z.r.terugverdien)]);
-      return `<h2>Germany: payback by size and price</h2>
+      return `<h2>Germany: solar panel payback by size and price</h2>
 ${h.table(['System', 'Output', 'Blended rate', 'Value per year', '€1,200/kWp', '€1,500/kWp', '€1,800/kWp'], r1, `Years to pay back. 950 kWh per kWp, 30% own use, partial export; prices per kWp are assumptions. Power price ${h.ct(p.preis, 2)}`, ['l', 'r', 'r', 'r', 'r', 'r', 'r'])}
 <p>Feed-in rates come from the ${h.src('bnetzaEeg')} and apply to systems commissioned by the end of 2026; the full table is on ${h.a('einspeiseverguetung', 'German feed-in tariff 2026')}. New systems from 2 to 100 kW may export at most 60 percent of their capacity until a smart meter is installed, under ${h.src('eeg9', 'section 9 EEG')}. Supply and installation carry zero VAT under ${h.src('ustg', 'section 12(3) of the VAT Act')}.</p>
 <h2>Netherlands: six, eight or ten panels</h2>

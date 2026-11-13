@@ -32,8 +32,8 @@ export default defineGuide({
     card: 'Bester Startzeitpunkt für Waschmaschine, Spüler oder Trockner heute und morgen.',
     title: 'Günstigste Stunde für Strom heute und morgen schnell finden',
     description: 'Günstigste Stunde für Strom heute und morgen: Laufzeit und Verbrauch eines Geräts eintragen, Start mit dem niedrigsten Endpreis und die Ersparnis sehen.',
-    h1: 'Günstigste Stunde: wann sich Waschmaschine und Co. lohnen',
-    intro: 'Tragen Sie Laufzeit und Verbrauch eines Durchgangs ein. Der Rechner sucht in den veröffentlichten Viertelstunden den günstigsten Start ab jetzt.',
+    h1: 'Günstigste Stunde für Strom heute und morgen: wann sich Waschmaschine und Co. lohnen',
+    intro: 'Tragen Sie Laufzeit und Stromverbrauch eines Durchgangs ein. Der Rechner findet in den veröffentlichten Viertelstunden von heute und morgen den günstigsten Start ab jetzt.',
     resume: (h) => {
       const { de, gDe } = D(h);
       const w = gDe[0].f;
@@ -53,7 +53,7 @@ ${h.table(['Gerät (Beispielwerte)', 'Laufzeit, Verbrauch', 'Günstigster Start'
 <h2>Das Muster der letzten 30 Tage</h2>
 ${h.table(['Uhrzeit', 'Börsenpreis im Mittel', 'Endpreis ohne Aufschlag'], r2, 'Deutschland und Luxemburg, Mittel je Drei-Stunden-Block, Quelle SMARD', ['l', 'r', 'r'])}
 <p>Die Börsenwerte kommen von ${h.src('smard')}. Der Endpreis enthält Netzentgelt (Mittel aus dem ${h.src('monitoring')}), ${h.src('stromstg', 'Stromsteuer')}, Umlagen, Konzessionsabgabe und Umsatzsteuer. Das Muster ist ein Durchschnitt; der einzelne Tag kann stark davon abweichen.</p>
-<h2>Große Verbraucher</h2>
+<h2>Für große Verbraucher die günstigste Stunde heute und morgen finden</h2>
 <p>Bei Geräten mit 1 bis 2 kWh geht es um Cent. Bei einem Elektroauto mit 30 kWh oder einer Wärmepumpe, die mehrere Stunden läuft, wird aus derselben Preisspanne ein spürbarer Betrag: dafür gibt es ${h.a('laden', 'E-Auto laden')} und ${h.a('waermepumpe', 'Wärmepumpe und Strompreis')}. Die Preise für morgen stehen ab dem frühen Nachmittag auf ${h.a('morgen', 'Strompreis morgen')}.</p>`;
     },
   },
@@ -81,7 +81,7 @@ ${h.table(['Uhrzeit', 'Börsenpreis im Mittel', 'Endpreis ohne Aufschlag'], r2, 
       const r2 = bDe.map((b, i) => [`${hh(b.von)} to ${hh(b.von + 3)}`, h.ct(endDe(b.m), 1), h.ct(endNl(bNl[i].m), 1)]);
       return `<h2>Three appliances on ${h.date(gDe[0].f.d)}</h2>
 ${h.table(['Appliance (example values)', 'Run time, energy', 'DE best start', 'DE cost', 'NL best start', 'NL cost'], r1, 'All-in price without supplier markup or purchase fee; run times and energy use are assumptions', ['l', 'l', 'r', 'r', 'r', 'r'])}
-<h2>The pattern of the last 30 days</h2>
+<h2>The cheapest hours for electricity over the last 30 days</h2>
 ${h.table(['Time of day', 'Germany all-in', 'Netherlands all-in'], r2, 'Average per three-hour block, before markup, source SMARD', ['l', 'r', 'r'])}
 <p>Exchange values come from ${h.src('smard')}. The German all-in price includes the average grid fee from the ${h.src('monitoring')}, ${h.src('stromstg', 'electricity tax')}, levies, concession fee and VAT; the Dutch one includes energy tax from the ${h.src('wbm')} and VAT. The pattern is an average, and a single day can look very different.</p>
 <h2>Large loads</h2>
@@ -94,8 +94,8 @@ ${h.table(['Time of day', 'Germany all-in', 'Netherlands all-in'], r2, 'Average 
     card: 'Het beste starttijdstip voor wasmachine, vaatwasser of droger, vandaag en morgen.',
     title: 'Goedkoopste uur voor stroom vandaag en morgen vinden',
     description: 'Goedkoopste uur voor stroom vandaag en morgen: vul looptijd en verbruik van een apparaat in en zie de start met de laagste eindprijs en wat het scheelt.',
-    h1: 'Goedkoopste uur: wanneer de wasmachine het minst kost',
-    intro: 'Vul de looptijd en het verbruik van één keer draaien in. De rekenhulp zoekt in de gepubliceerde kwartieren de goedkoopste start vanaf nu.',
+    h1: 'Goedkoopste uur voor stroom vandaag en morgen: wanneer de wasmachine het minst kost',
+    intro: 'Vul de looptijd en het verbruik van één keer draaien in. De rekenhulp vindt in de gepubliceerde kwartieren van vandaag en morgen de goedkoopste start vanaf nu.',
     resume: (h) => {
       const { nl, gNl } = D(h);
       const w = gNl[0].f;
@@ -115,7 +115,7 @@ ${h.table(['Apparaat (voorbeeldwaarden)', 'Looptijd, verbruik', 'Goedkoopste sta
 <h2>Het patroon van de laatste 30 dagen</h2>
 ${h.table(['Tijd', 'Gemiddelde beursprijs', 'Eindprijs zonder inkoopvergoeding'], r2, 'Nederland, gemiddelde per blok van drie uur, bron SMARD', ['l', 'r', 'r'])}
 <p>De beurswaarden komen van ${h.src('smard')}, de energiebelasting uit de ${h.src('wbm')}. Het patroon is een gemiddelde; een losse dag kan er heel anders uitzien.</p>
-<h2>Grote verbruikers</h2>
+<h2>Voor grote verbruikers het goedkoopste uur vandaag en morgen vinden</h2>
 <p>Bij apparaten van 1 tot 2 kWh gaat het om centen. Bij een elektrische auto van 30 kWh wordt hetzelfde prijsverschil een merkbaar bedrag: zie ${h.a('laden', 'auto laden')}. De prijzen van morgen staan vanaf begin van de middag op ${h.a('morgen', 'stroomprijs morgen')}, en of een dynamisch contract over een maand goedkoper is, rekent ${h.a('vergleich', 'dynamisch energiecontract')} uit.</p>`;
     },
   },

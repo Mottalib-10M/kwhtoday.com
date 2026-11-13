@@ -26,8 +26,8 @@ export default defineGuide({
     card: 'Tagesmittel, Monatsmittel und Jahresmittel des Day-Ahead-Preises seit 2019.',
     title: 'Börsenstrompreis aktuell und im Verlauf seit dem Jahr 2019',
     description: 'Börsenstrompreis Day-Ahead für Deutschland: Tagesmittel der letzten 30 Tage, Monatsmittel des letzten Jahres, Jahresmittel seit 2019 und Ihr Anteil daran.',
-    h1: 'Börsenstrompreis: Tage, Monate und Jahre im Überblick',
-    intro: 'Der Rechner zeigt die letzten 30 Tagesmittel oder 13 Monatsmittel und rechnet aus, was der Börsenanteil Ihres Monatsverbrauchs gekostet hat.',
+    h1: 'Börsenstrompreis aktuell: Tage, Monate und Jahre im Überblick',
+    intro: 'Der Rechner zeigt den Börsenstrompreis im Verlauf, aktuell die letzten 30 Tagesmittel oder 13 Monatsmittel, und rechnet aus, was der Börsenanteil Ihres Monatsverbrauchs gekostet hat.',
     resume: (h) => {
       const { de, hoch, wd } = D(h);
       const j25 = de.jahr('2025'), j24 = de.jahr('2024');
@@ -42,7 +42,7 @@ export default defineGuide({
       const { jahre, letzte13 } = D(h);
       const j = jahre.filter((x) => x.de != null).map((x) => [x.y, h.eur(x.de!, 2), h.spot(x.de!, 2), x.at != null ? h.eur(x.at, 2) : '–']);
       const m = letzte13.map((x) => [h.monat(x.m), h.spot(x.de, 2)]);
-      return `<h2>Jahresmittel seit 2019</h2>
+      return `<h2>Börsenstrompreis im Verlauf: Jahresmittel seit 2019</h2>
 ${h.table(['Jahr', 'Deutschland/Luxemburg €/MWh', 'ct/kWh', 'Österreich €/MWh'], j, 'Mittel der Monatsmittel des Day-Ahead-Preises, Quelle SMARD', ['l', 'r', 'r', 'r'])}
 <h2>Die letzten 13 Monate</h2>
 ${h.table(['Monat', 'Börsenpreis'], m, 'Deutschland und Luxemburg; fehlende SMARD-Monatswerte aus den Tagesmitteln ergänzt', ['l', 'r'])}
@@ -58,7 +58,7 @@ ${h.table(['Monat', 'Börsenpreis'], m, 'Deutschland und Luxemburg; fehlende SMA
     title: 'Day-ahead power prices: daily, monthly, yearly averages',
     description: 'Day-ahead power prices for Germany and the Netherlands: daily averages of the last 30 days, monthly averages of the past year and yearly averages since 2019.',
     h1: 'Day-ahead electricity prices: days, months and years at a glance',
-    intro: 'The calculator shows the last 30 daily or 13 monthly averages and works out what the exchange share of your monthly use cost.',
+    intro: 'The calculator shows day-ahead power prices as the last 30 daily or 13 monthly averages and works out what the exchange share of your monthly use cost.',
     resume: (h) => {
       const { de, nl, hoch, wd, wn } = D(h);
       return `The day-ahead price, often called the “EPEX spot price” after one of the power exchanges that run the auction, is the result of the European day-ahead auction: the wholesale price for each quarter hour of the next day, set separately for each bidding zone. In ${h.monat(de.letzt[0])} the monthly average was ${h.spot(de.letzt[1], 2)} in the German and Luxembourg zone and ${h.spot(nl.letzt[1], 2)} in the Dutch zone${de.vorjahr ? `; a year earlier the German figure was ${h.spot(de.vorjahr[1], 2)}` : ''}. Over the last ${h.num(wd.n)} days the averages were ${h.spot(wd.mittel, 2)} in Germany and ${h.spot(wn.mittel, 2)} in the Netherlands. The most expensive year in the series was ${hoch.y}, at ${h.eur(hoch.de!, 2)} per MWh in Germany${hoch.y === '2022' ? ', when gas prices soared after Russia’s attack on Ukraine' : ''}. For households the exchange price is only part of the unit rate: grid fees, taxes, levies and VAT come on top and make up the larger share whenever wholesale prices are low. On a fixed contract changes reach you late, when the supplier reprices; on a dynamic tariff you pay each quarter hour’s exchange price straight away. All figures here are SMARD data from the Federal Network Agency, not EPEX SPOT data.`;
@@ -72,7 +72,7 @@ ${h.table(['Monat', 'Börsenpreis'], m, 'Deutschland und Luxemburg; fehlende SMA
       const { jahre, letzte13 } = D(h);
       const j = jahre.filter((x) => x.de != null).map((x) => [x.y, h.eur(x.de!, 2), x.nl != null ? h.eur(x.nl, 2) : '–', x.at != null ? h.eur(x.at, 2) : '–']);
       const m = letzte13.map((x) => [h.monat(x.m), h.spot(x.de, 2), x.nl != null ? h.spot(x.nl, 2) : '–']);
-      return `<h2>Yearly averages since 2019</h2>
+      return `<h2>Yearly averages of day-ahead prices since 2019</h2>
 ${h.table(['Year', 'Germany €/MWh', 'Netherlands €/MWh', 'Austria €/MWh'], j, 'Mean of monthly day-ahead averages, source SMARD', ['l', 'r', 'r', 'r'])}
 <h2>The last 13 months</h2>
 ${h.table(['Month', 'Germany', 'Netherlands'], m, 'Day-ahead exchange price; months missing from SMARD’s monthly series filled from daily averages', ['l', 'r', 'r'])}
@@ -88,7 +88,7 @@ ${h.table(['Month', 'Germany', 'Netherlands'], m, 'Day-ahead exchange price; mon
     title: 'Day-aheadprijzen stroom: dag-, maand- en jaargemiddelden',
     description: 'Day-aheadprijzen voor stroom in Nederland: daggemiddelden van de laatste 30 dagen, maandgemiddelden van het afgelopen jaar en de jaargemiddelden sinds 2019.',
     h1: 'Day-aheadprijzen: dagen, maanden en jaren op een rij',
-    intro: 'De rekenhulp toont de laatste 30 daggemiddelden of 13 maandgemiddelden en rekent uit wat het beursdeel van je maandverbruik kostte.',
+    intro: 'De rekenhulp toont de day-aheadprijzen als de laatste 30 daggemiddelden of 13 maandgemiddelden en rekent uit wat het beursdeel van je maandverbruik kostte.',
     resume: (h) => {
       const { nl, wn } = D(h);
       const j25 = nl.jahr('2025'), j24 = nl.jahr('2024');
@@ -104,7 +104,7 @@ ${h.table(['Month', 'Germany', 'Netherlands'], m, 'Day-ahead exchange price; mon
       const { jahre, letzte13 } = D(h);
       const j = jahre.filter((x) => x.nl != null).map((x) => [x.y, h.eur(x.nl!, 2), h.spot(x.nl!, 2), x.de != null ? h.eur(x.de, 2) : '–']);
       const m = letzte13.map((x) => [h.monat(x.m), x.nl != null ? h.spot(x.nl, 2) : '–']);
-      return `<h2>Jaargemiddelden sinds 2019</h2>
+      return `<h2>Jaargemiddelden van de day-aheadprijzen sinds 2019</h2>
 ${h.table(['Jaar', 'Nederland €/MWh', 'ct/kWh', 'Duitsland €/MWh'], j, 'Gemiddelde van de maandgemiddelden van de day-aheadprijs, bron SMARD', ['l', 'r', 'r', 'r'])}
 <h2>De laatste 13 maanden</h2>
 ${h.table(['Maand', 'Beursprijs Nederland'], m, 'Day-aheadprijs; maanden die bij SMARD nog ontbreken, aangevuld uit de daggemiddelden', ['l', 'r'])}

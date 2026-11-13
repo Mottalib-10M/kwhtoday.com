@@ -102,7 +102,7 @@ ${h.table(['Component', 'ct/kWh net', 'Share'], rows, `Exchange average ${h.date
 ${h.table(['Highest 2025 averages', 'Net grid fee'], hoch, 'Monitoring report 2025, households 2,500 to 5,000 kWh', ['l', 'r'])}
 ${h.table(['Lowest 2025 averages', 'Net grid fee'], tief, 'Monitoring report 2025, households 2,500 to 5,000 kWh', ['l', 'r'])}
 <p>The dearest and cheapest state averages were ${h.ct(spanne, 2)} apart, and individual operators within a state vary even more. The figures come from the ${h.src('monitoring')}; the calculator above lets you pick any state or enter your own amount.</p>
-<h2>What changes in 2026</h2>
+<h2>What changes for German grid fees in 2026</h2>
 <p>In 2026 the federal government pays a subsidy of ${h.num(n26.zuschuss_mrd_eur, 1)} billion euros towards transmission grid fees, funded from the Climate and Transformation Fund. According to the ${h.src('bnetzaPreise', 'Federal Network Agency')}, household grid fees at the ${h.num(n26.netzbetreiber)} largest operators fall by just under ${h.ct(n26.senkung_ct, 0)} on average as a result. Because grid fees differ by region, the relief varies by grid area. An official national average for 2026 will only come with the next monitoring report; until then this site uses the 2025 average.</p>
 <h2>Paying less with a heat pump or wallbox</h2>
 <p>Controllable devices get a reduced grid fee; which of the three modules pays off is worked out on ${h.a('paragraph14a', 'section 14a EnWG')}. What an appliance or a whole household costs per year is on ${h.a('stromkosten', 'electricity cost calculator')}, and whether a ${h.a('vergleich', 'dynamic electricity tariff')} saves money despite fixed grid fees is covered by the tariff comparison.</p>`;

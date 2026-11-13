@@ -29,7 +29,7 @@ export default defineGuide({
     title: 'Einspeisevergütung 2026: Sätze für Solaranlagen nach EEG',
     description: 'Einspeisevergütung 2026 laut Bundesnetzagentur: Sätze je Leistungsstufe für Teil- und Volleinspeisung, die Regel bei negativen Preisen und Ihr Ertrag pro Jahr.',
     h1: 'Einspeisevergütung 2026: was Solarstrom ins Netz einbringt',
-    intro: 'Tragen Sie Leistung, Ertrag und Eigenverbrauch Ihrer Dachanlage ein. Der Rechner wendet die Sätze der Bundesnetzagentur anteilig je Leistungsstufe an.',
+    intro: 'Tragen Sie Leistung, Ertrag und Eigenverbrauch Ihrer Dachanlage ein. Der Rechner wendet die Sätze der Einspeisevergütung, wie sie die Bundesnetzagentur veröffentlicht, anteilig je Leistungsstufe an.',
     resume: (h) => {
       const { v, w, mittag, bsp } = D(h);
       return `Die Einspeisevergütung ist der feste Betrag je Kilowattstunde, den der Netzbetreiber für Solarstrom zahlt, der ins Netz fließt. Für Anlagen auf Gebäuden, die zwischen dem ${h.date(v.ab)} und dem ${h.date(v.bis)} in Betrieb gehen, nennt die Bundesnetzagentur bei Teileinspeisung ${h.ct(v.teil.bis10, 2)} für die ersten 10 kW, ${h.ct(v.teil.bis40, 2)} für den Teil bis 40 kW und ${h.ct(v.teil.bis100, 2)} bis 100 kW. Wer den gesamten Strom einspeist, erhält ${h.ct(v.voll.bis10, 2)} bis 10 kW und ${h.ct(v.voll.bis40, 2)} darüber. Der Satz gilt 20 Jahre fest, und eine größere Anlage erhält einen anteiligen Mischsatz. Eine Anlage mit 8 kWp, 950 kWh Ertrag je kWp und 30 % Eigenverbrauch (Annahmen) speist ${h.num(bsp.eingespeist)} kWh ein und erhält dafür ${h.eur(bsp.verguetung)} im Jahr; der selbst verbrauchte Strom spart beim aktuellen Endpreis dieser Seite weitere ${h.eur(bsp.ersparnis)}. Seit dem Solarspitzengesetz entfällt für neue Anlagen die Vergütung in Viertelstunden mit negativem Börsenpreis, bei kleinen Anlagen ab dem Jahr nach dem Einbau eines intelligenten Messsystems. In den letzten ${h.num(w.n)} Tagen gab es ${h.num(w.negativViertel)} solche Viertelstunden; mittags lag der Börsenpreis im Schnitt bei ${h.spot(mittag, 2)}. Die Sätze beruhen auf dem EEG 2023, das bis Ende 2026 gilt.`;
@@ -48,7 +48,7 @@ export default defineGuide({
         ['Sonstige Anlagen bis 100 kW', h.ct(v.sonstige, 2), h.ct(v.sonstige, 2)],
       ];
       const misch = groessen.map((g) => [`${h.num(g.k)} kWp`, h.ct(g.teil, 2), h.ct(g.voll, 2)]);
-      return `<h2>Die Sätze der Bundesnetzagentur</h2>
+      return `<h2>Die Sätze der Einspeisevergütung laut Bundesnetzagentur</h2>
 ${h.table(['Leistungsstufe', 'Teileinspeisung', 'Volleinspeisung'], satz, `Feste Einspeisevergütung für Inbetriebnahme ${h.date(v.ab)} bis ${h.date(v.bis)}, Gebäude und Lärmschutzwände (§ 48 Abs. 2 und 2a EEG 2023)`, ['l', 'r', 'r'])}
 <p>Die Werte stammen von der ${h.src('bnetzaEeg')}. Sie enthalten nicht die im Solarpaket I vorgesehene Erhöhung um 1,5 ct für Anlagen ab 40 kW, weil die Europäische Kommission sie nach Angabe der Bundesnetzagentur beihilferechtlich nicht genehmigt hat. Das EEG 2023 gilt bis zum ${h.date(v.bis)}; eine Nachfolgeregelung ist laut Bundesnetzagentur in der parlamentarischen Beratung. Für Anlagen, die ab 2027 ans Netz gehen, können also andere Regeln gelten.</p>
 <h2>Der Mischsatz einer Anlage</h2>
@@ -67,7 +67,7 @@ ${h.table(['Anlage', 'Teileinspeisung', 'Volleinspeisung'], misch, 'Anteilig: di
     title: 'Feed-in tariff Germany 2026: EEG rates for solar panels',
     description: 'Feed-in tariff in Germany for 2026 per the Federal Network Agency: rates by size band for partial and full export, the negative price rule and yearly income.',
     h1: 'German feed-in tariff 2026: what solar exports earn',
-    intro: 'Enter the size, yield and own use of your rooftop system. The calculator applies the Federal Network Agency rates proportionally to each size band.',
+    intro: 'Enter the size, yield and own use of your rooftop system. The calculator applies the Federal Network Agency’s feed-in tariff rates proportionally to each size band.',
     resume: (h) => {
       const { v, w, mittag, bsp } = D(h);
       return `The German feed-in tariff, the Einspeisevergütung, is the fixed amount per kilowatt-hour the grid operator pays for solar power that flows into the grid. For rooftop systems commissioned between ${h.date(v.ab)} and ${h.date(v.bis)}, the Federal Network Agency lists ${h.ct(v.teil.bis10, 2)} for the first 10 kW with partial export, ${h.ct(v.teil.bis40, 2)} for the share up to 40 kW and ${h.ct(v.teil.bis100, 2)} up to 100 kW. Systems that export everything receive ${h.ct(v.voll.bis10, 2)} up to 10 kW and ${h.ct(v.voll.bis40, 2)} above. The rate is fixed for 20 years, and a larger system gets a blended rate. An 8 kWp system yielding 950 kWh per kWp with 30% own use (assumptions) exports ${h.num(bsp.eingespeist)} kWh and earns ${h.eur(bsp.verguetung)} a year; the power used on site saves another ${h.eur(bsp.ersparnis)} at this site’s current all-in price. Since the solar peak law, new systems get nothing for quarter hours with a negative exchange price, small ones from the year after a smart meter is fitted. The last ${h.num(w.n)} days had ${h.num(w.negativViertel)} such quarter hours; at midday the exchange price averaged ${h.spot(mittag, 2)}. The rates rest on the EEG 2023, which runs until the end of 2026.`;
@@ -86,7 +86,7 @@ ${h.table(['Anlage', 'Teileinspeisung', 'Volleinspeisung'], misch, 'Anteilig: di
         ['Other systems up to 100 kW', h.ct(v.sonstige, 2), h.ct(v.sonstige, 2)],
       ];
       const misch = groessen.map((g) => [`${h.num(g.k)} kWp`, h.ct(g.teil, 2), h.ct(g.voll, 2)]);
-      return `<h2>The Federal Network Agency rates</h2>
+      return `<h2>German feed-in tariff rates from the Federal Network Agency</h2>
 ${h.table(['Size band', 'Partial export', 'Full export'], satz, `Fixed feed-in tariff for commissioning ${h.date(v.ab)} to ${h.date(v.bis)}, buildings and noise barriers (EEG 2023 s. 48(2) and (2a))`, ['l', 'r', 'r'])}
 <p>The values come from the ${h.src('bnetzaEeg')}. They exclude the 1.5 ct increase for systems from 40 kW planned in Solar Package I, because according to the agency the European Commission has not approved it under state aid rules. The EEG 2023 applies until ${h.date(v.bis)}; the agency says a successor is under parliamentary debate, so systems connected from 2027 may face different rules.</p>
 <h2>The blended rate of a system</h2>

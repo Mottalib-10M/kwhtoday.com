@@ -27,7 +27,7 @@ export default defineGuide({
     title: 'E-Auto laden zu Hause: Kosten je Ladung und beste Uhrzeit',
     description: 'E-Auto laden zu Hause mit dynamischem Tarif: Akku, Ladestand und Wallbox eintragen, günstigstes Ladefenster heute oder morgen und die Kosten mit Abgaben sehen.',
     h1: 'E-Auto laden: was die Ladung zu Hause heute kostet',
-    intro: 'Tragen Sie Akku, Ladestand und Ladeleistung ein. Der Rechner sucht das günstigste zusammenhängende Ladefenster in den veröffentlichten Preisen.',
+    intro: 'Tragen Sie Akku, Ladestand und Ladeleistung Ihres E-Autos ein. Der Rechner sucht das günstigste zusammenhängende Ladefenster für zu Hause in den veröffentlichten Preisen.',
     resume: (h) => {
       const { wb, sd, de } = D(h);
       return `Ein Elektroauto zu Hause zu laden kostet mit einem dynamischen Tarif so viel wie die Kilowattstunden aus dem Netz mal dem Endpreis der Viertelstunden, in denen geladen wird. Als Beispiel: ein Akku mit 60 kWh nutzbarer Kapazität, geladen von 20 auf 80 %, nimmt 36 kWh auf; mit angenommenen 10 % Ladeverlust kommen ${h.num(wb.kwhReseau, 1)} kWh aus dem Netz. An einer Wallbox mit 11 kW dauert das rund ${h.num(wb.dureeMin / 60, 1)} Stunden, an einer Haushaltssteckdose mit 2,3 kW etwa ${h.num(sd.dureeMin / 60, 1)} Stunden. Am ${h.date(de.wb.d)} kostet die Ladung an der Wallbox im günstigsten Fenster ab ${de.wb.billig.ab} Uhr ${h.eur(de.wb.billig.kosten, 2)}, im teuersten ab ${de.wb.teuer.ab} Uhr ${h.eur(de.wb.teuer.kosten, 2)}, jeweils mit Bundesmittel des Netzentgelts, Stromsteuer, Umlagen, Konzessionsabgabe und Umsatzsteuer, aber ohne Aufschlag des Anbieters. An der Steckdose verteilt sich die Ladung über so viele Stunden, dass sich teure und billige Zeiten mischen: ${h.eur(de.sd.billig.kosten, 2)} im besten Fenster. Je schneller geladen wird, desto genauer trifft die Ladung die günstigsten Viertelstunden.`;
@@ -46,7 +46,7 @@ export default defineGuide({
       return `<h2>Eine Ladung am ${h.date(de.wb.d)}</h2>
 ${h.table(['Ladepunkt', 'Dauer', 'Günstigstes Fenster', 'Kosten günstig', 'Kosten teuer'], rows, `60 kWh Akku, 20 auf 80 %, ${h.num(wb.kwhReseau, 1)} kWh aus dem Netz (10 % Verlust angenommen), Endpreis ohne Anbieteraufschlag`, ['l', 'r', 'l', 'r', 'r'])}
 <p>Die Preise je Viertelstunde stammen von ${h.src('smard')}. Ein Fenster, das über Mitternacht reicht, kann der Rechner nur suchen, wenn der Folgetag schon veröffentlicht ist; vorher bleibt die Suche auf den Rest des Tages beschränkt.</p>
-<h2>Was in den Kosten steckt</h2>
+<h2>Was beim Laden zu Hause in den Kosten steckt</h2>
 <p>Der Endpreis enthält das Netzentgelt (Bundesmittel), die ${h.src('stromstg', 'Stromsteuer')}, die Umlagen, die Konzessionsabgabe und die Umsatzsteuer; der Aufschlag Ihres Anbieters kommt hinzu, wenn Sie ihn unter „Ladeverluste, Land, Tarif“ eintragen. Den dynamischen Tarif muss jeder Lieferant Kunden mit intelligentem Messsystem anbieten (${h.src('enwg41a', '§ 41a EnWG')}).</p>
 <h2>Über den Monat</h2>
 <p>Wer jede Nacht oder jeden Mittag lädt, sieht in ${h.a('vergleich', 'dynamischer Stromtarif')} mit dem Nachtprofil, was das über 30 Tage gegenüber einem Festpreis ausmacht. Die besonders günstigen Viertelstunden mit Börsenpreisen unter null zeigt ${h.a('negativ', 'negative Strompreise')}.</p>`;
@@ -59,7 +59,7 @@ ${h.table(['Ladepunkt', 'Dauer', 'Günstigstes Fenster', 'Kosten günstig', 'Kos
     title: 'EV charging cost at home: price per charge and best time',
     description: 'EV charging cost at home on a dynamic tariff: enter battery, charge level and charger power to see the cheapest window today or tomorrow and the all-in cost.',
     h1: 'EV charging cost: what a home charge costs today',
-    intro: 'Enter battery size, charge level and charging power. The calculator finds the cheapest continuous charging window in the published prices.',
+    intro: 'Enter your EV’s battery size, charge level and home charging power. The calculator finds the cheapest continuous charging window in the published prices.',
     resume: (h) => {
       const { wb, sd, de, nl } = D(h);
       return `Charging an electric car at home on a dynamic tariff costs the kilowatt-hours drawn from the grid times the all-in price of the quarter hours in which you charge. As an example, a battery with 60 kWh usable capacity charged from 20 to 80% takes in 36 kWh; with an assumed 10% charging loss, ${h.num(wb.kwhReseau, 1)} kWh come from the grid. On an 11 kW wallbox that takes about ${h.num(wb.dureeMin / 60, 1)} hours, on a 2.3 kW household socket about ${h.num(sd.dureeMin / 60, 1)} hours. On ${h.date(de.wb.d)}, a wallbox charge in Germany costs ${h.eur(de.wb.billig.kosten, 2)} in the cheapest window starting at ${de.wb.billig.ab} and ${h.eur(de.wb.teuer.kosten, 2)} in the dearest starting at ${de.wb.teuer.ab}, with the average grid fee, electricity tax, levies, concession fee and VAT but no supplier markup. In the Netherlands, with energy tax and VAT, the same charge costs ${h.eur(nl.wb.billig.kosten, 2)} at best and ${h.eur(nl.wb.teuer.kosten, 2)} at worst. On a socket the charge stretches over so many hours that cheap and dear times mix. The faster you charge, the more precisely the charge hits the cheapest quarter hours.`;
@@ -78,7 +78,7 @@ ${h.table(['Ladepunkt', 'Dauer', 'Günstigstes Fenster', 'Kosten günstig', 'Kos
       return `<h2>One charge on ${h.date(de.wb.d)}</h2>
 ${h.table(['Charge point', 'Duration', 'DE best start', 'DE cost', 'NL best start', 'NL cost'], rows, `60 kWh battery, 20 to 80%, ${h.num(wb.kwhReseau, 1)} kWh from the grid (10% loss assumed), all-in before markup`, ['l', 'r', 'r', 'r', 'r', 'r'])}
 <p>Quarter-hourly prices come from ${h.src('smard')}. A window that runs past midnight can only be found once the next day is published; before that, the search stays within the rest of today.</p>
-<h2>What the cost includes</h2>
+<h2>What the cost of charging at home includes</h2>
 <p>The German all-in price includes the average grid fee, ${h.src('stromstg', 'electricity tax')}, levies, concession fee and VAT; the Dutch one includes energy tax from the ${h.src('wbm')} and VAT. Your supplier’s markup is added once you enter it under “Charging losses, country, tariff”. In Germany every supplier must offer a dynamic tariff to customers with a smart metering system (${h.src('enwg41a')}).</p>
 <h2>Over a month</h2>
 <p>If you charge every night or every midday, ${h.a('vergleich', 'dynamic electricity tariff')} with the night profile shows what that adds up to over 30 days against a fixed price. The particularly cheap quarter hours with exchange prices below zero are on ${h.a('negativ', 'negative electricity prices')}.</p>`;
@@ -91,7 +91,7 @@ ${h.table(['Charge point', 'Duration', 'DE best start', 'DE cost', 'NL best star
     title: 'Auto laden thuis: kosten per laadbeurt en het beste uur',
     description: 'Auto laden thuis met een dynamisch contract: vul accu, laadniveau en laadvermogen in en zie het goedkoopste venster vandaag of morgen en de kosten met btw.',
     h1: 'Auto laden: wat een laadbeurt thuis vandaag kost',
-    intro: 'Vul accu, laadniveau en laadvermogen in. De rekenhulp zoekt het goedkoopste aaneengesloten laadvenster in de gepubliceerde prijzen.',
+    intro: 'Auto thuis laden? Vul accu, laadniveau en laadvermogen in. De rekenhulp zoekt het goedkoopste aaneengesloten laadvenster in de gepubliceerde prijzen.',
     resume: (h) => {
       const { wb, sd, nl } = D(h);
       return `Je elektrische auto thuis laden kost met een dynamisch contract de kilowatturen uit het net maal de eindprijs van de kwartieren waarin je laadt. Een voorbeeld: een accu met 60 kWh bruikbare capaciteit, geladen van 20 naar 80 %, neemt 36 kWh op; met een aangenomen laadverlies van 10 % komt er ${h.num(wb.kwhReseau, 1)} kWh uit het net. Aan een laadpaal van 11 kW duurt dat ongeveer ${h.num(wb.dureeMin / 60, 1)} uur, aan een gewoon stopcontact van 2,3 kW zo’n ${h.num(sd.dureeMin / 60, 1)} uur. Op ${h.date(nl.wb.d)} kost een laadbeurt aan de laadpaal in het goedkoopste venster vanaf ${nl.wb.billig.ab} uur ${h.eur(nl.wb.billig.kosten, 2)} en in het duurste vanaf ${nl.wb.teuer.ab} uur ${h.eur(nl.wb.teuer.kosten, 2)}, met energiebelasting en btw maar zonder inkoopvergoeding. Aan het stopcontact loopt het laden over zoveel uren dat dure en goedkope tijden door elkaar gaan: ${h.eur(nl.sd.billig.kosten, 2)} in het beste venster. Hoe sneller je laadt, hoe preciezer je de goedkoopste kwartieren raakt. Netbeheerkosten betaal je per aansluiting en tellen hier niet mee.`;
@@ -110,7 +110,7 @@ ${h.table(['Charge point', 'Duration', 'DE best start', 'DE cost', 'NL best star
       return `<h2>Eén laadbeurt op ${h.date(nl.wb.d)}</h2>
 ${h.table(['Laadpunt', 'Duur', 'Goedkoopste venster', 'Kosten goedkoop', 'Kosten duur'], rows, `Accu 60 kWh, 20 naar 80 %, ${h.num(wb.kwhReseau, 1)} kWh uit het net (10 % verlies aangenomen), met energiebelasting en btw`, ['l', 'r', 'l', 'r', 'r'])}
 <p>De kwartierprijzen komen van ${h.src('smard')}, de energiebelasting uit de ${h.src('wbm')}. Een venster dat over middernacht loopt, kan de rekenhulp pas zoeken als de volgende dag gepubliceerd is; daarvoor blijft het zoeken beperkt tot de rest van vandaag.</p>
-<h2>Over een maand</h2>
+<h2>Thuis laden over een maand</h2>
 <p>Laad je elke nacht of elke middag, dan laat ${h.a('vergleich', 'dynamisch energiecontract')} met het nachtprofiel zien wat dat over 30 dagen scheelt tegenover een vaste prijs. De extra goedkope kwartieren met een beursprijs onder nul staan op ${h.a('negativ', 'negatieve stroomprijs')}. Wanneer andere apparaten het goedkoopst draaien, laat ${h.a('fenster', 'goedkoopste uur')} zien.</p>`;
     },
   },

@@ -73,7 +73,7 @@ ${h.table(['Monat', 'Österreich', 'Deutschland/Luxemburg'], rows, 'Monatsmittel
     body: (h) => {
       const { ma, md } = D(h);
       const rows = ma.alle.slice(-12).map(([m, v]) => [h.monat(m), h.spot(v, 2), (() => { const d = md.alle.find(([k]) => k === m); return d ? h.spot(d[1], 2) : '–'; })()]);
-      return `<h2>Austria and Germany month by month</h2>
+      return `<h2>Electricity price in Austria and Germany, month by month</h2>
 ${h.table(['Month', 'Austria', 'Germany/Luxembourg'], rows, 'Monthly average of the day-ahead price, source SMARD', ['l', 'r', 'r'])}
 <p>${h.src('smard')} publishes these values for every bidding zone of European market coupling under the CC BY 4.0 licence. Dynamic tariffs from Austrian suppliers generally refer to this day-ahead price; which index applies to your contract is stated in its terms.</p>
 <h2>What the calculator cannot do here</h2>

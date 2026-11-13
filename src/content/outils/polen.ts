@@ -28,7 +28,7 @@ export default defineGuide({
     title: 'Electricity price Poland: day-ahead in złoty per kWh',
     description: 'Electricity price in Poland on the day-ahead market today and tomorrow, per quarter hour, in złoty at the ECB reference rate, compared with the German zone.',
     h1: 'Poland electricity price: the day-ahead price in złoty',
-    intro: 'The calculator shows the Polish zone’s exchange price per quarter hour in złoty. Add your own grid and tax charges from your bill for an all-in figure.',
+    intro: 'The calculator shows the exchange electricity price of the Polish zone per quarter hour in złoty. Add your own grid and tax charges from your bill for an all-in figure.',
     resume: (h) => {
       const { pl, w, wd, k, zl } = D(h);
       const f = pl.f;
@@ -42,7 +42,7 @@ export default defineGuide({
     body: (h) => {
       const { m, md, k, zl } = D(h);
       const rows = m.alle.slice(-12).map(([mm, v]) => [h.monat(mm), h.eur(v, 2), zl(v), (() => { const d = md.alle.find(([x]) => x === mm); return d ? h.eur(d[1], 2) : '–'; })()]);
-      return `<h2>Poland and Germany month by month</h2>
+      return `<h2>Electricity price in Poland and Germany, month by month</h2>
 ${h.table(['Month', 'Poland €/MWh', 'Poland zł/kWh', 'Germany €/MWh'], rows, `Monthly day-ahead averages from SMARD; złoty at the ECB rate of ${h.date(EUR_PLN.latest.date)} (${h.num(k, 4)})`, ['l', 'r', 'r', 'r'])}
 <p>Exchange values come from ${h.src('smard')} under the CC BY 4.0 licence, the rate from the ${h.src('ezb')}. Converting every month at today’s rate keeps the comparison simple but is an approximation for older months, when the złoty stood at a different level.</p>
 <h2>What the calculator does not add</h2>

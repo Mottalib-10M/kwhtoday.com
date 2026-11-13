@@ -42,7 +42,7 @@ export default defineGuide({
     title: 'Wärmepumpe Kosten 2026: Betrieb, Förderung, Amortisation',
     description: 'Wärmepumpe Kosten 2026: Gasverbrauch, Jahresarbeitszahl und Strompreis eintragen, Heizkosten gegen Gas, KfW-Zuschuss nach den Regeln ab Juli 2026, Amortisation.',
     h1: 'Wärmepumpe: was Betrieb und Kauf 2026 kosten',
-    intro: 'Tragen Sie Ihren Gasverbrauch, die erwartete Jahresarbeitszahl, Ihre Preise und das Angebot ein. Der Rechner zieht den KfW-Zuschuss nach den Bedingungen ab 21. Juli 2026 ab.',
+    intro: 'Tragen Sie Ihren Gasverbrauch, die erwartete Jahresarbeitszahl, Ihre Preise und das Angebot ein. Der Rechner ermittelt die Kosten der Wärmepumpe und zieht den KfW-Zuschuss nach den Bedingungen ab 21. Juli 2026 ab.',
     resume: (h) => {
       const { p, gasDe, k, bspDe, kfwGrund } = D(h);
       return `Was eine Wärmepumpe im Betrieb kostet, hängt an drei Zahlen: der Heizwärme, die Ihr Haus im Jahr braucht, der Jahresarbeitszahl der Anlage und dem Strompreis. Die Heizwärme lässt sich aus dem bisherigen Gasverbrauch ableiten. Ein Haus mit 18.000 kWh Gas und 90 % Kesselwirkungsgrad (Annahme) braucht rund ${h.num(bspDe.waerme)} kWh Wärme; eine Wärmepumpe mit Jahresarbeitszahl 3,5 (Annahme) erzeugt sie aus ${h.num(bspDe.stromKwh)} kWh Strom. Beim Endpreis von ${h.ct(p.preis, 2)} aus den Börsenpreisen vom ${h.date(p.von)} bis ${h.date(p.bis)} kostet das ${h.eur(bspDe.kostenWp)} im Jahr, gegenüber ${h.eur(bspDe.kostenGas)} mit Gas zum Durchschnittspreis von ${h.ct(gasDe, 2)} laut Eurostat für das erste Halbjahr 2026. Seit dem ${h.date(k.ab)} zahlt die KfW eine Grundförderung von ${h.num(k.grund * 100)} % auf höchstens ${h.eur(k.kosten_max)} förderfähige Kosten, dazu Boni bis zusammen ${h.num(k.max * 100)} %, bei kleinem Einkommen bis ${h.num(k.max_niedrig * 100)} %. Bei einem Angebot von 30.000 Euro (Annahme) und nur der Grundförderung bleiben ${h.eur(30000 - kfwGrund.zuschuss)} Eigenanteil; mit der Ersparnis des Beispiels dauert die Amortisation ${j(h, bspDe.amortisation)} Jahre. Ein günstiger Wärmepumpentarif und eine hohe Jahresarbeitszahl verkürzen sie deutlich.`;
@@ -60,7 +60,7 @@ export default defineGuide({
       return `<h2>Heizkosten nach Jahresarbeitszahl</h2>
 ${h.table(['Jahresarbeitszahl', 'Strom', 'Wärmepumpe pro Jahr', 'Gas pro Jahr', 'Ersparnis'], r1, `18.000 kWh Gas, Kesselwirkungsgrad 90 % (Annahme). Strom ${h.ct(p.preis, 2)}, Gas ${h.ct(gasDe, 2)} (Eurostat, 1. Halbjahr 2026), ohne Grundpreise`, ['r', 'r', 'r', 'r', 'r'])}
 <p>Der Gaspreis ist der Mittelwert für Haushalte mit 20 bis 199 Gigajoule im Jahr aus ${h.src('eurostatGas', 'Eurostat')}, einschließlich aller Steuern; wie er sich zusammensetzt, zeigt ${h.a('gaspreis', 'Gaspreis aktuell')}. Der Strompreis folgt den Börsenpreisen der letzten 30 Tage mit Netzentgelt, Steuern und Umlagen. Den Grundpreis für Gas sparen Sie nur, wenn Sie den Gasanschluss kündigen; tragen Sie ihn dann im Rechner ein.</p>
-<h2>KfW-Zuschuss und Amortisation</h2>
+<h2>Kosten der Wärmepumpe: KfW-Zuschuss und Amortisation</h2>
 ${h.table(['Fördersatz', 'Zuschuss', 'Eigenanteil', 'Jahre'], r2, `Angebot 30.000 € (Annahme), förderfähig höchstens ${h.eur(k.kosten_max)}; Grundförderung, mit Klimageschwindigkeitsbonus, mit Einkommensbonus bis 40.000 € und bis 30.000 €. Jahresarbeitszahl 3,5`, ['r', 'r', 'r', 'r'])}
 <p>Seit dem ${h.date(k.ab)} gelten nach ${h.src('kfwPresse', 'Mitteilung der KfW')} neue Sätze: ${h.num(k.grund * 100)} % Grundförderung, ${h.num(k.klima * 100)} % Klimageschwindigkeitsbonus für den Austausch einer alten fossilen Heizung und ein Einkommensbonus von ${h.num(k.einkommen.bis30000 * 100)} %, ${h.num(k.einkommen.bis40000 * 100)} % oder ${h.num(k.einkommen.bis50000 * 100)} % bei einem zu versteuernden Haushaltseinkommen bis 30.000, 40.000 oder 50.000 Euro. Der Effizienzbonus ist entfallen. Die Einzelheiten, auch für Familien mit Kindern, stehen im ${h.src('kfw458', 'KfW-Merkblatt 458')}. Seit dem 29. Juli 2026 gilt das ${h.src('gmg', 'Gebäudemodernisierungsgesetz')}.</p>
 <h2>Strom günstig einkaufen</h2>
@@ -92,7 +92,7 @@ ${h.table(['Fördersatz', 'Zuschuss', 'Eigenanteil', 'Jahre'], r2, `Angebot 30.0
         ['Hybride, 4 kW, 70 % warmte', h.eur(hybride.kostenWp), h.eur(hybride.ersparnis), h.eur(isdeBsp), '5.000 €', j(h, hybride.amortisation)],
         ['All-electric, 6 kW', h.eur(allE.kostenWp), h.eur(allE.ersparnis), h.eur(isdeAllE), '12.000 €', j(h, allE.amortisation)],
       ];
-      return `<h2>Hybride of all-electric</h2>
+      return `<h2>Kosten van een hybride of all-electric warmtepomp</h2>
 ${h.table(['Warmtepomp', 'Stookkosten per jaar', 'Besparing', 'ISDE', 'Prijs (aanname)', 'Jaar'], rows, `Gasverbruik ${h.num(h.P.nl.milieucentraal.gas_m3)} m³ (Milieu Centraal), seizoensrendement 3,5, CBS-prijzen ${h.monat(n.maand)}. All-electric bespaart ook de vaste netbeheerkosten voor gas van ${h.eur(n.gasVast)}; zonder nieuwe radiatoren of isolatie`, ['l', 'r', 'r', 'r', 'r', 'r'])}
 <p>De prijzen van stroom en gas zijn de CBS-gemiddelden voor een variabel contract, met energiebelasting en btw, uit ${h.src('cbs')}. Een all-electric warmtepomp heeft vaak een goed geïsoleerd huis en lage-temperatuurverwarming nodig; die kosten zitten niet in de tabel. Het gemiddelde gasverbruik komt van ${h.src('mcVerbruik', 'Milieu Centraal')}.</p>
 <h2>ISDE 2026 en 2027</h2>
@@ -108,7 +108,7 @@ ${h.table(['Warmtepomp', 'Stookkosten per jaar', 'Besparing', 'ISDE', 'Prijs (aa
     title: 'Heat pump costs 2026: running costs, grants and payback',
     description: 'Heat pump costs in Germany and the Netherlands 2026: running costs against a gas boiler, the KfW grant or Dutch ISDE subsidy, hybrid or all-electric, payback.',
     h1: 'Heat pump costs in Germany and the Netherlands',
-    intro: 'Choose the country, then enter your gas use, the expected efficiency, your prices and the quote. The calculator deducts the KfW grant or the Dutch ISDE subsidy.',
+    intro: 'Choose the country, then enter your gas use, the expected heat pump efficiency, your prices and the quote. The calculator deducts the KfW grant or the Dutch ISDE subsidy.',
     resume: (h) => {
       const { p, gasDe, k, bspDe, kfwGrund, n, isdeBsp, hybride } = D(h);
       return `What a heat pump costs to run depends on the heat your home needs, the seasonal efficiency of the unit and the power price. The heat can be derived from your current gas use. A German home burning 18,000 kWh of gas at 90% boiler efficiency (assumption) needs about ${h.num(bspDe.waerme)} kWh of heat; a heat pump with a seasonal efficiency of 3.5 (assumption) makes it from ${h.num(bspDe.stromKwh)} kWh of power. At an all-in price of ${h.ct(p.preis, 2)} that costs ${h.eur(bspDe.kostenWp)} a year, against ${h.eur(bspDe.kostenGas)} with gas at the Eurostat average of ${h.ct(gasDe, 2)} for the first half of 2026. Since ${h.date(k.ab)} Germany’s KfW grant is ${h.num(k.grund * 100)}% of up to ${h.eur(k.kosten_max)} of eligible costs, plus bonuses up to ${h.num(k.max * 100)}% in total; on a 30,000-euro quote (assumption) the base grant leaves ${h.eur(30000 - kfwGrund.zuschuss)} to pay. In the Netherlands, CBS averages put power at ${h.ct(n.stroomCt, 2)} and gas at ${h.eur(n.gasM3, 3)} per cubic metre with taxes. A hybrid heat pump covering 70% of the heat cuts an average household’s heating bill from ${h.eur(hybride.kostenGas)} to ${h.eur(hybride.kostenWp)} a year, and the 2026 ISDE subsidy for a 4 kW unit with an A+++ label is ${h.eur(isdeBsp)}.`;
@@ -127,7 +127,7 @@ ${h.table(['Warmtepomp', 'Stookkosten per jaar', 'Besparing', 'ISDE', 'Prijs (aa
         ['Hybrid, 4 kW, 70% of heat', h.eur(hybride.kostenWp), h.eur(hybride.ersparnis), h.eur(isdeBsp), j(h, hybride.amortisation)],
         ['All-electric, 6 kW', h.eur(allE.kostenWp), h.eur(allE.ersparnis), h.eur(isdeAllE), j(h, allE.amortisation)],
       ];
-      return `<h2>Germany: running costs by efficiency</h2>
+      return `<h2>Germany: heat pump running costs by efficiency</h2>
 ${h.table(['Seasonal efficiency', 'Power', 'Heat pump per year', 'Gas per year', 'Saving'], r1, `18,000 kWh of gas, 90% boiler efficiency (assumption). Power ${h.ct(p.preis, 2)}, gas ${h.ct(gasDe, 2)} (Eurostat, first half of 2026), standing charges excluded`, ['r', 'r', 'r', 'r', 'r'])}
 <p>The gas price is the ${h.src('eurostatGas', 'Eurostat')} average for households using 20 to 199 gigajoules a year, all taxes included; its make-up is on ${h.a('gaspreis', 'gas price Germany')}. A heat pump registered as a controllable device pays a lower grid fee, see ${h.a('paragraph14a', 'section 14a EnWG')}, and running it in cheap hours is covered on ${h.a('waermepumpe', 'heat pump electricity price')}.</p>
 <h2>Germany: KfW grant and payback</h2>

@@ -33,7 +33,7 @@ export default defineGuide({
     title: 'Strompreis pro Stunde: heute Stunde für Stunde mit Abgaben',
     description: 'Strompreis pro Stunde für heute: Börsenpreis jeder Stunde und ihrer vier Viertelstunden, daneben der Endpreis mit Netzentgelt, Steuern, Umlagen und Abgaben.',
     h1: 'Strompreis pro Stunde: der heutige Tag Stunde für Stunde',
-    intro: 'Die Tabelle unter der Kurve zeigt jede Stunde des Tages, links der Börsenpreis, rechts der Preis mit Ihren Abgaben.',
+    intro: 'Die Tabelle unter der Kurve zeigt jede Stunde des Tages, links der Börsenpreis, rechts der Strompreis mit Ihren Abgaben.',
     resume: (h) => {
       const { de, sprungDe } = D(h);
       const f = de.f;
@@ -50,7 +50,7 @@ export default defineGuide({
       return `<h2>Der Tag in Drei-Stunden-Blöcken</h2>
 ${h.table(['Zeitraum', 'Börsenpreis', 'Endpreis ohne Aufschlag'], rows, `${h.date(de.f.d)}, Deutschland und Luxemburg, Endpreis mit Bundesmittel des Netzentgelts und Gemeinde bis 100.000 Einwohner`, ['l', 'r', 'r'])}
 <p>Die Börsenwerte kommen von ${h.src('smard')} unter der Lizenz CC BY 4.0. Der Endpreis enthält die Stromsteuer nach ${h.src('stromstg', '§ 3 StromStG')}, die Umlagen 2026, die Konzessionsabgabe nach ${h.src('kav', '§ 2 KAV')} und die Umsatzsteuer; der Aufschlag Ihres Anbieters fehlt, solange Sie ihn nicht oben eintragen.</p>
-<h2>Viertelstunde oder Stunde</h2>
+<h2>Strompreis pro Viertelstunde oder pro Stunde</h2>
 <p>Die Kurve hat 96 Balken, die Tabelle im Rechner 24 Zeilen. Ob Ihr Anbieter je Viertelstunde oder je Stunde abrechnet, steht im Vertrag; bei Stundenabrechnung zahlen Sie das Mittel der vier Viertelstunden. Für ein Gerät, das 90 Minuten läuft, ist die Viertelstunde genauer: ${h.a('fenster', 'günstigste Stunde')} sucht deshalb in Viertelstunden.</p>
 <h2>Morgen und die letzten Wochen</h2>
 <p>Die Stunden des nächsten Tages stehen ab dem frühen Nachmittag auf ${h.a('morgen', 'Strompreis morgen')}. Wie sich die Tagesmittel über Wochen und Monate bewegen, zeigt ${h.a('verlauf', 'Börsenstrompreis')}; woraus der feste Teil des Preises besteht, ${h.a('zusammensetzung', 'Strompreis-Zusammensetzung')}.</p>`;
@@ -80,7 +80,7 @@ ${h.table(['Zeitraum', 'Börsenpreis', 'Endpreis ohne Aufschlag'], rows, `${h.da
       return `<h2>The day in three-hour blocks</h2>
 ${h.table(['Period', 'DE exchange', 'DE all-in', 'NL exchange', 'NL all-in'], rows, `${h.date(de.f.d)}${nl.f.d !== de.f.d ? ` (NL ${h.date(nl.f.d)})` : ''}; all-in without supplier markup, Germany with the average grid fee`, ['l', 'r', 'r', 'r', 'r'])}
 <p>Exchange values come from ${h.src('smard')} under the CC BY 4.0 licence. The German all-in price includes electricity tax (${h.src('stromstg')}), the 2026 levies, the concession fee (${h.src('kav')}) and VAT; the Dutch one includes energy tax (${h.src('wbm')}) and VAT (${h.src('wetob')}). Your supplier’s markup is missing until you enter it above.</p>
-<h2>Quarter hour or hour</h2>
+<h2>Hourly or quarter-hourly electricity prices</h2>
 <p>The curve has 96 bars and the table 24 rows. Whether your supplier bills by quarter hour or by hour is in your contract; with hourly billing you pay the average of the four quarter hours. For an appliance that runs for 90 minutes the quarter hour is more precise, which is why ${h.a('fenster', 'cheapest hour')} searches in quarter hours.</p>
 <h2>Tomorrow and the past weeks</h2>
 <p>The next day’s hours appear in the early afternoon on ${h.a('morgen', 'electricity price tomorrow')}. How daily averages move over weeks and months is on ${h.a('verlauf', 'day-ahead price history')}, and what the fixed part of a German price is made of on ${h.a('zusammensetzung', 'German electricity price breakdown')}.</p>`;

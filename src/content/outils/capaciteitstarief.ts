@@ -27,7 +27,7 @@ export default defineGuide({
     title: 'Capaciteitstarief 2026: kosten per netgebied in Vlaanderen',
     description: 'Capaciteitstarief 2026: kies je Fluvius-netgebied, vul je gemiddelde maandpiek en verbruik in en zie je netkosten per jaar en wat 1 kW minder piek bespaart.',
     h1: 'Capaciteitstarief: wat je piekverbruik in Vlaanderen kost',
-    intro: 'Kies je netgebied en vul je gemiddelde maandpiek en je jaarverbruik in. De rekenhulp gebruikt de tarieven 2026 van Fluvius en telt 6 % btw erbij.',
+    intro: 'Kies je netgebied en vul je gemiddelde maandpiek en je jaarverbruik in. De rekenhulp berekent je capaciteitstarief met de tarieven 2026 van Fluvius en telt 6 % btw erbij.',
     resume: (h) => {
       const { c, gem, laagste, hoogste, ant, kw1, btw } = D(h);
       return `Sinds ${c.sinds} betaal je in Vlaanderen een groot deel van de netkosten niet meer per kilowattuur, maar volgens je piekverbruik: het capaciteitstarief. Fluvius meet met de digitale meter elke maand het hoogste kwartiervermogen, je maandpiek. Op je factuur telt het gemiddelde van je laatste twaalf maandpieken, met een minimum van ${h.num(c.min_kw, 1)} kW, ook als je werkelijke piek lager ligt. Die piek vermenigvuldigt Fluvius met een vast bedrag per kW per jaar, dat per netgebied verschilt: in 2026 van ${h.eur(laagste.mid.perKw / (1 + btw), 2)} tot ${h.eur(hoogste.mid.perKw / (1 + btw), 2)} exclusief btw. Daarnaast betaal je nog een deel per kWh en een vast bedrag voor databeheer. Een gemiddeld gezin met ${h.num(gem.kwh)} kWh heeft volgens Fluvius een piek van ${h.num(gem.piek, 2)} kW. In het netgebied Antwerpen kost dat met ${h.num(btw * 100)} % btw ${h.eur(ant.mid.cap)} aan capaciteit en ${h.eur(ant.mid.totaal)} aan distributienetkosten in totaal per jaar. Elke kilowatt minder piek bespaart daar ${h.eur(kw1)} per jaar. Wie wasmachine, droogkast, oven en laadpaal niet tegelijk laat draaien, houdt de piek laag. Energieprijs, heffingen en accijns komen er nog bovenop.`;
@@ -40,7 +40,7 @@ export default defineGuide({
     body: (h) => {
       const { c, rows, gem, btw } = D(h);
       const t = rows.map((r) => [r.g, h.eur(r.mid.perKw / (1 + btw), 2), h.eur(r.laag.totaal), h.eur(r.mid.totaal), h.eur(r.hoog.totaal)]);
-      return `<h2>Tarieven en kosten per netgebied</h2>
+      return `<h2>Tarieven en kosten van het capaciteitstarief per netgebied</h2>
 ${h.table(['Netgebied', 'Per kW per jaar, excl. btw', `Piek ${h.num(c.min_kw, 1)} kW`, `Piek ${h.num(gem.piek, 2)} kW`, 'Piek 7 kW, 6.000 kWh'], t, `Distributienetkosten afname per jaar incl. ${h.num(btw * 100)} % btw: capaciteit, kWh-tarieven en databeheer. ${h.num(gem.kwh)} kWh tenzij anders vermeld`, ['l', 'r', 'r', 'r', 'r'])}
 <p>De tarieven komen uit de tarieflijsten 2026 van ${h.src('fluviusTarieven', 'Fluvius')}, die zonder btw zijn opgesteld. Per kWh rekenen we het nettarief, de openbaredienstverplichtingen en de toeslagen van je netgebied; databeheer kost ${h.eur(c.databeheer_eur, 2)} per jaar exclusief btw. Hoe de maandpiek en het gemiddelde over twaalf maanden worden bepaald, legt ${h.src('fluviusCapaciteit', 'Fluvius')} uit. Volgens de ${h.src('creg', 'CREG')} geldt op alle onderdelen van de elektriciteitsfactuur 6 % btw.</p>
 <h2>Piek en verbruik</h2>
@@ -56,7 +56,7 @@ ${h.table(['Netgebied', 'Per kW per jaar, excl. btw', `Piek ${h.num(c.min_kw, 1)
     title: 'Capacity tariff Flanders 2026: cost per kW by grid area',
     description: 'Capacity tariff in Flanders 2026: choose your Fluvius grid area, enter your average monthly peak and use, see your yearly grid costs and what 1 kW less saves.',
     h1: 'Capacity tariff in Flanders: what your peak demand costs',
-    intro: 'Choose your grid area and enter your average monthly peak and annual use. The calculator applies the 2026 Fluvius tariffs and adds 6% VAT.',
+    intro: 'Choose your Flanders grid area and enter your average monthly peak and annual use. The calculator applies the 2026 Fluvius tariffs and adds 6% VAT.',
     resume: (h) => {
       const { c, gem, laagste, hoogste, ant, kw1, btw } = D(h);
       return `Since ${c.sinds}, households in Flanders have paid most of their grid costs not per kilowatt-hour but according to their peak demand: the capacity tariff, capaciteitstarief in Dutch. With the digital meter, the grid operator Fluvius records the highest quarter-hour power of each month, your monthly peak. Your bill uses the average of your last twelve monthly peaks, with a minimum of ${h.num(c.min_kw, 1)} kW even if your real peak is lower. Fluvius multiplies that peak by a fixed amount per kW per year that differs by grid area: in 2026 from ${h.eur(laagste.mid.perKw / (1 + btw), 2)} to ${h.eur(hoogste.mid.perKw / (1 + btw), 2)} before VAT. On top come a per-kWh part and a fixed data management fee. According to Fluvius, an average household using ${h.num(gem.kwh)} kWh has a peak of ${h.num(gem.piek, 2)} kW. In the Antwerp grid area that costs ${h.eur(ant.mid.cap)} in capacity charges and ${h.eur(ant.mid.totaal)} in total distribution charges a year, ${h.num(btw * 100)}% VAT included. Each kilowatt less peak saves ${h.eur(kw1)} a year there. Not running the washing machine, dryer, oven and car charger at the same time keeps the peak low. Energy, levies and excise duty come on top.`;
@@ -69,7 +69,7 @@ ${h.table(['Netgebied', 'Per kW per jaar, excl. btw', `Piek ${h.num(c.min_kw, 1)
     body: (h) => {
       const { c, rows, gem, btw } = D(h);
       const t = rows.map((r) => [r.g, h.eur(r.mid.perKw / (1 + btw), 2), h.eur(r.laag.totaal), h.eur(r.mid.totaal), h.eur(r.hoog.totaal)]);
-      return `<h2>Rates and costs by grid area</h2>
+      return `<h2>Capacity tariff rates and costs by grid area</h2>
 ${h.table(['Grid area', 'Per kW per year, excl. VAT', `Peak ${h.num(c.min_kw, 1)} kW`, `Peak ${h.num(gem.piek, 2)} kW`, 'Peak 7 kW, 6,000 kWh'], t, `Distribution charges per year incl. ${h.num(btw * 100)}% VAT: capacity, per-kWh rates and data management. ${h.num(gem.kwh)} kWh unless stated`, ['l', 'r', 'r', 'r', 'r'])}
 <p>The rates come from the 2026 tariff sheets of ${h.src('fluviusTarieven', 'Fluvius')}, which are stated before VAT. Per kWh we add the network rate, public service obligations and surcharges of your grid area; data management costs ${h.eur(c.databeheer_eur, 2)} a year before VAT. ${h.src('fluviusCapaciteit', 'Fluvius')} explains how the monthly peak and the twelve-month average are set. According to the ${h.src('creg', 'CREG')}, 6% VAT applies to every part of the electricity bill.</p>
 <h2>Peak and consumption</h2>

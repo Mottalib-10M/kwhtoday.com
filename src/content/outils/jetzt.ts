@@ -25,7 +25,7 @@ export default defineGuide({
     title: 'Electricity price now: this quarter hour with energy tax',
     description: 'Electricity price now for the current quarter hour in the Netherlands and Belgium: exchange value and all-in price with energy tax and VAT, against today.',
     h1: 'Electricity price now: what the current quarter hour costs',
-    intro: 'The calculator reads your clock and picks the quarter hour you are in. Add your contract’s purchase fee to see what you pay right now.',
+    intro: 'The calculator reads your clock and picks the quarter hour you are in. Add your contract’s purchase fee to see the electricity price you pay right now.',
     resume: (h) => {
       const { nl, w, boven } = D(h);
       const f = nl.f;
@@ -47,7 +47,7 @@ export default defineGuide({
       return `<h2>Today in the Dutch and Belgian zones</h2>
 ${h.table(['', 'Netherlands', 'Belgium'], rows, `Day-ahead exchange price on ${h.date(nl.f.d)}, source SMARD`, ['l', 'r', 'r'])}
 <p>The values come from ${h.src('smard')}, which publishes the results for all European bidding zones under the CC BY 4.0 licence. The Dutch energy tax is set in the ${h.src('wbm')}, VAT in the ${h.src('wetob')}.</p>
-<h2>Now, today, tomorrow</h2>
+<h2>Electricity price now, today, tomorrow</h2>
 <p>This page answers one question: what does the current quarter hour cost. The whole day hour by hour is on ${h.a('preis', 'hourly electricity prices')}, the next day from early afternoon on ${h.a('morgen', 'electricity price tomorrow')}, and the best start for an appliance on ${h.a('fenster', 'cheapest hour')}. Whether a dynamic contract beats your current one over a month is on ${h.a('vergleich', 'dynamic electricity tariff')}.</p>`;
     },
   },
@@ -58,7 +58,7 @@ ${h.table(['', 'Netherlands', 'Belgium'], rows, `Day-ahead exchange price on ${h
     title: 'Stroomprijs nu: het huidige kwartier met energiebelasting',
     description: 'Stroomprijs nu voor het lopende kwartier in Nederland en België: de beursprijs en je eindprijs met energiebelasting en btw, naast de rest van de hele dag.',
     h1: 'Stroomprijs nu: wat het huidige kwartier kost',
-    intro: 'De rekenhulp leest de klok van je toestel en kiest het kwartier waarin je zit. Vul je inkoopvergoeding in en je ziet wat je op dit moment betaalt.',
+    intro: 'De rekenhulp leest de klok van je toestel en kiest het kwartier waarin je zit. Vul je inkoopvergoeding in en je ziet de stroomprijs die je nu betaalt.',
     resume: (h) => {
       const { nl, w, boven } = D(h);
       const f = nl.f;
@@ -80,7 +80,7 @@ ${h.table(['', 'Netherlands', 'Belgium'], rows, `Day-ahead exchange price on ${h
       return `<h2>Vandaag in de Nederlandse en Belgische zone</h2>
 ${h.table(['', 'Nederland', 'België'], rows, `Day-aheadbeursprijs op ${h.date(nl.f.d)}, bron SMARD`, ['l', 'r', 'r'])}
 <p>De waarden komen van ${h.src('smard')}, dat de uitkomst voor alle Europese biedzones publiceert onder licentie CC BY 4.0. De energiebelasting staat in de ${h.src('wbm')}, de btw in de ${h.src('wetob')}. Ter vergelijking met een variabel contract gebruiken we de maandgemiddelden van ${h.src('cbs')}.</p>
-<h2>Nu, vandaag, morgen</h2>
+<h2>Stroomprijs nu, vandaag, morgen</h2>
 <p>Deze pagina beantwoordt één vraag: wat kost het huidige kwartier. De hele dag uur voor uur staat op ${h.a('preis', 'stroomprijs per uur')}, de volgende dag vanaf begin van de middag op ${h.a('morgen', 'stroomprijs morgen')}, en het beste starttijdstip voor een apparaat op ${h.a('fenster', 'goedkoopste uur')}. Of een dynamisch contract over een maand goedkoper uitvalt dan je huidige, rekent ${h.a('vergleich', 'dynamisch energiecontract')} uit.</p>`;
     },
   },

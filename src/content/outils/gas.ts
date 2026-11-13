@@ -28,7 +28,7 @@ export default defineGuide({
     title: 'Gasprijs vandaag: prijs per m³ met energiebelasting en btw',
     description: 'Gasprijs vandaag per kubieke meter: leveringstarief, energiebelasting 2026 en btw opgeteld, naast het CBS-maandgemiddelde, met je eigen maandbedrag erbij.',
     h1: 'Gasprijs vandaag: wat een kubieke meter gas kost',
-    intro: 'Vul de leveringsprijs van je contract en je jaarverbruik in. De rekenhulp telt energiebelasting en btw erbij en zet het naast het CBS-gemiddelde.',
+    intro: 'Vul de leveringsprijs van je contract en je jaarverbruik in. De rekenhulp telt energiebelasting en btw erbij en zet je gasprijs van vandaag naast het CBS-gemiddelde.',
     resume: (h) => {
       const { l, jaar, g, totaalIncl } = D(h);
       return `De gasprijs van vandaag bestaat voor een Nederlands huishouden uit drie delen per kubieke meter: de leveringsprijs van je leverancier, de energiebelasting en de btw. De energiebelasting is in 2026 ${h.eur(h.P.nl.eb_gas_eur_m3, 5)} per m³ exclusief btw, hetzelfde bedrag voor alle verbruik tot 170.000 m³ per jaar, zoals artikel 59 van de Wet belastingen op milieugrondslag bepaalt. Over het geheel komt ${h.num(h.P.nl.btw * 100)} % btw. Volgens het CBS was het gemiddelde leveringstarief voor een variabel gascontract in ${h.monat(l.maand)} ${h.eur(l.excl.gasVariabel as number, 4)} per m³ exclusief btw; met energiebelasting en btw wordt dat ${h.eur(g.totaal, 3)} per m³${jaar ? `, tegen ${h.eur((jaar.incl.gasVariabel as number) + (jaar.incl.gasEb as number), 3)} een jaar eerder` : ''}. Het CBS zelf komt inclusief btw op ${h.eur(totaalIncl, 3)}. Bij 1.000 m³ per jaar is dat ongeveer ${h.eur((1000 * g.totaal) / 12, 0)} per maand, zonder de vaste leveringskosten en het netbeheer, die je per aansluiting betaalt. Een dagelijkse beursprijs voor gas publiceren we niet: de dagprijzen van de gasbeurs zijn niet vrij te hergebruiken, en een dynamisch gascontract rekent met de dagprijs die je leverancier vaststelt.`;
@@ -62,8 +62,8 @@ ${h.table(['Maand', 'Levering incl. btw', 'Met energiebelasting'], r2, 'Gemiddel
     card: 'What a cubic metre of gas costs with Dutch energy tax and VAT, next to the CBS average.',
     title: 'Gas price Netherlands today: per m³ with tax and VAT',
     description: 'Gas price in the Netherlands per cubic metre: supply rate, 2026 energy tax and VAT, next to the monthly CBS average, with a monthly amount for your use.',
-    h1: 'Dutch gas price: what a cubic metre of gas costs',
-    intro: 'Enter your contract’s supply price and annual use. The calculator adds energy tax and VAT and sets the result against the CBS average.',
+    h1: 'Dutch gas price today: what a cubic metre of gas costs',
+    intro: 'Enter your contract’s gas supply price and annual use. The calculator adds energy tax and VAT and sets the result against the CBS average for the Netherlands.',
     resume: (h) => {
       const { l, jaar, g } = D(h);
       return `The price of gas for a Dutch household has three parts per cubic metre: the supplier’s delivery price, the energy tax and VAT. In 2026 the energy tax is ${h.eur(h.P.nl.eb_gas_eur_m3, 5)} per m³ before VAT, the same rate for all use up to 170,000 m³ a year, as set by article 59 of the Environmental Taxes Act, and ${h.num(h.P.nl.btw * 100)}% VAT is charged on the total. According to Statistics Netherlands (CBS), the average delivery rate on a variable gas contract in ${h.monat(l.maand)} was ${h.eur(l.excl.gasVariabel as number, 4)} per m³ before VAT; with energy tax and VAT that comes to ${h.eur(g.totaal, 3)} per m³${jaar ? `, against ${h.eur((jaar.incl.gasVariabel as number) + (jaar.incl.gasEb as number), 3)} a year earlier` : ''}. At 1,000 m³ a year that is about ${h.eur((1000 * g.totaal) / 12, 0)} a month, before the fixed supply charge and network costs paid per connection. We do not publish a daily gas exchange price: daily prices from the gas exchange are not free to reuse, and a dynamic gas contract bills at the daily price the supplier sets. In the Netherlands the tax on a cubic metre is currently larger than the supply price itself.`;
@@ -82,7 +82,7 @@ ${h.table(['Maand', 'Levering incl. btw', 'Met energiebelasting'], r2, 'Gemiddel
         ['Total per m³', h.eur(g.totaal, 3)],
       ];
       const r2 = rij.slice().reverse().map((x) => [h.monat(x.maand), h.eur(x.incl.gasVariabel as number, 4), h.eur((x.incl.gasVariabel as number) + (x.incl.gasEb as number), 3)]);
-      return `<h2>Gas price breakdown, ${h.monat(l.maand)}</h2>
+      return `<h2>Gas price breakdown in the Netherlands, ${h.monat(l.maand)}</h2>
 ${h.table(['Component', 'Per m³'], r1, 'Delivery rate from CBS, energy tax under article 59 Wbm, 21% VAT', ['l', 'r'])}
 <p>The delivery rate comes from ${h.src('cbs')}, published under the CC BY 4.0 licence (${h.src('cbsLizenz', 'terms')}). The energy tax is in the ${h.src('wbm')}, VAT in the ${h.src('wetob')}. CBS also gives an average gas network charge of ${h.eur(transport, 2)} a year including VAT, which does not depend on use.</p>
 <h2>The last 13 months</h2>

@@ -72,7 +72,7 @@ ${h.table(['Maand', 'België', 'Nederland'], rows, 'Maandgemiddelde van de day-a
     body: (h) => {
       const { mb, mn } = D(h);
       const rows = mb.alle.slice(-12).map(([m, v]) => [h.monat(m), h.spot(v, 2), (() => { const d = mn.alle.find(([k]) => k === m); return d ? h.spot(d[1], 2) : '–'; })()]);
-      return `<h2>Belgium and the Netherlands month by month</h2>
+      return `<h2>Electricity price in Belgium and the Netherlands, month by month</h2>
 ${h.table(['Month', 'Belgium', 'Netherlands'], rows, 'Monthly average of the day-ahead price, source SMARD', ['l', 'r', 'r'])}
 <p>The values come from ${h.src('smard')}, which publishes the results of European market coupling for every bidding zone under the CC BY 4.0 licence.</p>
 <h2>Why we do not compute Belgian charges</h2>

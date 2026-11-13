@@ -33,7 +33,7 @@ export default defineGuide({
     title: 'Strompreis-Zusammensetzung 2026: jeder Cent je kWh erklärt',
     description: 'Strompreis-Zusammensetzung 2026: Börsenpreis, Netzentgelt je Bundesland, Stromsteuer, Umlagen, Konzessionsabgabe und Umsatzsteuer, mit Quelle je Betrag.',
     h1: 'Strompreis-Zusammensetzung: woraus die Kilowattstunde besteht',
-    intro: 'Der Rechner zerlegt jede Viertelstunde in Börsenpreis und feste Bestandteile. Wählen Sie Ihr Bundesland und Ihre Gemeindegröße.',
+    intro: 'Der Rechner zeigt die Zusammensetzung des Strompreises: er zerlegt jede Viertelstunde in Börsenpreis und feste Bestandteile. Wählen Sie Ihr Bundesland und Ihre Gemeindegröße.',
     resume: (h) => {
       const { w, z, fest, anteilBoerse } = D(h);
       return `Der Strompreis eines deutschen Haushalts setzt sich aus einem schwankenden und mehreren festen Teilen zusammen. Schwankend ist nur der Energiepreis, also der Börsenpreis plus der Aufschlag des Anbieters. Fest je Kilowattstunde sind das Netzentgelt (im Bundesmittel 2025 ${h.ct(h.P.de.netzentgelt2025_ct.DE, 2)} netto), die Stromsteuer von ${h.ct(h.P.de.stromsteuer_ct, 2)} nach § 3 Stromsteuergesetz, die drei Umlagen von zusammen ${h.ct(umlagenDe(), 3)} und die Konzessionsabgabe an die Gemeinde, für Tarifkunden zwischen ${h.ct(h.P.de.konzessionsabgabe_ct.bis25000, 2)} und ${h.ct(h.P.de.konzessionsabgabe_ct.ueber500000, 2)} je nach Einwohnerzahl. Auf die Summe kommen ${h.num(h.P.de.ust * 100)} % Umsatzsteuer. Beim mittleren Börsenpreis der letzten ${h.num(w.n)} Tage, ${h.spot(w.mittel, 2)}, machen die festen Teile ohne Umsatzsteuer ${h.ct(fest, 2)} aus und der Börsenpreis ${h.pct(anteilBoerse, 0)} des Nettopreises; mit Umsatzsteuer und ohne Anbieteraufschlag ergibt das ${h.ct(z.brutto, 2)}. Dazu kommen Grundgebühr und Messstellenbetrieb als feste Beträge im Jahr, die nicht von der Kilowattstunde abhängen. Weil die festen Teile so groß sind, verändert selbst ein Börsenpreis von null den Endpreis nur um einen Teil.`;
@@ -60,7 +60,7 @@ export default defineGuide({
         ['Endpreis ohne Aufschlag', h.ct(z.brutto, 2), ''],
       ];
       const lr = laender.map((x) => [LAND[x.b], h.ct(x.n, 2), h.ct(x.end, 1)]);
-      return `<h2>Jeder Bestandteil mit Quelle</h2>
+      return `<h2>Zusammensetzung des Strompreises: jeder Bestandteil mit Quelle</h2>
 ${h.table(['Bestandteil', 'ct/kWh', 'Quelle'], rows, `Börsenmittel ${h.date(w.von)} bis ${h.date(w.bis)}, Gemeinde bis 100.000 Einwohner`, ['l', 'r', 'l'])}
 <p>Die Umlagen gelten für Letztverbraucher bis 1 Gigawattstunde im Jahr (Kategorie A). Die Konzessionsabgabe ist der Höchstbetrag für Tarifkunden; viele Gemeinden verlangen ihn, einige weniger. Für Strom in Schwachlastzeiten sieht die Verordnung einen niedrigeren Satz vor, der bei Haushalten mit Nachtspeicher oder Wärmepumpentarif gelten kann.</p>
 <h2>Netzentgelt nach Bundesland</h2>
@@ -77,7 +77,7 @@ ${h.table(['Bundesland', 'Netzentgelt netto 2025', 'Endpreis ohne Aufschlag'], l
     title: 'Electricity price breakdown Germany 2026, cent by cent',
     description: 'Electricity price breakdown for Germany in 2026: exchange price, grid fee by state, electricity tax, levies, concession fee and VAT, each with its source.',
     h1: 'German electricity price breakdown: what a kilowatt-hour is made of',
-    intro: 'The calculator splits every quarter hour into the exchange price and the fixed parts. Pick your federal state and the size of your municipality.',
+    intro: 'The calculator breaks down the German electricity price for every quarter hour into the exchange price and the fixed parts. Pick your federal state and the size of your municipality.',
     resume: (h) => {
       const { w, z, fest, anteilBoerse } = D(h);
       return `The electricity price paid by a German household has one moving part and several fixed ones. Only the energy price moves: the exchange price plus the supplier’s markup. Fixed per kilowatt-hour are the grid fee (a 2025 national average of ${h.ct(h.P.de.netzentgelt2025_ct.DE, 2)} net), electricity tax of ${h.ct(h.P.de.stromsteuer_ct, 2)} under section 3 of the Electricity Tax Act, three levies totalling ${h.ct(umlagenDe(), 3)}, and the concession fee paid to the municipality, between ${h.ct(h.P.de.konzessionsabgabe_ct.bis25000, 2)} and ${h.ct(h.P.de.konzessionsabgabe_ct.ueber500000, 2)} for standard customers depending on population. VAT of ${h.num(h.P.de.ust * 100)}% is charged on the total. At the average exchange price of the last ${h.num(w.n)} days, ${h.spot(w.mittel, 2)}, the fixed parts come to ${h.ct(fest, 2)} before VAT and the exchange price makes up ${h.pct(anteilBoerse, 0)} of the net price; with VAT and no supplier markup the total is ${h.ct(z.brutto, 2)}. A standing charge and a metering fee come on top as fixed yearly amounts that do not depend on use. Because the fixed parts are so large, even an exchange price of zero moves the all-in price only part of the way down.`;
@@ -104,7 +104,7 @@ ${h.table(['Bundesland', 'Netzentgelt netto 2025', 'Endpreis ohne Aufschlag'], l
         ['All-in, no markup', h.ct(z.brutto, 2), ''],
       ];
       const lr = laender.map((x) => [LAND[x.b], h.ct(x.n, 2), h.ct(x.end, 1)]);
-      return `<h2>Every component with its source</h2>
+      return `<h2>Every component of the electricity price breakdown, with its source</h2>
 ${h.table(['Component', 'ct/kWh', 'Source'], rows, `Exchange average ${h.date(w.von)} to ${h.date(w.bis)}, municipality up to 100,000 inhabitants`, ['l', 'r', 'l'])}
 <p>The levies apply to final consumers using up to 1 gigawatt-hour a year (category A). The concession fee is the cap for standard customers; many municipalities charge it in full, some less. The ordinance sets a lower rate for off-peak supply, which can apply to households on a night storage or heat pump tariff.</p>
 <h2>Grid fee by federal state</h2>

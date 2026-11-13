@@ -26,7 +26,7 @@ export default defineGuide({
     title: 'Strompreis morgen: alle 96 Viertelstunden mit Endpreis',
     description: 'Strompreis morgen je Viertelstunde, sobald die Day-Ahead-Auktion am frühen Nachmittag veröffentlicht ist: Börsenwert, Endpreis mit Abgaben, günstigste Stunde.',
     h1: 'Strompreis morgen: was die Kilowattstunde am nächsten Tag kostet',
-    intro: 'Ab dem frühen Nachmittag stehen die Preise des nächsten Tages fest. Der Rechner zeigt sie je Viertelstunde, mit Ihrem Netzentgelt und Ihrem Aufschlag.',
+    intro: 'Ab dem frühen Nachmittag steht der Strompreis für morgen fest. Der Rechner zeigt ihn je Viertelstunde, mit Ihrem Netzentgelt und Ihrem Aufschlag.',
     resume: (h) => {
       const { de } = D(h);
       const l = de.l, v = de.v;
@@ -57,7 +57,7 @@ ${h.table(['Preiszone', `Mittel ${h.date(l.d)}`, `Mittel ${h.date(z['DE-LU'].v.d
     title: 'Electricity price tomorrow: all 96 quarter hours, all-in',
     description: 'Electricity price tomorrow for every quarter hour, once the day-ahead auction is out in the early afternoon: exchange value, all-in price and cheapest hour.',
     h1: 'Electricity price tomorrow: what a kilowatt-hour costs on the next day',
-    intro: 'From early afternoon the next day’s prices are fixed. The calculator shows each quarter hour with your own grid fee and supplier markup.',
+    intro: 'From early afternoon tomorrow’s electricity prices are fixed. The calculator shows each quarter hour with your own grid fee and supplier markup.',
     resume: (h) => {
       const { de, nl } = D(h);
       const l = de.l;
@@ -76,7 +76,7 @@ ${h.table(['Preiszone', `Mittel ${h.date(l.d)}`, `Mittel ${h.date(z['DE-LU'].v.d
       return `<h2>The next day in four euro bidding zones</h2>
 ${h.table(['Bidding zone', `Average ${h.date(l.d)}`, `Average ${h.date(z['DE-LU'].v.d)}`, 'Cheapest hour', 'Negative quarter hours'], rows, 'Day-ahead exchange price before taxes and grid fees, source SMARD', ['l', 'r', 'r', 'r', 'r'])}
 <p>All zones are computed together in the same auction. Differences appear when the lines between countries are full: power can then be cheap in a windy zone and dear one border further on. Poland trades in złoty and has its own page, ${h.a('polen', 'Poland electricity price')}. The figures come from ${h.src('smard')}.</p>
-<h2>How to read the day</h2>
+<h2>How to read tomorrow’s electricity price</h2>
 <p>The curve shows the all-in price of every quarter hour with your inputs. Enter the markup your supplier adds to the exchange price and, for Germany, your federal state for the grid fee; the default is the average from the ${h.src('monitoring')}. The calculator adds electricity tax and VAT itself, and for the Netherlands the energy tax from the ${h.src('wbm')}. To find the best start for an appliance across today and tomorrow, use ${h.a('fenster', 'cheapest hour')}; for a car, ${h.a('laden', 'EV charging cost')}.</p>
 <h2>When “Tomorrow” still shows today</h2>
 <p>Before publication at around 1 pm there are no prices for the next day, so the calculator shows today and says so. We do not publish forecasts for tomorrow, because nobody is billed on them. Today’s hours in detail are on ${h.a('preis', 'hourly electricity prices')}.</p>`;

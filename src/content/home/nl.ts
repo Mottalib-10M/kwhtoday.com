@@ -11,7 +11,7 @@ export const nl: Home = {
   title: 'Stroomprijs vandaag: kwartierprijzen met energiebelasting',
   description: 'Stroomprijs vandaag en morgen per kwartier: de day-aheadprijs van de beurs voor Nederland en België, omgerekend naar je eindprijs met energiebelasting en btw.',
   h1: 'Stroomprijs vandaag: wat een kilowattuur nu en morgen kost',
-  intro: 'De beursprijs van elk kwartier, zoals de Duitse Bundesnetzagentur hem publiceert, en daarnaast wat je met energiebelasting, btw en je inkoopvergoeding echt betaalt.',
+  intro: 'De beursprijs van elk kwartier, zoals de Duitse Bundesnetzagentur hem publiceert, en daarnaast de stroomprijs die je vandaag met energiebelasting, btw en je inkoopvergoeding echt betaalt.',
   resume: (h) => {
     const f = letzter('NL');
     const w = fenster('NL', 30);

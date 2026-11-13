@@ -61,7 +61,7 @@ ${h.table(['Uhrzeit', 'Endpreis ohne Aufschlag'], blk, `Mittel der letzten ${w.n
     title: 'Heat pump electricity price: cheap hours for heating',
     description: 'Heat pump electricity price: enter run time and energy use, find the cheapest window today and tomorrow, and see what shifting with a buffer tank saves.',
     h1: 'Heat pump electricity price: when heating runs cheapest',
-    intro: 'A heat pump with a buffer or hot water tank can preheat for a few hours. The calculator finds the cheapest window for it.',
+    intro: 'A heat pump with a buffer or hot water tank can preheat for a few hours. The calculator finds the window with the cheapest electricity price for it.',
     resume: (h) => {
       const { w, f4, tagesmittel } = D(h);
       return `A heat pump uses a lot of electricity in winter, which is exactly when exchange prices often swing widely between night, midday and evening. On a dynamic tariff it pays to put its running time into cheap hours, as long as the house or a buffer tank can hold the heat for a while. As an example, we assume the pump draws 8 kWh over four hours in a row. On ${h.date(f4.d)} the cheapest four-hour window in Germany runs from ${f4.billig.ab} to ${f4.billig.bis}; there the block costs ${h.eur(f4.billig.kosten, 2)} at an average all-in price of ${h.ct(f4.billig.preis)}, while the dearest window, from ${f4.teuer.ab} to ${f4.teuer.bis}, costs ${h.eur(f4.teuer.kosten, 2)}. The figures use the German average grid fee, electricity tax, levies, concession fee and VAT, without any supplier markup. For comparison, the all-in price at the average exchange price of the last ${h.num(w.n)} days was ${h.ct(tagesmittel)}. Whether your heat pump can actually be shifted depends on storage, insulation and controls: the values here are assumptions, not a measurement of your home.`;
@@ -80,7 +80,7 @@ ${h.table(['Uhrzeit', 'Endpreis ohne Aufschlag'], blk, `Mittel der letzten ${w.n
       const blk = Array.from({ length: 8 }, (_, i) => [`${hh(i * 3)} to ${hh(i * 3 + 3)}`, h.ct(endDe((w.stunde[i * 3] + w.stunde[i * 3 + 1] + w.stunde[i * 3 + 2]) / 3), 1)]);
       return `<h2>Two heating blocks on ${h.date(f4.d)}</h2>
 ${h.table(['Block (assumption)', 'Cheapest window', 'Cost, cheap', 'Cost, dear', 'Difference'], rows, 'German all-in price with the average grid fee, no supplier markup', ['l', 'l', 'r', 'r', 'r'])}
-<h2>When power was cheap on average</h2>
+<h2>When heat pump electricity was cheap on average</h2>
 ${h.table(['Time of day', 'All-in, no markup'], blk, `Average of the last ${w.n} days, Germany, source SMARD`, ['l', 'r'])}
 <p>Exchange values come from ${h.src('smard')}, the average grid fee from the ${h.src('monitoring')}. In winter the pattern shifts: the solar dip at midday is weaker, wind matters more and the evening peak is sharper.</p>
 <h2>What you need</h2>
