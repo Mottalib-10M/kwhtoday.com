@@ -4,14 +4,10 @@
  "terms": "https://www.ecb.europa.eu/home/disclaimer/html/index.en.html",
  "unit": "PLN per EUR",
  "latest": {
-  "date": "2026-11-13",
-  "value": 4.4113
+  "date": "2026-11-16",
+  "value": 4.403
  },
  "series": [
-  [
-   "2026-10-05",
-   4.3795
-  ],
   [
    "2026-10-06",
    4.365
@@ -127,6 +123,10 @@
   [
    "2026-11-13",
    4.4113
+  ],
+  [
+   "2026-11-16",
+   4.403
   ]
  ]
 }
