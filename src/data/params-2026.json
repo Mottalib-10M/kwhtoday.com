@@ -88,12 +88,13 @@
    "mastr_frist_monate": 1
   },
   "gas": {
-   "_quelle": "EnergieStG § 2 Abs. 3 Nr. 4 (5,50 EUR/MWh); BEHG § 10 (Korridor 55–65 EUR/t 2026), DEHSt Veräußerungsbericht 08/2026 (durchschnittlicher Zuschlagspreis 65 EUR); EBeV 2030 Anlage 2 Teil 4 Nr. 6 (0,0558 t CO2/GJ, 3,6 GJ/MWh × 0,903); Gasspeicherumlage seit 1.1.2026 abgeschafft (Bundesregierung); Monitoringbericht 2025 Tabelle 68/69 (Stichtag 1.4.2025); Eurostat nrg_pc_202, DE, Band D2, abgerufen 2026-10-27",
+   "_quelle": "EnergieStG § 2 Abs. 3 Nr. 4 (5,50 EUR/MWh); BEHG § 10 (Korridor 55–65 EUR/t 2026; Korridor 2027 ebenfalls 55–65 EUR/t, Bundestag 15.10.2026, Bundesrat 20.11.2026, BR-Drs. 624/26, noch nicht verkündet), DEHSt Veräußerungsbericht 08/2026 (durchschnittlicher Zuschlagspreis 65 EUR); EBeV 2030 Anlage 2 Teil 4 Nr. 6 (0,0558 t CO2/GJ, 3,6 GJ/MWh × 0,903); Gasspeicherumlage seit 1.1.2026 abgeschafft (Bundesregierung); Monitoringbericht 2025 Tabelle 68/69 (Stichtag 1.4.2025); Eurostat nrg_pc_202, DE, Band D2, abgerufen 2026-10-27",
    "energiesteuer_ct": 0.55,
    "co2_eur_t": 65,
    "co2_min_eur_t": 55,
    "co2_max_eur_t": 65,
-   "co2_2027_eur_t": 70,
+   "co2_2027_min_eur_t": 55,
+   "co2_2027_max_eur_t": 65,
    "co2_t_mwh": 0.1814,
    "speicherumlage_bis2025_ct": 0.289,
    "speicherumlage_ab": "2026-01-01",
