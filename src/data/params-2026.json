@@ -248,7 +248,7 @@
    ]
   },
   "eb2027_ct": {
-   "_quelle": "Fiscale sleuteltabel 2027 incl. correctie tarieven energiebelasting (Belastingplan 2027, september 2026), afgerond in cent, wetsvoorstel nog niet aangenomen",
+   "_quelle": "Fiscale sleuteltabel 2027 incl. correctie tarieven energiebelasting (Belastingplan 2027, september 2026), afgerond in cent; Tweede Kamer aangenomen 12-11-2026 zonder amendement op de energiebelasting (amendement 46 verworpen), Eerste Kamer in december 2026",
    "stroom1": 8.8,
    "stroom2": 6.78,
    "stroom3": 3.78,
@@ -845,6 +845,14 @@
     "de": "Rijksoverheid: Aufbau der Energierechnung",
     "en": "Dutch government: how the energy bill is built up",
     "nl": "Rijksoverheid: opbouw van de energierekening"
+   }
+  },
+  "tkBp2027": {
+   "url": "https://www.eerstekamer.nl/behandeling/20261112/stemmingsoverzicht_tweede_kamer_4",
+   "label": {
+    "de": "Tweede Kamer: Abstimmungsübersicht vom 12. November 2026, Belastingplan 2027 (37.022) angenommen",
+    "en": "Dutch House of Representatives: voting overview of 12 November 2026, Tax Plan 2027 (37 022) adopted",
+    "nl": "Tweede Kamer: stemmingsoverzicht 12 november 2026, Belastingplan 2027 (37.022) aangenomen"
    }
   },
   "sleutel2027": {

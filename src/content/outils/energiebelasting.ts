@@ -23,7 +23,7 @@ export default defineGuide({
   tool: 'eb',
   zone: 'NL',
   related: ['gas', 'jetzt', 'haushalt', 'wpkosten', 'saldering'],
-  sources: ['belastingdienstEb', 'wbm', 'wetob', 'rijksEb', 'sleutel2027', 'cbs', 'cbsVerbruik', 'cbsLizenz'],
+  sources: ['belastingdienstEb', 'wbm', 'wetob', 'rijksEb', 'sleutel2027', 'tkBp2027', 'cbs', 'cbsVerbruik', 'cbsLizenz'],
   nl: {
     slug: 'energiebelasting-2026',
     nav: 'Energiebelasting 2026',
@@ -39,7 +39,7 @@ export default defineGuide({
     faqs: () => [
       { q: 'Wie krijgt de vermindering energiebelasting?', a: 'Iedereen met een elektriciteitsaansluiting op een adres met een verblijfsfunctie, zoals een woning. De leverancier verrekent haar automatisch op je energierekening, verdeeld over het jaar. Een aansluiting zonder verblijfsfunctie, zoals een losse garagebox met een eigen meter, valt erbuiten. Het bedrag is per aansluiting, niet per persoon: een groot huishouden krijgt dus evenveel als een alleenstaande.' },
       { q: 'Betaal ik energiebelasting over teruggeleverde zonnestroom?', a: 'Je betaalt energiebelasting over de stroom die je van het net afneemt. Tot en met 2026 trekt de salderingsregeling teruggeleverde stroom daar eerst van af, zodat je over het verschil belasting betaalt. Vanaf 2027 betaal je over alle afgenomen stroom belasting, ook als je evenveel teruglevert, en krijg je voor teruglevering alleen de vergoeding van je leverancier.' },
-      { q: 'Gaat de energiebelasting in 2027 omhoog of omlaag?', a: 'Volgens het Belastingplan 2027 gaat het tarief op stroom omlaag en dat op gas omhoog. De fiscale sleuteltabel noemt afgerond 8,80 cent per kWh en 61,63 cent per m³ voor de eerste schijf, exclusief btw. Het wetsvoorstel is nog niet aangenomen; pas als de wet is aangenomen, staan de tarieven vast.' },
+      { q: 'Gaat de energiebelasting in 2027 omhoog of omlaag?', a: 'Volgens het Belastingplan 2027 gaat het tarief op stroom omlaag en dat op gas omhoog. De fiscale sleuteltabel noemt afgerond 8,80 cent per kWh en 61,63 cent per m³ voor de eerste schijf, exclusief btw. De Tweede Kamer nam het wetsvoorstel op 12 november 2026 aan zonder deze tarieven te wijzigen; pas na de stemming in de Eerste Kamer in december staan ze vast.' },
     ],
     body: (h) => {
       const { e, btw, voorbeelden, n, k27, verm, verm25 } = D(h);
@@ -52,7 +52,7 @@ ${h.table(['Gas per jaar', 'Excl. btw', 'Incl. btw'], sch(e.gas, 'm³'), 'Energi
 <h2>Wat je per jaar aan energiebelasting betaalt</h2>
 ${h.table(['Stroom', 'Gas', 'Op stroom', 'Op gas', 'Vermindering', 'Totaal'], vb, 'Energiebelasting per jaar inclusief btw, met de vermindering voor één woning', ['r', 'r', 'r', 'r', 'r', 'r'])}
 <h2>Energieprijzen 2026 en het voorstel voor 2027</h2>
-<p>Volgens ${h.src('cbs', 'CBS StatLine 85592NED')} kostte stroom met een variabel contract in ${h.monat(n.maand)} gemiddeld ${h.ct(n.stroomCt, 2)} en gas ${h.eur(n.gasM3, 3)} per m³, telkens inclusief energiebelasting en btw. Voor 2027 noemt de ${h.src('sleutel2027', 'fiscale sleuteltabel bij het Belastingplan 2027')} afgerond ${h.num(k27.stroom1, 2)} cent per kWh en ${h.num(k27.gas1, 2)} cent per m³ in de eerste schijf, en een vermindering van ${h.eur(k27.vermindering_eur, 2)}, nog onder voorbehoud van de behandeling in het parlement. Wat de belasting bij jouw uurprijs betekent, zie je op ${h.a('jetzt', 'stroomprijs nu')}; de gasprijs per kuub op ${h.a('gas', 'gasprijs vandaag')}. Hoeveel een huishouden gemiddeld verbruikt, staat op ${h.a('haushalt', 'gemiddeld stroomverbruik')}, en wat een warmtepomp met deze tarieven bespaart op ${h.a('wpkosten', 'warmtepomp kosten')}.</p>`;
+<p>Volgens ${h.src('cbs', 'CBS StatLine 85592NED')} kostte stroom met een variabel contract in ${h.monat(n.maand)} gemiddeld ${h.ct(n.stroomCt, 2)} en gas ${h.eur(n.gasM3, 3)} per m³, telkens inclusief energiebelasting en btw. Voor 2027 noemt de ${h.src('sleutel2027', 'fiscale sleuteltabel bij het Belastingplan 2027')} afgerond ${h.num(k27.stroom1, 2)} cent per kWh en ${h.num(k27.gas1, 2)} cent per m³ in de eerste schijf, en een vermindering van ${h.eur(k27.vermindering_eur, 2)}, door de ${h.src('tkBp2027', 'Tweede Kamer')} op 12 november 2026 ongewijzigd aangenomen, nog onder voorbehoud van de Eerste Kamer. Wat de belasting bij jouw uurprijs betekent, zie je op ${h.a('jetzt', 'stroomprijs nu')}; de gasprijs per kuub op ${h.a('gas', 'gasprijs vandaag')}. Hoeveel een huishouden gemiddeld verbruikt, staat op ${h.a('haushalt', 'gemiddeld stroomverbruik')}, en wat een warmtepomp met deze tarieven bespaart op ${h.a('wpkosten', 'warmtepomp kosten')}.</p>`;
     },
   },
   en: {
@@ -70,7 +70,7 @@ ${h.table(['Stroom', 'Gas', 'Op stroom', 'Op gas', 'Vermindering', 'Totaal'], vb
     faqs: () => [
       { q: 'Who gets the Dutch energy tax reduction?', a: 'Anyone with an electricity connection at an address with a residential function, such as a home. The supplier deducts it automatically from your energy bill, spread over the year. A connection without a residential function, such as a separate garage with its own meter, does not qualify. The amount is per connection, not per person, so a large household gets the same as someone living alone.' },
       { q: 'Do I pay Dutch energy tax on solar power I export?', a: 'You pay energy tax on the power you take from the grid. Until the end of 2026 net metering first subtracts what you exported, so you pay tax on the difference. From 2027 you pay tax on all power taken from the grid, even if you export as much, and exports earn only your supplier’s feed-in payment.' },
-      { q: 'Will Dutch energy tax rise or fall in 2027?', a: 'Under the 2027 Tax Plan the rate on electricity goes down and the rate on gas goes up. The fiscal key table gives a rounded 8.80 cents per kWh and 61.63 cents per cubic metre for the first band, before VAT. The bill has not yet passed; the rates are only final once it is law.' },
+      { q: 'Will Dutch energy tax rise or fall in 2027?', a: 'Under the 2027 Tax Plan the rate on electricity goes down and the rate on gas goes up. The fiscal key table gives a rounded 8.80 cents per kWh and 61.63 cents per cubic metre for the first band, before VAT. The lower house passed the bill on 12 November 2026 without changing these rates; they are final only after the Senate votes in December.' },
     ],
     body: (h) => {
       const { e, btw, voorbeelden, n, k27, verm, verm25 } = D(h);
@@ -83,7 +83,7 @@ ${h.table(['Gas per year', 'Excl. VAT', 'Incl. VAT'], sch(e.gas, 'm³'), 'Energy
 <h2>What you pay per year in Dutch energy tax</h2>
 ${h.table(['Electricity', 'Gas', 'On power', 'On gas', 'Reduction', 'Total'], vb, 'Energy tax per year including VAT, with the reduction for one home', ['r', 'r', 'r', 'r', 'r', 'r'])}
 <h2>Energy prices in 2026 and the 2027 proposal</h2>
-<p>According to ${h.src('cbs', 'CBS StatLine 85592NED')}, power on a variable contract averaged ${h.ct(n.stroomCt, 2)} in ${h.monat(n.maand)} and gas ${h.eur(n.gasM3, 3)} per m³, energy tax and VAT included. For 2027 the ${h.src('sleutel2027', 'fiscal key table of the 2027 Tax Plan')} gives a rounded ${h.num(k27.stroom1, 2)} cents per kWh and ${h.num(k27.gas1, 2)} cents per m³ in the first band, and a reduction of ${h.eur(k27.vermindering_eur, 2)}, still subject to parliament. What the tax means at the current hourly price is on ${h.a('jetzt', 'electricity price now')}; the gas price per cubic metre on ${h.a('gas', 'Dutch gas price')}. Typical household use is on ${h.a('haushalt', 'average electricity consumption')}, and what a heat pump saves at these rates on ${h.a('wpkosten', 'heat pump costs')}.</p>`;
+<p>According to ${h.src('cbs', 'CBS StatLine 85592NED')}, power on a variable contract averaged ${h.ct(n.stroomCt, 2)} in ${h.monat(n.maand)} and gas ${h.eur(n.gasM3, 3)} per m³, energy tax and VAT included. For 2027 the ${h.src('sleutel2027', 'fiscal key table of the 2027 Tax Plan')} gives a rounded ${h.num(k27.stroom1, 2)} cents per kWh and ${h.num(k27.gas1, 2)} cents per m³ in the first band, and a reduction of ${h.eur(k27.vermindering_eur, 2)}, passed unchanged by the ${h.src('tkBp2027', 'lower house')} on 12 November 2026 and still subject to the Senate. What the tax means at the current hourly price is on ${h.a('jetzt', 'electricity price now')}; the gas price per cubic metre on ${h.a('gas', 'Dutch gas price')}. Typical household use is on ${h.a('haushalt', 'average electricity consumption')}, and what a heat pump saves at these rates on ${h.a('wpkosten', 'heat pump costs')}.</p>`;
     },
   },
 });
