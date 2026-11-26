@@ -71,3 +71,64 @@ h1 { font-weight: 700; } h2 { font-weight: 650; } h3 { font-weight: 600; }
 .clamp-more { display: inline-block; margin-top: .25rem; cursor: pointer; font-size: .875rem; font-weight: 500; color: var(--color-accent-700); text-decoration: underline; text-underline-offset: 2px; }
 .clamp-toggle:checked ~ .clamp-more { display: none; }
 .clamp-toggle:focus-visible ~ .clamp-more { outline: 2px solid var(--color-accent-500); outline-offset: 2px; }
+
+/* Charte de page du 2026-11-25 (refonte d'identité validée par l'éditeur, reports/refonte-identite-2026-11-24/sites/kwhtoday.com) :
+   en-tête plein, bandeau du H1, carte du simulateur, sections alternées, chiffres-résultats, boutons, pied sombre. */
+/* kwhtoday.com : charte v2 « plus forte », couleur forte #1A1A1A, seconde #FFCE00 (rien d'appliqué) */
+:root, :host { --color-accent-50: #EFEFEF; --color-accent-100: #DFDFDF; --color-accent-200: #BABABA; --color-accent-300: #8C8C8C; --color-accent-400: #535353; --color-accent-500: #1A1A1A; --color-accent-600: #161616; --color-accent-700: #131313; --color-accent-800: #0F0F0F; --color-accent-900: #0B0B0B; --color-navy-900: #111111; }
+/* EN-TÊTE PLEIN */
+header nav[aria-label], body > header:has(nav) { background: #1A1A1A !important; }
+header nav[aria-label] { border-bottom: 5px solid #FFCE00 !important; }
+header nav[aria-label] :is(a, button, span, svg, summary) { color: #fff !important; }
+header nav[aria-label] button[class*="border"] { border-color: rgba(255,255,255,.6) !important; }
+header nav[aria-label] a > span > span { color: #FFCE00 !important; }
+header nav[aria-label] > div :is(a, button, summary):hover { background: rgba(255,255,255,.16) !important; }
+header nav [class~="bg-white"]:not(nav), #mobile-menu, header nav .nav-dropdown-panel { background: #fff !important; }
+header nav [class~="bg-white"]:not(nav) :is(a, button, span, svg), #mobile-menu :is(a, button, span, svg), header nav .nav-dropdown-panel :is(a, span) { color: #111111 !important; }
+header nav [class~="bg-white"]:not(nav) a:hover, #mobile-menu a:hover, header nav .nav-dropdown-panel a:hover { background: #EFEFEF !important; }
+header nav img[src="/logo.svg"], header nav img[src$="logo.svg"] { background: #fff; border-radius: 9px; padding: 3px; }
+/* BANDEAU HÉROS PLEINE LARGEUR (le bandeau descend de 7rem derrière le haut du simulateur) */
+main header[class^="mb-"] { border-image: linear-gradient(#1A1A1A 0 0) fill 0 / 0 / 1.25rem 100vmax 0; margin-bottom: 0 !important; padding: .5rem 0 1.5rem; }
+main header[class^="mb-"]:has(~ :is([data-outil], astro-island)) { border-image-outset: 1.25rem 100vmax 7rem; }
+main header[class^="mb-"] :is(h1, p, a, span, time, li) { color: #fff !important; }
+main header[class^="mb-"] h1 { letter-spacing: -0.02em; }
+main header[class^="mb-"] a { text-decoration-color: #FFCE00 !important; text-decoration-thickness: 2px; }
+main header[class^="mb-"] ~ :not([data-outil], astro-island, style, script):has(~ :is([data-outil], astro-island)) { border-image: linear-gradient(#1A1A1A 0 0) fill 0 / 0 / 0 100vmax 7rem; margin-bottom: 0 !important; padding-bottom: 1.5rem; }
+main header[class^="mb-"] ~ :not([data-outil], astro-island, style, script):has(~ :is([data-outil], astro-island)):is(p), main header[class^="mb-"] ~ :not([data-outil], astro-island, style, script):has(~ :is([data-outil], astro-island)) :is(p, label, span, li, strong, a:not([class*="bg-"])) { color: #fff !important; }
+main header[class^="mb-"] ~ :is([data-outil], astro-island):not(:is([data-outil], astro-island) ~ *) :is(.rechner, astro-island > div:first-child), main header[class^="mb-"] ~ [data-outil]:not(:is([data-outil], astro-island) ~ *) > div:first-child { background: #fff !important; border-top: 6px solid #FFCE00 !important; box-shadow: 0 12px 32px rgba(0,0,0,.18); }
+/* SECTIONS ALTERNÉES */
+main section:nth-of-type(odd):not(:has(h1)) { border-image: linear-gradient(#DFDFDF 0 0) fill 0 / 0 / 0 100vmax; padding-block: 1.75rem; }
+main h1 { color: #1A1A1A; }
+main h2, main details summary { color: #1A1A1A; }
+main h2:not(details h2):not(summary h2):not(.sr-only)::before { content: ""; display: inline-block; width: .62em; height: .62em; margin-right: .5rem; border-radius: 3px; background: #FFCE00; vertical-align: .05em; }
+/* CHIFFRES-RÉSULTATS */
+main [data-resultat] { background: #EFEFEF !important; border: 0 !important; border-left: 6px solid #FFCE00 !important; }
+main [data-resultat] :is([class*="text-["][class*="font-bold"], [class*="text-2xl"][class*="font-bold"], [class*="text-3xl"], [class*="text-4xl"]) { color: #B00000 !important; font-size: 2.4rem !important; line-height: 1.1 !important; }
+main div.bg-accent-50, main div[class~="bg-accent-50"] { background: #EFEFEF !important; border-left: 6px solid #FFCE00 !important; }
+main table thead th { color: #1A1A1A; border-bottom: 0 !important; box-shadow: inset 0 -3px 0 #FFCE00 !important; }
+main details { border-color: #BABABA !important; }
+main details[open] > summary, main details > summary:hover { background: #EFEFEF; }
+/* BOUTONS ET LIENS */
+main a[class^="border-accent"], main a[class*=" border-accent"], main a[class~="bg-accent-50"], main :is(a, button)[class~="bg-accent-500"], main :is(a, button)[class~="bg-accent-600"], main :is(a, button)[class~="bg-accent-700"], main [aria-pressed="true"] { background: #DD0000 !important; color: #FFFFFF !important; border-color: #DD0000 !important; border-radius: 10px; }
+main a[class^="border-accent"]:hover, main a[class*=" border-accent"]:hover, main a[class~="bg-accent-50"]:hover, main :is(a, button)[class~="bg-accent-600"]:hover { background: #B50000 !important; }
+main a[class^="border-accent"] *, main a[class*=" border-accent"] *, main a[class~="bg-accent-50"] * { color: #FFFFFF !important; }
+main :is(.prose, p, li, td) a:not([class*="bg-"]):not([class*="border-accent"]) { color: #1A1A1A; text-decoration: underline; text-decoration-color: #FFCE00; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+/* PIED DE PAGE PLEIN */
+footer { background: #111111 !important; border-top: 5px solid #FFCE00 !important; }
+footer, footer :is(h2, h3, p, li, a, span, div) { color: #E8EAF0 !important; }
+footer :is(h2, h3) { color: #fff !important; }
+footer a:hover { color: #fff !important; text-decoration: underline; }
+/* CORRECTIFS v3 (reprise du 2026-11-25) : contrastes ciblés sur l'élément (§10.4) */
+main header[class^="mb-"] ~ :is([data-outil], astro-island) { position: relative; z-index: 1; }
+main header[class^="mb-"] ~ astro-island > *, main header[class^="mb-"] ~ :not(#x) astro-island > * { position: relative; z-index: 1; }
+main header[class^="mb-"] ~ :not(#x) :is(form, div)[class~="bg-navy-50"] :is(label, p, span) { color: #1F2937 !important; }
+main :not(#x) :not(#y) div.flex.h-9.overflow-hidden > div > span { color: #111 !important; background: #fff !important; border-radius: 3px; padding: 0 3px !important; }
+main :is(.text-navy-500, .text-navy-400, caption) { color: #475569 !important; }
+main header[class^="mb-"] :is(div, p, span, label, small, time) { color: #fff !important; }
+footer [class~="bg-green-50"] { background: transparent !important; border-color: rgba(255,255,255,.4) !important; }
+main :is(p, li, td, .prose) a { text-underline-offset: 5px !important; }
+/* Le bandeau remonte jusqu'à l'en-tête (plus de bande blanche au-dessus du titre) ; le fil d'Ariane passe devant, en blanc. */
+main header[class^="mb-"] { border-image-outset: 3.25rem 100vmax 0 !important; }
+main header[class^="mb-"]:has(~ :is([data-outil], astro-island)) { border-image-outset: 3.25rem 100vmax 7rem !important; }
+#main-content > div:has(> nav[aria-label="Breadcrumb"]) { position:relative; z-index:1; }
+#main-content:has(header[class^="mb-"] > h1) nav[aria-label="Breadcrumb"] :is(a,span,li,ol) { color:#fff !important; }

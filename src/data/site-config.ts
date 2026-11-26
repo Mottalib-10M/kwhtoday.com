@@ -19,7 +19,7 @@ export const AUTHOR_DESC: Record<string, string> = {"de": "Radif Partners holt d
  *  declare ici sans page qui le couvre est une declaration fausse. */
 export const KNOWS_ABOUT: Record<string, string[]> = {"de": ["Day-Ahead-Börsenstrompreise je Viertelstunde", "Stromsteuer, Umlagen und Konzessionsabgabe", "Dynamische Stromtarife nach § 41a EnWG", "Negative Strompreise"], "nl": ["Day-aheadprijzen per kwartier", "Energiebelasting op elektriciteit", "Dynamische energiecontracten", "Negatieve stroomprijzen"], "en": ["Quarter-hourly day-ahead electricity prices", "Electricity taxes in the Netherlands and Germany", "Dynamic electricity contracts", "Negative power prices"]};
 export const CONTACT_EMAIL = "contact@kwhtoday.com";
-export const THEME_COLOR = '#1F5FA8';
+export const THEME_COLOR = '#1A1A1A';
 export const LOGO_SYMBOL = 'kWh';
 export const BING_VERIFY_CODE = '';
 export const GOOGLE_VERIFY_CODE = '';
